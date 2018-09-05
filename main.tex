@@ -29,6 +29,17 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{matrix}
 
+% tableofcontents with clickable
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, % make the links colored
+    linkcolor=blue, % color TOC links in blue
+    urlcolor=red, % color URLs in red
+    linktoc=all % 'all' will create links for everything in the TOC
+}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % New command
@@ -107,6 +118,7 @@ Notes taken by Lee Youngjae
 
 \setlength{\parindent}{0cm}
 
+\tableofcontents
 
 \setcounter{chapter}{-1}
 
@@ -153,8 +165,8 @@ Textbooks:
 
 
 
-\chapter{Probability Space}
-\section{Measure}
+\chapter{General Probability Theory}
+\section{Infinite Probability Spaces}
 There are three elements consisting probability space:
 \begin{itemize}
 \item $S$: Sample space
@@ -323,7 +335,7 @@ $$
 \end{enumerate}
 \end{exmp}
 
-\section{Random variable}
+\section{Random Variables and Distributions}
 \begin{defn}
 $f : \Omega \rightarrow \mathbb{R}$ is measurable if $f^{-1}(V) \in \mathcal{F}$ for any open set $V \subset \mathbb{R}$.
 \end{defn}
