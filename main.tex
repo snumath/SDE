@@ -178,7 +178,7 @@ There are three elements consisting probability space:
 \begin{minipage}[t]{\linegoal}
 \begin{enumerate}
 \item Toss a coin twice (H for Head, T for Tail)\\
-Then, $S = \{$HH, HT, TT, TT$\}$
+Then, $S = \{HH, HT, TT, TT\}$
 \item Uniform random variable in $[0,1]^3$\\
 Then, $S = [0,1]^3$.
 If $E = [0,\frac{1}{2}]^3$, then $\mathbb{P}(E) = Vol(E) = \frac{1}{8}$\\
@@ -202,14 +202,14 @@ Let $\Omega$ be non-empty set and $\mathcal{F}$ be family of subsets of $\Omega$
 \item $A \in \mathcal{F} \Rightarrow A^C \in \mathcal{F}$
 \item $A_1, A_2, \cdots \in \mathcal{F} \Rightarrow \bigcup_{i=1}^\infty A_i \in \mathcal{F}$.
 \end{enumerate}
-We say $\mathcal{F}$ as $\sigma$-albegra or $\sigma$-field, $A\subset \mathcal{F}$ as measurable, and $\Omega$ as measurable space.
+We say $\mathcal{F}$ as \textbf{$\sigma$-albegra} or \textbf{$\sigma$-field}, $A \in \mathcal{F}$ as \textbf{measurable}, and $\Omega$ as \textbf{measurable space}.
 \end{defn}
 
 
 \textit{Exercises.}
 \leavevmode
 \begin{enumerate}[label = \arabic*)]
-\item $\Omega \in F$
+\item $\Omega \in \mathcal{F}$
 \item $A_1, A_2, \cdots \in \mathcal{F}$, then $A_1\cap A_2 \cdots \in \mathcal{F}$
 \item $A_1, A_2, \cdots \in A_n \in \mathcal{F}$, then $A_1 \cup \cdots \cup A_n, A_1 \cap \cdots \cap A_n \in \mathcal{F}$.
 \item $A, B \in \mathcal{F}$, then $A-B \in \mathcal{F}$
@@ -224,7 +224,7 @@ Let $\Theta$ be non-empty set and $\tau$ be family of subsets of $\Theta$ with
 \item $V_1, \cdots V_n \in \tau \Rightarrow V_1 \cap \cdots \cap V_n \in \tau$
 \item $V_\alpha \in \tau \enspace \forall \alpha \in I \Rightarrow \bigcup_{\alpha\in I}V_\alpha \in \tau$.
 \end{enumerate}
-We say $V\in\tau$ be \textbf{open set}, and $(\Theta,\tau)$ be \textbf{topological space}.
+We say $V\in\tau$ be an \textbf{open set}, and $(\Theta,\tau)$ be a \textbf{topological space}.
 \end{defn}
 
 
@@ -241,7 +241,7 @@ Then $\mu: \mathcal{F} \rightarrow [0,\infty]$ is called \textbf{measurable} if
 \item $A_1, A_2, \cdots$: disjoint members of $\mathcal{F} \Rightarrow \mu(A_1\cup A_2\cup \cdots) = \sum_{i=1}^\infty \mu(A_i)$
 \item $\mu(A) < \infty$ for some $A \in \mathcal{F}$,
 \end{enumerate}
-and $(\Omega, \mathcal{F}, \mu)$ is called \textbf{measrue space}.
+and $(\Omega, \mathcal{F}, \mu)$ is called a \textbf{measrue space}.
 \end{defn}
 
 
@@ -263,12 +263,13 @@ and $(\Omega, \mathcal{F}, \mu)$ is called \textbf{measrue space}.
 
 \vspace{5mm}
 
-Last class, we define a sample space $\Omega$, a $\sigma$-algebra $\mathcal{F}$, and a (positive) measure $\mu : \mathcal{F} \rightarrow [0,\infty]$.\\
+Last class, we define a sample space $\Omega$, a $\sigma$-algebra $\mathcal{F}$, and a (positive) measure $\mu : \mathcal{F} \rightarrow [0,\infty]$.
+\vspace{5mm}
 
 \textit{Exercises.}
 \begin{itemize}
-\item $A_1 \subset A_2 \subset \cdots \Rightarrow \mu(\bigcup_{i=1}^\infty A_i = \lim_{n\rightarrow\infty}\mu(A_n)$
-\item $A_1 \subset A_2 \subset \cdots, \mu(A_1) < \infty \Rightarrow \mu(\bigcup_{i=1}^\infty A_i = \lim_{n\rightarrow\infty}\mu(A_n)$
+\item $A_1 \subset A_2 \subset \cdots \Rightarrow \mu(\bigcup_{i=1}^\infty A_i) = \lim_{n\rightarrow\infty}\mu(A_n)$
+\item $A_1 \subset A_2 \subset \cdots, \mu(A_1) < \infty \Rightarrow \mu(\bigcup_{i=1}^\infty A_i) = \lim_{n\rightarrow\infty}\mu(A_n)$
 \end{itemize}
 
 
@@ -277,7 +278,7 @@ Let $\mathcal{F}_0$ be a collection of subset of $\Omega$.
 Then, $\exists! \mathcal{F}^*$ minimal $\sigma$-algebra containing $\mathcal F_0$.
 
 \begin{proof}
-Let $\{\mathcal{F}_\alpha, \alpha \in I\}$ be family of $\sigma$-algebra containing $\mathcal{F}_0$.
+Let $\{\mathcal{F}_\alpha, \alpha \in I\}$ be a family of $\sigma$-algebra containing $\mathcal{F}_0$.
 Then, $\mathcal{F}^* = \bigcap_{\alpha\in I} F_\alpha$ satisfies the three condition:
 1) contain $\mathcal{F}_0$
 2) $\sigma$-algebra
@@ -287,15 +288,15 @@ Then, $\mathcal{F}^* = \bigcap_{\alpha\in I} F_\alpha$ satisfies the three condi
 
 
 \begin{defn}[Borel measurable]
-$\mathcal{B}$ is called a \textbf{Borel $\sigma$-algebra} on topological space $(\Theta,\tau)$ if
-$\mathcal{B}$ is minimal $\sigma$-algebra containing $\tau$, and $B$ is called \textbf{Borel measurable} if $B \in \mathcal{B}$.
+$\mathcal{B}$ is a \textbf{Borel $\sigma$-algebra} on topological space $(\Theta,\tau)$ if
+$\mathcal{B}$ is minimal $\sigma$-algebra containing $\tau$, and $B$ is a \textbf{Borel measurable} if $B \in \mathcal{B}$.
 \end{defn}
 
 \begin{rem}[Completion of measure space, Rudin 1.15]
 \leavevmode\\
 Consider an extension $(\Omega, \mathcal{F}, \mu) \rightarrow (\Omega, \overline{\mathcal{F}}, \mu)$ where
 \begin{enumerate}
-\item $\overline{\mathcal{F}} = \{ A \cup N : A \in \mathcal{F}, N \subset A_0 \subset \mathcal{F}, \mu(A_0) = 0 \}$
+\item $\overline{\mathcal{F}} = \{ A \cup N : A \in \mathcal{F}, N \subset A_0 \in \mathcal{F}, \mu(A_0) = 0 \}$
 \item $\mu(A \cup N) = \mu(A)$
 \end{enumerate}
 Then, (Check!)
@@ -309,13 +310,15 @@ Then, (Check!)
 \begin{exmp}
 \leavevmode
 \begin{enumerate}[label = \arabic*)]
-\item $\mathbb{R}$\\
+\item $\mathbb{R}$
 $$
-\begin{aligned}
-\mathcal{F}_0 = \tau \overset{1.10}{\longrightarrow} &\mathcal{B} \overset{\text{completion}}{\longrightarrow} &\overline{\mathcal{B}}\\
-\mathcal{L} \overset{\text{Rudin CH2}}{\longrightarrow} & \mathcal{L} \overset{\text{completion}}{\longrightarrow}  &\mathcal{L}
-\end{aligned}
+\xymatrix@R+0.25em@C+2em{
+\ar @{} [dr] |{}
+\mathcal{F}_0 = \tau \ar[r]^{1.10} & \mathcal{B} \ar[r]^{\text{completion}} & \overline{\mathcal{B}}\\
+\mathcal{L} \ar[r]^{\text{Rudin CH 2}} & \mathcal{L} \ar[r]^{\text{completion}} \ar[r] & \mathcal{L}
+}
 $$
+
 
 
 \item $C[0,T] = \Omega = \{f ; f : [0,T] \rightarrow \mathbb{R}, \text{continuous}\}$.\\
@@ -367,9 +370,9 @@ Then, $\tau \subset G$, $G: \sigma$-algebra (check!), hence $\mathcal{B}(\mathbb
 \begin{enumerate}
 \item Toss a coin Twice.\\
 $\Omega = \{HH,HT,TH,TT\}$,
-$\mathcal{F} = 2^\Omega = \{$ all subsets of $\Omega\}$,
+$\mathcal{F} = 2^\Omega = \{$all subsets of $\Omega\}$,
 $\mathbb{P}(A) = \frac{1}{4}|A|, \enspace A \in \mathcal{F}$.\\
-Then, $X = $ \# of H's is random variable with $X(HH) = 2, X(HT)=X(TH)=1, X(TT)=1$.
+Then, $X = $ the number of H's is random variable with $X(HH) = 2, X(HT)=X(TH)=1, X(TT)=1$.
 
 \item Uniform random variable in $[0,1]$\\
 $\Omega=  [0,1]$,
@@ -398,9 +401,9 @@ $$\mathbb{P}[X \in (a,b)] = \mathbb{P}[\{x : X(x) \in (a,b)\}] = \mathbb{P}[(a,b
 $X$ is a random variable in $(\Omega, \mathcal{F}, \mathbb{P})$.
 $\mu_X$ is a \textbf{distribution measure on $X$} if $\mu_X$ is a probability measrue on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
 $$
-\mu_X(B) = \mathbb{P}[X \in B] \ \forall B \in \mathcal{B}(\mathbb{R})
+\mu_X(B) = \mathbb{P}[X \in B]
 = \mathbb{P}[\{\omega : X(\omega) \in B\}]
-= \mathbb{P}[X^{-1}(B)]
+= \mathbb{P}[X^{-1}(B)] \ \forall B \in \mathcal{B}(\mathbb{R})
 $$
 \end{defn}
 
@@ -408,6 +411,10 @@ $$
 \begin{defn}[Probability density function]
 $f$ is a \textbf{probability density function} of $X$ if $\mu_X((a,b)) = \int_a^b f(x)dx$
 \end{defn}
+
+\begin{rem}
+There is a measure with no pdf: Dirac measrue
+\end{rem}
 
 \begin{rem}
 Lebesgue-Radon-Nikodym decomposition implies that any measure can be decomposed as density part and non-density part.
@@ -422,7 +429,7 @@ Then, $Y : \Omega \ni x \mapsto F(x) \in \mathbb{R}$ is a random variable with
 $$
 \begin{aligned}
 \mathbb{P}[Y \in (a,b)]
-&= \mathcal{P}[\{x : Y(x) \in (a,b)\}]\\
+&= \mathbb{P}[\{x : Y(x) \in (a,b)\}]\\
 &= \mathbb{P}[\{x \in (N(a),N(b))\}]\\
 &= N(b)-N(a) = \int_a^b \phi(x)dx,
 \end{aligned}
@@ -444,6 +451,10 @@ and a density function is $\phi$.
 cynlindrical set?
 distribution measure?
 LRN Thm imlies?
+
+궁금한거
+measure가 존재하면 distribution measure는 반드시 존재하는가?
+distribution measure와 pdf는 어떤 관계가 있는가?
 \end{comment}
 
 
