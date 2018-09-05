@@ -382,10 +382,10 @@ Then, $X : [0,1] \rightarrow \mathbb{R}$ with $X(x) = x$ be a (uniform) random v
 
 \begin{rem}
 $\mathcal{L}$: Lebesgue measrue on $\mathbb{R}$. i.e.,$\mathcal{L}(a,b) = b-a$.
-Then, $\mathcal({a}) = 0$\\
+Then, $\mathcal{L}(\{a\}) = 0$\\
 $(\because
 \{a\} = \bigcap_{i=1}^\infty (a-\frac{1}{n}, a+\frac{1}{n})
-\Rightarrow \mathcal{L}(\{a\}) = \lim_{n\rightarrow} \mathcal{L}((a-\frac{1}{n}, a+\frac{1}{n})) = 0
+\Rightarrow \mathcal{L}(\{a\}) = \lim_{n\rightarrow\infty} \mathcal{L}((a-\frac{1}{n}, a+\frac{1}{n})) = 0
 )$\\
 Similarly, $\mathcal{L}([a,b]) = \mathcal{L}([a,b)) = \mathcal{L}((a,b]) = b-a$,
 $\mathcal{L}(\mathbb{Q}) = \sum_{q \in \mathbb{Q}}\mathcal{L}(\{q\}) = 0$.
@@ -410,7 +410,7 @@ $f$ is a \textbf{probability density function} of $X$ if $\mu_X((a,b)) = \int_a^
 \end{defn}
 
 \begin{rem}
-Radon-Nikodym-Lebesgue decomposition implies that any measure can be decomposed as density part and non-density part.
+Lebesgue-Radon-Nikodym decomposition implies that any measure can be decomposed as density part and non-density part.
 \end{rem}
 
 \begin{exmp}[Standard Normal random variable]
@@ -443,6 +443,7 @@ and a density function is $\phi$.
 이해 안되는거
 cynlindrical set?
 distribution measure?
+LRN Thm imlies?
 \end{comment}
 
 
