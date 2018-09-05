@@ -154,6 +154,7 @@ Textbooks:
 
 
 \chapter{Probability Space}
+\section{Measure}
 There are three elements consisting probability space:
 \begin{itemize}
 \item $S$: Sample space
@@ -232,7 +233,7 @@ and $(\Omega, \mathcal{F}, \mu)$ is called \textbf{measrue space}.
 \end{defn}
 
 
-\begin{defn}
+\begin{defn}[probability space, random variable]
 \leavevmode
 \vspace{-6mm}
 \begin{enumerate}
@@ -248,7 +249,200 @@ and $(\Omega, \mathcal{F}, \mu)$ is called \textbf{measrue space}.
 \item Lebesgue Integral (Define Expectation of random variable)
 \end{itemize}
 
+\vspace{5mm}
 
-Some overleaf test
+Last class, we define a sample space $\Omega$, a $\sigma$-algebra $\mathcal{F}$, and a (positive) measure $\mu : \mathcal{F} \rightarrow [0,\infty]$.\\
+
+\textit{Exercises.}
+\begin{itemize}
+\item $A_1 \subset A_2 \subset \cdots \Rightarrow \mu(\bigcup_{i=1}^\infty A_i = \lim_{n\rightarrow\infty}\mu(A_n)$
+\item $A_1 \subset A_2 \subset \cdots, \mu(A_1) < \infty \Rightarrow \mu(\bigcup_{i=1}^\infty A_i = \lim_{n\rightarrow\infty}\mu(A_n)$
+\end{itemize}
+
+
+\begin{thm}[Rudin 1.10]
+Let $\mathcal{F}_0$ be a collection of subset of $\Omega$.
+Then, $\exists! \mathcal{F}^*$ minimal $\sigma$-algebra containing $\mathcal F_0$.
+
+\begin{proof}
+Let $\{\mathcal{F}_\alpha, \alpha \in I\}$ be family of $\sigma$-algebra containing $\mathcal{F}_0$.
+Then, $\mathcal{F}^* = \bigcap_{\alpha\in I} F_\alpha$ satisfies the three condition:
+1) contain $\mathcal{F}_0$
+2) $\sigma$-algebra
+3) minimal (trivial, $\mathcal{F}^* \subset \mathcal{F}_\alpha)$
+\end{proof}
+\end{thm}
+
+
+\begin{defn}[Borel measurable]
+$\mathcal{B}$ is called a \textbf{Borel $\sigma$-algebra} on topological space $(\Theta,\tau)$ if
+$\mathcal{B}$ is minimal $\sigma$-algebra containing $\tau$, and $B$ is called \textbf{Borel measurable} if $B \in \mathcal{B}$.
+\end{defn}
+
+\begin{rem}[Completion of measure space, Rudin 1.15]
+\leavevmode\\
+Consider an extension $(\Omega, \mathcal{F}, \mu) \rightarrow (\Omega, \overline{\mathcal{F}}, \mu)$ where
+\begin{enumerate}
+\item $\overline{\mathcal{F}} = \{ A \cup N : A \in \mathcal{F}, N \subset A_0 \subset \mathcal{F}, \mu(A_0) = 0 \}$
+\item $\mu(A \cup N) = \mu(A)$
+\end{enumerate}
+Then, (Check!)
+\begin{enumerate}
+\item (well-definedness) $A_1 \cup N_1 = A_2 \cup N_2 \Rightarrow \mu(A_1) = \mu(A_2)$
+\item $\mu: \overline{\mathcal{F}}$ is $\sigma$-algebra.
+\item $\mu : \overline{\mathcal{F}} \rightarrow [0,\infty]$ is a measure
+\end{enumerate}
+\end{rem}
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}[label = \arabic*)]
+\item $\mathbb{R}$\\
+$$
+\begin{aligned}
+\mathcal{F}_0 = \tau \overset{1.10}{\longrightarrow} &\mathcal{B} \overset{\text{completion}}{\longrightarrow} &\overline{\mathcal{B}}\\
+\mathcal{L} \overset{\text{Rudin CH2}}{\longrightarrow} & \mathcal{L} \overset{\text{completion}}{\longrightarrow}  &\mathcal{L}
+\end{aligned}
+$$
+
+
+\item $C[0,T] = \Omega = \{f ; f : [0,T] \rightarrow \mathbb{R}, \text{continuous}\}$.\\
+Define $\mathcal{F}_0 = \{\bigcup_{t_1,t_2,\cdots,t_k}(A_1,A_2,\cdots,A_k)
+: 0 \leq t_1 < t_2 < \cdots < t_k \leq T; A_1, \cdots A_k \in \overline{\mathcal{B}}
+\}$.
+We call $\{f \in C[0,T]: f(t_1) \in A_1, f(t_2) \in A_2, \cdots, f(t_k) \in A_k\}$ as \textbf{cylindrical set}.
+Consider
+% 깔끔하게좀 바꾸자
+$$
+\begin{aligned}
+\mathcal{F}_0 &\overset{1.10}{\longrightarrow} &\mathcal{B} &\overset{\text{completion}}{\longrightarrow} &\overline{\mathcal{B}}\\
+\mathbb{P}_{\text{BM}} &\overset{\text{KET}}{\longrightarrow} &\mathbb{P}_{\text{BM}} &\overset{\text{completion}}{\longrightarrow} &\mathbb{P}^*_{\text{BM}}
+\end{aligned}
+$$
+(KET refers Kolmogorov's Extension Thm)
+\end{enumerate}
+\end{exmp}
+
+\section{Random variable}
+\begin{defn}
+$f : \Omega \rightarrow \mathbb{R}$ is measurable if $f^{-1}(V) \in \mathcal{F}$ for any open set $V \subset \mathbb{R}$.
+\end{defn}
+
+\begin{rem}
+$\mathcal{B}(\mathbb{R})$ = Borel $\sigma$-algebra in $\mathbb{R}$.
+\end{rem}
+
+\begin{rem}
+If $f$: measurable, then $f^{-1}(B) \in \mathcal{F}$ for any $B \in \mathcal{B}(\mathbb{R})$.
+\begin{proof}
+Let $G = \{ A \subset \mathbb{R} : f^{-1}(A) \in \mathcal{F} \}$.
+Then, $\tau \subset G$, $G: \sigma$-algebra (check!), hence $\mathcal{B}(\mathbb{R}) \subset G$.
+\end{proof}
+\end{rem}
+
+
+\begin{defn}
+\leavevmode
+\vspace{-6mm}
+\begin{itemize}
+\item $(\Omega, \mathcal{F}, \mathbb{P})$ is a \textbf{probability space} if $(\mathbb{P}(\Omega) = 1$.
+\item $X$ is \textbf{random variable} if $X : \Omega \rightarrow \mathbb{R}$ is measruable.
+\end{itemize}
+\end{defn}
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}
+\item Toss a coin Twice.\\
+$\Omega = \{HH,HT,TH,TT\}$,
+$\mathcal{F} = 2^\Omega = \{$ all subsets of $\Omega\}$,
+$\mathbb{P}(A) = \frac{1}{4}|A|, \enspace A \in \mathcal{F}$.\\
+Then, $X = $ \# of H's is random variable with $X(HH) = 2, X(HT)=X(TH)=1, X(TT)=1$.
+
+\item Uniform random variable in $[0,1]$\\
+$\Omega=  [0,1]$,
+$\mathcal{F} = \{B \in \mathcal{B}(\mathbb{R}) : B \subset [0,1]\}$,
+$\mathbb{P}(B) = \mathcal{L}(B)$ ($\mathbb{P}([0,1]) = \mathcal{L}([0,1]) = 1$).\\
+Then, $X : [0,1] \rightarrow \mathbb{R}$ with $X(x) = x$ be a (uniform) random variable in $[0,1]$.
+\end{enumerate}
+\end{exmp}
+
+
+\begin{rem}
+$\mathcal{L}$: Lebesgue measrue on $\mathbb{R}$. i.e.,$\mathcal{L}(a,b) = b-a$.
+Then, $\mathcal({a}) = 0$\\
+$(\because
+\{a\} = \bigcap_{i=1}^\infty (a-\frac{1}{n}, a+\frac{1}{n})
+\Rightarrow \mathcal{L}(\{a\}) = \lim_{n\rightarrow} \mathcal{L}((a-\frac{1}{n}, a+\frac{1}{n})) = 0
+)$\\
+Similarly, $\mathcal{L}([a,b]) = \mathcal{L}([a,b)) = \mathcal{L}((a,b]) = b-a$,
+$\mathcal{L}(\mathbb{Q}) = \sum_{q \in \mathbb{Q}}\mathcal{L}(\{q\}) = 0$.
+\end{rem}
+
+Return to uniform random variable,
+$$\mathbb{P}[X \in (a,b)] = \mathbb{P}[\{x : X(x) \in (a,b)\}] = \mathbb{P}[(a,b)] = b-a.$$
+
+\begin{defn}[Distribution measure on $X$]
+$X$ is a random variable in $(\Omega, \mathcal{F}, \mathbb{P})$.
+$\mu_X$ is a \textbf{distribution measure on $X$} if $\mu_X$ is a probability measrue on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
+$$
+\mu_X(B) = \mathbb{P}[X \in B] \ \forall B \in \mathcal{B}(\mathbb{R})
+= \mathbb{P}[\{\omega : X(\omega) \in B\}]
+= \mathbb{P}[X^{-1}(B)]
+$$
+\end{defn}
+
+
+\begin{defn}[Probability density function]
+$f$ is a \textbf{probability density function} of $X$ if $\mu_X((a,b)) = \int_a^b f(x)dx$
+\end{defn}
+
+\begin{rem}
+Radon-Nikodym-Lebesgue decomposition implies that any measure can be decomposed as density part and non-density part.
+\end{rem}
+
+\begin{exmp}[Standard Normal random variable]
+\leavevmode\\
+Let $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$.
+Define $F : (0,1) \rightarrow \mathbb{R}$ by $F(x) = N^{-1}(x)$ for $N(X) = \int_{-\infty}^x \phi(y)dy$.\\
+Let $\Omega = (0,1), \mathcal{F} = \{B \in \mathcal{B}(\mathbb{R}) : B \subset (0,1)\}, \mathbb{P}(A) = \mathcal{L}(A) : A \in \mathcal{B}(\mathbb{R})$.\\
+Then, $Y : \Omega \ni x \mapsto F(x) \in \mathbb{R}$ is a random variable with
+$$
+\begin{aligned}
+\mathbb{P}[Y \in (a,b)]
+&= \mathcal{P}[\{x : Y(x) \in (a,b)\}]\\
+&= \mathbb{P}[\{x \in (N(a),N(b))\}]\\
+&= N(b)-N(a) = \int_a^b \phi(x)dx,
+\end{aligned}
+$$
+and a density function is $\phi$.
+\end{exmp}
+
+
+
+
+
+
+
+
+
+\begin{comment}
+9/5
+이해 안되는거
+cynlindrical set?
+distribution measure?
+\end{comment}
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
