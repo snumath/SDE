@@ -1,0 +1,253 @@
+\documentclass[12pt]{report}
+\usepackage[left=2cm,right=2.6cm,top=2.6cm,bottom=3cm,a4paper]{geometry}
+\renewcommand{\baselinestretch}{1.2}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage[inline]{enumitem}
+\usepackage{linegoal}
+\usepackage{amsmath,amssymb,latexsym,amsfonts, amsthm}
+%\usepackage{verbatim}
+%\usepackage{xcolor}
+%\usepackage{listings}
+\usepackage{comment}
+\usepackage{mathtools}
+\usepackage{kotex}
+
+%\usepackage[math]{iwona}
+
+\usepackage[tracking]{microtype}
+\usepackage[sc,osf]{mathpazo}
+
+\usepackage[all]{xy}
+
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New command
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\r}{\rightarrow}
+\newcommand{\g}{\gamma}
+\newcommand{\E}{\mathcal{E}}
+%\renewcommand{\S}{\mathcal{S}}
+%\newcommand{\T}{\mathcal{T}}
+%\newcommand{\M}{\mathfrak{M}}
+
+%\newcommand{\inft}{\int_{-\infty}`^\infty}
+\newcommand{\rk}{\text{rank }}
+
+\renewcommand{\subset}{\subseteq}
+\renewcommand{\supset}{\supseteq}
+%\newcommand{\ri}{\Rightarrow}
+\newcommand{\bigslant}[2]{{\raisebox{.1em}{$#1$}\left/\raisebox{-.1em}{$#2$}\right.}}
+
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem 지정해주는 곳
+
+\newtheoremstyle{break}
+{\topsep}{\topsep}%
+{\itshape}{}%
+{\bfseries}{}%
+{\newline}{}%
+\theoremstyle{break}
+\newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
+
+\newtheoremstyle{newdef}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{}%         Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}%Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{}%         Thm head spec
+\theoremstyle{newdef}
+\newtheorem{defn}[thm]{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{pro}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem*{exmp}{Example} % no numbering example
+\newtheorem*{lem}{Lemma}
+\newtheorem*{rem}{Remark} % no numbering remark
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{titlepage}
+\centering
+{\scshape\LARGE Seoul National University \par}
+\vspace{1cm}
+{\scshape\Large Lecture Note\par}
+\vspace{5.5cm}
+{\huge\bfseries Introduction to Stochastic \\Differential Equations\par}
+\vspace{1.5cm}
+\large Lecture by Seo In Suk \\
+Notes taken by Lee Youngjae
+
+
+\vfill
+\vspace{1cm}\par
+{\large \today\par}
+\end{titlepage}
+
+\setlength{\parindent}{0cm}
+
+
+\setcounter{chapter}{-1}
+
+\chapter{Introduction}
+E-mail: \textit{insuk.seo@snu.ac.kr, 27-212}
+
+Grading
+\begin{itemize}
+\item Mid-terms 1 (15\%, 10/10 or 17)
+\item Mid-terms 2 (15\%, 11/7)
+\item Fianl-term (40\%)
+\item Assignment (20\%, 8-10 times)
+\item Attendance (10\%, absent: -2\%, late: -1\%)
+\end{itemize}
+
+
+Let $X$ be a standard normal random variable in $\R$.
+i.e., $\mathbb{P}[X \in [a,b]] = \int_a^b \frac{1}{\sqrt{2\pi}} e^{-x^2/2}dx$.
+(Central Limit Theorem) If $x_1, x_2, \cdots, x_n \in X, E(x_i) = m, Var(x_i) = \sigma^2$, then
+$$
+\frac{\frac{x_1-m}{\sigma}+\frac{x_2-m}{\sigma}+\cdots+\frac{x_n-m}{\sigma}}{\sqrt n} \rightarrow X
+$$
+
+In this class, we study dynamic version of this theorem.
+If $(W_t)_{t\geq 0}$ be a fluctuation, then $(W_t)_{t\geq 0}$ be a random variable in $C[0,T]$
+
+\begin{exmp}
+$\frac{dX_t}{dt} = rX_t; dX_1 = rX_tdt$. Then, $X_t = X_0 e^{rt}$ (unrisky assets, bank)\\
+$dX_t = rX_tdt + \sigma X_tdW_t$, $\sigma:$ volatility (risky assets, stock)
+\end{exmp}
+
+We will study:
+\begin{enumerate}
+\item Probability Space
+\item Random Variable
+\item Expectation
+\end{enumerate}
+
+Textbooks:
+\begin{enumerate}
+\item Stochastic Calculus for Finance \RNum{2} (Shreve), covering chapter 1-3 or 4
+\item Introduction to Stochastic Integration (Hui-Hsiung Kuo)
+\end{enumerate}
+
+
+
+\chapter{Probability Space}
+There are three elements consisting probability space:
+\begin{itemize}
+\item $S$: Sample space
+\item $\mathcal{E}$: Family of events $E \subset S$ ($\sigma$-algebra in measure theory)
+\item $\mathbb{P}$: probability $\Rightarrow \mathbb{P}(E)$ is defined for all $E \subset \mathcal{E}$ ($\mu$ with $\mu(S)=1$)
+\end{itemize}
+
+\begin{exmp}
+\begin{minipage}[t]{\linegoal}
+\begin{enumerate}
+\item Toss a coin twice (H for Head, T for Tail)\\
+Then, $S = \{$HH, HT, TT, TT$\}$
+\item Uniform random variable in $[0,1]^3$\\
+Then, $S = [0,1]^3$.
+If $E = [0,\frac{1}{2}]^3$, then $\mathbb{P}(E) = Vol(E) = \frac{1}{8}$\\
+\end{enumerate}
+\end{minipage}
+
+How to define $\mathcal{E}$?\\
+In example 2, let $\mathcal{E} = $ family of all subsets of $[0,1]^3$ naively.
+But Banach-Tarski Paradox says there are disjoint sets $E,F$ with $\mathbb{P}(E\cup F) \neq \mathbb{P}(E) + \mathbb{P}(F)$ in this $\mathcal{E}$.
+Therefore we cannot naively set $\mathcal{E}$ (Use measure theory)\\
+
+In example 1, suppose that we cannot see the second flip.
+If $\{HH\} \not\in \mathcal{E}$ and $\{HT, HH\}\in\mathcal{E}$, then $\mathcal{E} = \{\phi, \{HH,HT\}, \{TH,TT\}, \{HH,HT,TH,TT\}\}$
+\end{exmp}
+
+
+\begin{defn}[Measure]
+Let $\Omega$ be non-empty set and $\mathcal{F}$ be family of subsets of $\Omega$ with
+\begin{enumerate}
+\item $\phi \in \mathcal{F}$
+\item $A \in \mathcal{F} \Rightarrow A^C \in \mathcal{F}$
+\item $A_1, A_2, \cdots \in \mathcal{F} \Rightarrow \bigcup_{i=1}^\infty A_i \in \mathcal{F}$.
+\end{enumerate}
+We say $\mathcal{F}$ as $\sigma$-albegra or $\sigma$-field, $A\subset \mathcal{F}$ as measurable, and $\Omega$ as measurable space.
+\end{defn}
+
+
+\textit{Exercises.}
+\leavevmode
+\begin{enumerate}[label = \arabic*)]
+\item $\Omega \in F$
+\item $A_1, A_2, \cdots \in \mathcal{F}$, then $A_1\cap A_2 \cdots \in \mathcal{F}$
+\item $A_1, A_2, \cdots \in A_n \in \mathcal{F}$, then $A_1 \cup \cdots \cup A_n, A_1 \cap \cdots \cap A_n \in \mathcal{F}$.
+\item $A, B \in \mathcal{F}$, then $A-B \in \mathcal{F}$
+\end{enumerate}
+
+
+\begin{defn}[Topological Space]
+(See Rudin: \textit{Real and Complex Analysis, Chapter 1.})
+Let $\Theta$ be non-empty set and $\tau$ be family of subsets of $\Theta$ with
+\begin{enumerate}
+\item $\phi, \Theta \in \tau$
+\item $V_1, \cdots V_n \in \tau \Rightarrow V_1 \cap \cdots \cap V_n \in \tau$
+\item $V_\alpha \in \tau \enspace \forall \alpha \in I \Rightarrow \bigcup_{\alpha\in I}V_\alpha \in \tau$.
+\end{enumerate}
+We say $V\in\tau$ be \textbf{open set}, and $(\Theta,\tau)$ be \textbf{topological space}.
+\end{defn}
+
+
+\begin{defn}[Measurable Function]
+$f : (\Omega, \mathcal{F}) \rightarrow (\Theta, \tau)$ is \textbf{measurable} if
+$f^{-1}(V) \in \mathcal{F} \enspace \forall V \in \tau$
+\end{defn}
+
+
+\begin{defn}[Positive Measure]
+Let $\Omega$ be non-empty set and $\mathcal{F}$ be $\sigma$-algebra.
+Then $\mu: \mathcal{F} \rightarrow [0,\infty]$ is called \textbf{measurable} if
+\begin{enumerate}
+\item $A_1, A_2, \cdots$: disjoint members of $\mathcal{F} \Rightarrow \mu(A_1\cup A_2\cup \cdots) = \sum_{i=1}^\infty \mu(A_i)$
+\item $\mu(A) < \infty$ for some $A \in \mathcal{F}$,
+\end{enumerate}
+and $(\Omega, \mathcal{F}, \mu)$ is called \textbf{measrue space}.
+\end{defn}
+
+
+\begin{defn}
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $(\Omega, \mathcal{F}, \mathbb{P})$ is called as \textbf{probability space} if $\mathbb{P}(\Omega) = 1$.
+\item $X$ is called as \textbf{random varaible} if it is a function from $(\Omega, \mathcal{F}, \mathbb{P})$ to $\mathbb{R}$
+\end{enumerate}
+\end{defn}
+
+\underline{Next Class}
+\begin{itemize}
+\item Borel sets on $\mathbb{R}$ or $\mathbb{R}^d$
+\item Lebesgue Measure
+\item Lebesgue Integral (Define Expectation of random variable)
+\end{itemize}
+
+
+
+\end{document}
