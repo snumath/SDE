@@ -442,7 +442,7 @@ and a density function is $\phi$.
 \vspace{5mm}
 Previous Question: In the probability space $(\Omega, \mathcal{F}, \mathbb{P})$ and random variable $X : \Omega \rightarrow \mathbb{R}$, the random element or random realization $\omega \in \Omega$ is a element of events in sample space.
 For example, $\omega = HHTTH$ is a random element in tossing a coin five times, and $X(\omega) = 3$. ($X(\omega)$ = \# of Heads)\\
-In the previous example(Standard Normal random variable), define $(\Omega, \mathcal{F}, \mathbb{P}) = ((0,1), \mathcal{B}((0,1)), \mathbb{P})$, $\mathbb{P}((a,b)) = b-a$, $F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}}e^{-y^2/2}dy$, $X : (0,1) \ni \omega \mapsto F^{-1}(\omega) \in \mathbb{R}$.
+In the previous example(Standard Normal random variable), define $(\Omega, \mathcal{F}, \mathbb{P}) = ((0,1), \mathcal{B}(0,1), \mathbb{P})$, $\mathbb{P}((a,b)) = b-a$, $F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}}e^{-y^2/2}dy$, $X : (0,1) \ni \omega \mapsto F^{-1}(\omega) \in \mathbb{R}$.
 Then, $X$ is called a standard normal random variable.
 
 
@@ -465,7 +465,7 @@ Let $0 = y_0 < y_1 < y_2 < \cdots \rightarrow \mathbb{R}$ be a partition of $[0,
 $\Pi = \{y_0, y_1, y_2, \cdots\}$ : $\|\Pi\| = \sup_{i\geq 1}|y_i-y_{i-1}|$, and\\
 $\text{LS}_\pi = \sum_{i=0}^\infty y_i \mu[f^{-1}([y_i,y_{i+1}))]$.\\
 In Rudin's book, $\lim_{\|\Pi\|\rightarrow 0} \text{LS}_\pi$ converges to an element belonging to $[0,\infty]$.\\
-Now, $\int fd\mu := \lim_{\|\Pi\|\rightarrow 0}\text{LS}_{\Pi}$ is called a Lebesgue Integral.
+Now, $\int fd\mu := \lim_{\|\Pi\|\rightarrow 0}\text{LS}_{\Pi}$ is called a \textbf{Lebesgue Integral}.
 
 \item $f : \Omega \rightarrow \mathbb{R}$\\
 Let $f^+ = \max\{f,0\} \geq 0$, and $f^- = -\min\{f,0\} \geq 0$.
@@ -496,14 +496,14 @@ If $f$ is Riemann integrable, then $\int_{[a,b]} fd\mathcal{L} = \int_a^b fdx$.
 
 Riemann integral is a limit of approximation by a partition of $x$-axis.
 On the other hand, Lebesgue integral is a limit of approximation by a partition of $y$-axis with preimage.
-Partition of $x$-axis is sensitive to fluctuation and restricts to Euclidean space, while partition of $y$-axis is not.
+Partition of $x$-axis is sensitive to fluctuation and restricted to Euclidean space, while partition of $y$-axis is not.
 For example, $f(x) = \mathbb{1}_\mathbb{Q}(x)$ is Lebesgue integrable, but it is not Riemann integrable since it is sensitive to fluctuation.
 \end{exmp}
 
 \begin{defn}[Almost everywhere, 1.1.5 in Textbook]
 $P(x)$ is a property at $x \in \mathbb{R}$.
 We say $P$ holds \textbf{almost everywhere} (or a.e.) in $\mathbb{R}$ if and only if
-$(\mathcal{L}(\{x:P(x)$ does not hold $\}) = 0$.
+$\mathcal{L}(\{x:P(x)$ does not hold $\} = 0$.
 \end{defn}
 
 \begin{exmp}
@@ -531,7 +531,7 @@ Let $A = \{ X(\omega) \neq \frac{1}{2}\}$; $\mathbb{P}(A) = 1$.
 
 \begin{defn}[Expectation, 1.3.3. in Textbook]
 \textbf{Expectation} of $X : \Omega \rightarrow \mathbb{R}$ is defined by
-$$E(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int|X|d\mathbb{P} < \infty$$ 
+$$E(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int_{\Omega}|X|d\mathbb{P} < \infty$$ 
 \end{defn}
 
 \begin{thm}[1.3.4 in Textbook]
@@ -541,11 +541,11 @@ $$E(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int|X|d\mathbb{P} < \
 \item $X$ takes finite number of values $\{x_1,x_2, \cdots, x_n\} \Rightarrow E(X) = \sum_{i=1}^n x_i\mathbb{P}(X = x_i)$
 \item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty$,
 \begin{enumerate}[label = (\roman*)]
-\item $X \leq Y$ a.s. (i.e. $[\mathbb{P}\{X(\omega) \leq Y(\omega)\}]=1]$), then $E(X) \leq E(Y)$
+\item $X \leq Y$ a.s. (i.e. $\mathbb{P}[\{X(\omega) \leq Y(\omega)\}]=1$), then $E(X) \leq E(Y)$
 \item $X = Y$ a.s. $\Rightarrow E(X) = E(Y)$
 \end{enumerate}
 \item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty \Rightarrow E(\alpha X + \beta Y) = \alpha E(X) + \beta E(Y)$.
-\item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ convex function $\Rightarrow \phi(E(X)) \leq E(\phi(X))$ (c.f. $\phi(t) = t^2$)
+\item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ is a convex function $\Rightarrow \phi(E(X)) \leq E(\phi(X))$ (c.f. $\phi(t) = t^2$)
 \end{enumerate}
 
 \begin{proof}[Proof of 4.]
