@@ -123,7 +123,8 @@ Notes taken by Lee Youngjae
 \setcounter{chapter}{-1}
 
 \chapter{Introduction}
-E-mail: \textit{insuk.seo@snu.ac.kr, 27-212}
+E-mail: \textit{insuk.seo@snu.ac.kr, 27-212}\\
+Office Hour: Tuesday 15:00 - 16:00
 
 Grading
 \begin{itemize}
@@ -438,6 +439,150 @@ and a density function is $\phi$.
 \end{exmp}
 
 
+\vspace{5mm}
+Previous Question: In the probability space $(\Omega, \mathcal{F}, \mathbb{P})$ and random variable $X : \Omega \rightarrow \mathbb{R}$, the random element or random realization $\omega \in \Omega$ is a element of events in sample space.
+For example, $\omega = HHTTH$ is a random element in tossing a coin five times, and $X(\omega) = 3$. ($X(\omega)$ = \# of Heads)\\
+In the previous example(Standard Normal random variable), define $(\Omega, \mathcal{F}, \mathbb{P}) = ((0,1), \mathcal{B}((0,1)), \mathbb{P})$, $\mathbb{P}((a,b)) = b-a$, $F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}}e^{-y^2/2}dy$, $X : (0,1) \ni \omega \mapsto F^{-1}(\omega) \in \mathbb{R}$.
+Then, $X$ is called a standard normal random variable.
+
+
+
+
+
+
+
+\section{Expectations}
+In the following, let $\Omega = (\Omega, \mathcal{F}, \mathbb{P})$.
+Let $X : \Omega \rightarrow \mathbb{R}$.
+Then the expection $E(X)$ is a mean of $X(\omega)$ with respect to the randomness of $\omega$ (given by $\mathbb{P}$)
+
+
+\begin{defn}[Lebesgue Integration]
+$(\Omega, \mathcal{F}, \mu)$ is a measure space, and $f : \Omega \rightarrow \mathbb{R}$ is a measurable function.
+\begin{enumerate}[label = (\arabic*)]
+\item $f : \Omega \rightarrow [0,\infty)$\\
+Let $0 = y_0 < y_1 < y_2 < \cdots \rightarrow \mathbb{R}$ be a partition of $[0,\infty)$,\\
+$\Pi = \{y_0, y_1, y_2, \cdots\}$ : $\|\Pi\| = \sup_{i\geq 1}|y_i-y_{i-1}|$, and\\
+$\text{LS}_\pi = \sum_{i=0}^\infty y_i \mu[f^{-1}([y_i,y_{i+1}))]$.\\
+In Rudin's book, $\lim_{\|\Pi\|\rightarrow 0} \text{LS}_\pi$ converges to an element belonging to $[0,\infty]$.\\
+Now, $\int fd\mu := \lim_{\|\Pi\|\rightarrow 0}\text{LS}_{\Pi}$ is called a Lebesgue Integral.
+
+\item $f : \Omega \rightarrow \mathbb{R}$\\
+Let $f^+ = \max\{f,0\} \geq 0$, and $f^- = -\min\{f,0\} \geq 0$.
+Then, $f = f^+ - f^-$, and $|f| = f^+ + f^-$.
+If $\int f^+d\mu < \infty$ and $\int f^- d\mu < \infty$, then we say $f$ is Lebesgue Integrable and $f \in L^1(\mu)$.
+The Lebesgue Integral of $f$ $\int fd\mu$ is defined as $\int f^+ d\mu - \int f^- d\mu$
+\end{enumerate}
+\end{defn}
+
+\begin{rem}
+\leavevmode
+\begin{enumerate}
+\item $\int f^+ d\mu < \infty$ and $\int f^- d\mu = \infty$, then $\int fd\mu = -\infty$.
+The others are defined similarly.
+\item $f \in L^1(\mu) \Leftrightarrow \int |f|d\mu < \infty$.
+\end{enumerate}
+\end{rem}
+
+
+\begin{exmp}[Riemann vs Lebesgue Integral (p19-22)]
+\leavevmode
+\begin{itemize}
+\item $(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mathcal{L})$ Lebesgue measure where $\mathcal{L}((a,b)) = b-a$.
+\item $f : \mathbb{R} \rightarrow \mathbb{R} \in L^1(\mathcal{L})$
+\item (Def) $A \subset \mathbb{R}$, $\int_A fd\mu := \int f \mathbb{1}_A d\mu$, where $\mathbb{1}_A(x) = 1$ if $x \in A$, and $0$ otherwise.
+\end{itemize}
+If $f$ is Riemann integrable, then $\int_{[a,b]} fd\mathcal{L} = \int_a^b fdx$.
+
+Riemann integral is a limit of approximation by a partition of $x$-axis.
+On the other hand, Lebesgue integral is a limit of approximation by a partition of $y$-axis with preimage.
+Partition of $x$-axis is sensitive to fluctuation and restricts to Euclidean space, while partition of $y$-axis is not.
+For example, $f(x) = \mathbb{1}_\mathbb{Q}(x)$ is Lebesgue integrable, but it is not Riemann integrable since it is sensitive to fluctuation.
+\end{exmp}
+
+\begin{defn}[Almost everywhere, 1.1.5 in Textbook]
+$P(x)$ is a property at $x \in \mathbb{R}$.
+We say $P$ holds \textbf{almost everywhere} (or a.e.) in $\mathbb{R}$ if and only if
+$(\mathcal{L}(\{x:P(x)$ does not hold $\}) = 0$.
+\end{defn}
+
+\begin{exmp}
+$f(x) = [x]$ is continuous almost everywhere.
+\end{exmp}
+
+
+\begin{thm}
+$f$ is Riemann integrable if and only if $f$ is continuous a.e.
+\end{thm}
+
+\textit{Exercises.} $f = g$ a.e. $\Rightarrow \int fd\mathcal{L} = \int g d\mathcal{L}$.
+
+\begin{defn}[Almost surely]
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space.
+The event $A (\in \mathcal{F})$ occusrs \textbf{almost surely} (a.s.) if $\mathbb{P}(A) = 1$.
+\end{defn}
+
+\begin{exmp}
+Let $X$ be a uniform random variable in $(0,1)$.
+Let $A = \{ X(\omega) \neq \frac{1}{2}\}$; $\mathbb{P}(A) = 1$.
+\end{exmp}
+
+
+
+\begin{defn}[Expectation, 1.3.3. in Textbook]
+\textbf{Expectation} of $X : \Omega \rightarrow \mathbb{R}$ is defined by
+$$E(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int|X|d\mathbb{P} < \infty$$ 
+\end{defn}
+
+\begin{thm}[1.3.4 in Textbook]
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $X$ takes finite number of values $\{x_1,x_2, \cdots, x_n\} \Rightarrow E(X) = \sum_{i=1}^n x_i\mathbb{P}(X = x_i)$
+\item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty$,
+\begin{enumerate}[label = (\roman*)]
+\item $X \leq Y$ a.s. (i.e. $[\mathbb{P}\{X(\omega) \leq Y(\omega)\}]=1]$), then $E(X) \leq E(Y)$
+\item $X = Y$ a.s. $\Rightarrow E(X) = E(Y)$
+\end{enumerate}
+\item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty \Rightarrow E(\alpha X + \beta Y) = \alpha E(X) + \beta E(Y)$.
+\item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ convex function $\Rightarrow \phi(E(X)) \leq E(\phi(X))$ (c.f. $\phi(t) = t^2$)
+\end{enumerate}
+
+\begin{proof}[Proof of 4.]
+Define $S_\phi = \{(a,b) \in \mathbb{R}^2 : a + bt \leq \phi(t) \enspace \forall t\}$.
+Then $\forall t \in \mathbb{R}, \phi(t) = \sup_{(a,b) \in S_\phi} \{a+bt\}$.
+In fact, it is a equivalent condition. Now,
+$$
+\begin{aligned}
+\phi(E(X)) &= \sup_{a,b\in S_\phi} \{a + bE(X)\}\\
+&= \sup_{a,b \in S_\phi} E(a+bX)\\
+&\leq E[\sup_{a,b\in S_\phi}(a+bx)] = E(\phi(X)) \quad (\text{Check!})
+\end{aligned}
+$$
+\end{proof}
+\end{thm}
+
+
+\begin{exmp}[Dirac Measure in $\mathbb{R}$]
+$(\mathbb{R}, \mathcal{B}(\mathbb{R}), \delta_y) \enspace (y \in \mathbb{R})$ is a probability space with $\delta_y(A) = 1$ if $y \in A$, and $0$ otherwise.
+Then, $\int_\mathbb{R} fd\delta_y = f(y)$ (Check!)
+
+\vspace{6mm}
+Consider modeling: $X$: random variable such that probability of $x_i = p_i$ with $\sum_{i=1}^n p_i = 1$.
+Then, $(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu)$ with $\mu = \sum_{i=1}^n p_i\delta_{x_i}$ is a probability space, and $P(X = x_i) = p_i$ for $X : \mathbb{R} \ni \omega \mapsto \omega \in \mathbb{R}$: Example of thm 1.3.4.
+\end{exmp}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -446,6 +591,8 @@ and a density function is $\phi$.
 
 
 \begin{comment}
+나중에 따로 질문드릴 때 참고할 메모입니다. 강의와는 상관 없습니다.
+
 9/5
 이해 안되는거
 cynlindrical set?
@@ -456,6 +603,8 @@ LRN Thm imlies?
 궁금한거
 measure가 존재하면 distribution measure는 반드시 존재하는가?
 distribution measure와 pdf는 어떤 관계가 있는가?
+
+9/10
 \end{comment}
 
 
