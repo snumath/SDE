@@ -73,7 +73,7 @@
 {\bfseries}{}%
 {\newline}{}%
 \theoremstyle{break}
-\newtheorem{thm}{Theorem}[chapter] % reset theorem numbering for each chapter
+\newtheorem{thm}{Theorem}[section] % reset theorem numbering for each chapter
 
 \newtheoremstyle{newdef}% name
 {}%         Space above, empty = `usual value'
@@ -170,8 +170,8 @@ Textbooks:
 There are three elements consisting probability space:
 \begin{itemize}
 \item $S$: Sample space
-\item $\mathcal{E}$: Family of events $E \subset S$ ($\sigma$-algebra in measure theory)
-\item $\mathbb{P}$: probability $\Rightarrow \mathbb{P}(E)$ is defined for all $E \subset \mathcal{E}$ ($\mu$ with $\mu(S)=1$)
+\item $\mathcal{E}$: Family of events $\mathcal{E} \subset 2^S$ ($\sigma$-algebra in measure theory)
+\item $\mathbb{P}$: probability $\Rightarrow \mathbb{P}(E)$ is defined for all $E \in \mathcal{E}$ ($\mu$ with $\mu(S)=1$)
 \end{itemize}
 
 \begin{exmp}
@@ -196,7 +196,7 @@ If $\{HH\} \not\in \mathcal{E}$ and $\{HT, HH\}\in\mathcal{E}$, then $\mathcal{E
 
 
 \begin{defn}[Measure]
-Let $\Omega$ be non-empty set and $\mathcal{F}$ be family of subsets of $\Omega$ with
+Let $\Omega$ be a non-empty set and $\mathcal{F}$ be family of subsets of $\Omega$ with
 \begin{enumerate}
 \item $\phi \in \mathcal{F}$
 \item $A \in \mathcal{F} \Rightarrow A^C \in \mathcal{F}$
@@ -269,7 +269,7 @@ Last class, we define a sample space $\Omega$, a $\sigma$-algebra $\mathcal{F}$,
 \textit{Exercises.}
 \begin{itemize}
 \item $A_1 \subset A_2 \subset \cdots \Rightarrow \mu(\bigcup_{i=1}^\infty A_i) = \lim_{n\rightarrow\infty}\mu(A_n)$
-\item $A_1 \subset A_2 \subset \cdots, \mu(A_1) < \infty \Rightarrow \mu(\bigcup_{i=1}^\infty A_i) = \lim_{n\rightarrow\infty}\mu(A_n)$
+\item $A_1 \supset A_2 \supset \cdots, \mu(A_1) < \infty \Rightarrow \mu(\bigcap_{i=1}^\infty A_i) = \lim_{n\rightarrow\infty}\mu(A_n)$
 \end{itemize}
 
 
@@ -399,7 +399,7 @@ $$\mathbb{P}[X \in (a,b)] = \mathbb{P}[\{x : X(x) \in (a,b)\}] = \mathbb{P}[(a,b
 
 \begin{defn}[Distribution measure on $X$]
 $X$ is a random variable in $(\Omega, \mathcal{F}, \mathbb{P})$.
-$\mu_X$ is a \textbf{distribution measure on $X$} if $\mu_X$ is a probability measrue on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
+$\mu_X$ is a \textbf{distribution measure} on $X$ if $\mu_X$ is a probability measrue on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
 $$
 \mu_X(B) = \mathbb{P}[X \in B]
 = \mathbb{P}[\{\omega : X(\omega) \in B\}]
@@ -449,7 +449,8 @@ and a density function is $\phi$.
 9/5
 이해 안되는거
 cynlindrical set?
-distribution measure?
+Kolmogorov's Extension Theorem?
+distribution measure? (이해됨!)
 LRN Thm imlies?
 
 궁금한거
