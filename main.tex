@@ -203,7 +203,7 @@ Let $\Omega$ be a non-empty set and $\mathcal{F}$ be family of subsets of $\Omeg
 \item $A \in \mathcal{F} \Rightarrow A^C \in \mathcal{F}$
 \item $A_1, A_2, \cdots \in \mathcal{F} \Rightarrow \bigcup_{i=1}^\infty A_i \in \mathcal{F}$.
 \end{enumerate}
-We say $\mathcal{F}$ as \textbf{$\sigma$-albegra} or \textbf{$\sigma$-field}, $A \in \mathcal{F}$ as \textbf{measurable}, and $\Omega$ as \textbf{measurable space}.
+We say $\mathcal{F}$ as \textbf{$\sigma$-algebra} or \textbf{$\sigma$-field}, $A \in \mathcal{F}$ as \textbf{measurable}, and $\Omega$ as \textbf{measurable space}.
 \end{defn}
 
 
@@ -242,7 +242,7 @@ Then $\mu: \mathcal{F} \rightarrow [0,\infty]$ is called \textbf{measurable} if
 \item $A_1, A_2, \cdots$: disjoint members of $\mathcal{F} \Rightarrow \mu(A_1\cup A_2\cup \cdots) = \sum_{i=1}^\infty \mu(A_i)$
 \item $\mu(A) < \infty$ for some $A \in \mathcal{F}$,
 \end{enumerate}
-and $(\Omega, \mathcal{F}, \mu)$ is called a \textbf{measrue space}.
+and $(\Omega, \mathcal{F}, \mu)$ is called a \textbf{measure space}.
 \end{defn}
 
 
@@ -251,7 +251,7 @@ and $(\Omega, \mathcal{F}, \mu)$ is called a \textbf{measrue space}.
 \vspace{-6mm}
 \begin{enumerate}
 \item $(\Omega, \mathcal{F}, \mathbb{P})$ is called as \textbf{probability space} if $\mathbb{P}(\Omega) = 1$.
-\item $X$ is called as \textbf{random varaible} if it is a function from $(\Omega, \mathcal{F}, \mathbb{P})$ to $\mathbb{R}$
+\item $X$ is called as \textbf{random variable} if it is a function from $(\Omega, \mathcal{F}, \mathbb{P})$ to $\mathbb{R}$
 \end{enumerate}
 \end{defn}
 
@@ -385,7 +385,7 @@ Then, $X : [0,1] \rightarrow \mathbb{R}$ with $X(x) = x$ be a (uniform) random v
 
 
 \begin{rem}
-$\mathcal{L}$: Lebesgue measrue on $\mathbb{R}$. i.e.,$\mathcal{L}(a,b) = b-a$.
+$\mathcal{L}$: Lebesgue measure on $\mathbb{R}$. i.e.,$\mathcal{L}(a,b) = b-a$.
 Then, $\mathcal{L}(\{a\}) = 0$\\
 $(\because
 \{a\} = \bigcap_{i=1}^\infty (a-\frac{1}{n}, a+\frac{1}{n})
@@ -400,7 +400,7 @@ $$\mathbb{P}[X \in (a,b)] = \mathbb{P}[\{x : X(x) \in (a,b)\}] = \mathbb{P}[(a,b
 
 \begin{defn}[Distribution measure on $X$]
 $X$ is a random variable in $(\Omega, \mathcal{F}, \mathbb{P})$.
-$\mu_X$ is a \textbf{distribution measure} on $X$ if $\mu_X$ is a probability measrue on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
+$\mu_X$ is a \textbf{distribution measure} on $X$ if $\mu_X$ is a probability measure on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such that 
 $$
 \mu_X(B) = \mathbb{P}[X \in B]
 = \mathbb{P}[\{\omega : X(\omega) \in B\}]
@@ -414,7 +414,7 @@ $f$ is a \textbf{probability density function} of $X$ if $\mu_X((a,b)) = \int_a^
 \end{defn}
 
 \begin{rem}
-There is a measure with no pdf: Dirac measrue
+There is a measure with no pdf: Dirac measure
 \end{rem}
 
 \begin{rem}
