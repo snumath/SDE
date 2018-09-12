@@ -418,7 +418,7 @@ There is a measure with no pdf: Dirac measure
 \end{rem}
 
 \begin{rem}
-Lebesgue-Radon-Nikodym decomposition implies that any measure can be decomposed as density part and non-density part.
+Lebesgue-Radon-Nikodym decomposition implies that any measure can be decomposed as density part and singular part.
 \end{rem}
 
 \begin{exmp}[Standard Normal random variable]
@@ -571,6 +571,180 @@ Then, $\int_\mathbb{R} fd\delta_y = f(y)$ (Check!)
 Consider modeling: $X$: random variable such that probability of $x_i = p_i$ with $\sum_{i=1}^n p_i = 1$.
 Then, $(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu)$ with $\mu = \sum_{i=1}^n p_i\delta_{x_i}$ is a probability space, and $P(X = x_i) = p_i$ for $X : \mathbb{R} \ni \omega \mapsto \omega \in \mathbb{R}$: Example of thm 1.3.4.
 \end{exmp}
+
+
+\textit{Summary:}
+\begin{itemize}
+\item Probability space: $(\Omega, \mathcal{F}, \mathbb{P})$
+\item Random variables: $X: \Omega \rightarrow \mathbb{R}$
+\item Expectation: $E(X) = \int Xd\mathbb{P}$
+\end{itemize}
+
+
+
+
+
+\section{Convention of Integrals}
+We will use this section when we define the Brownian motion.
+\begin{defn}
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}[label = (\arabic*)]
+\item
+Let $(\Omega, \mathcal{F}, \mu)$ be a measure space, and
+$f, f_1, f_2, \cdots$ be measurable ($\Omega \rightarrow \mathbb{R}$).
+Then, $f_n \rightarrow f$ \textbf{almost everywhere} (a.e.) if
+$$
+\mu[\{\omega:(f_n(\omega))_{n=1}^\infty \text{ does not converge to } f(\omega)\}] = 0
+$$
+
+\item
+Let ($\Omega, \mathcal{F}, \mathbb{P}$) be a probability space, $X, X_1, X_2, \cdots$ be random variables.
+Then, $X_n \rightarrow X$ \textbf{almost surely} (a.s.) if
+$$\mathbb{P}[\{\omega: (X_n(\omega))_{n=1}^\infty \text{ does not converge to } X(\omega)\}] = 0$$
+\end{enumerate}
+\end{defn}
+
+
+\textit{Question:}
+$f_n \rightarrow $ a.e. Then, $\int f_nd\mu \rightarrow \int fd\mu$?
+$X_n \rightarrow X$ a.s. Then, $E(X_n) \rightarrow E(X)$?
+
+
+\begin{thm}[Monotone Convergence Theorem. 1.4.5 in Textbook]
+$0 \leq f_1 \leq f_2 \leq \cdots$(or decreasing), and $f_n \rightarrow f$ a.e.
+Then, $\int f_nd\mu \rightarrow \int fd\mu$.
+\end{thm}
+
+\begin{thm}[Dominated Convergence Theorem. 1.4.9 in Textbook]
+$\exists g \in L^1(\mu)$ such that $|f_n| \leq g$ for all $n$, and $f_n \rightarrow f$ a.e.
+Then, $\int f_n d\mu \rightarrow \int f d\mu$.
+\end{thm}
+
+\begin{cor}
+$\exists Y \in L^1(\mathbb{P})$ such that $|X_n| \leq Y$ for all $n$, and $X_n \rightarrow X$ a.s.
+Then, $E(X_n) \rightarrow E(X)$.
+\end{cor}
+
+\begin{exmp}
+Let $f_n(x) = 
+\begin{cases}
+n^2x & \text{if } 0 \leq x \leq \frac{1}{n},\\
+-n^2x + n & \text{if } \frac{1}{n} < x \leq \frac{2}{n},\\
+0 & \text{otherwise}.
+\end{cases}
+$
+Then, $f_n \rightarrow 0$ a.e. and $\int f_n dx = 1$.
+\end{exmp}
+
+\section{Computation of Expectations}
+
+\textbf{Notation:} ($X : \Omega \ni \omega \mapsto X(\omega) \in \mathbb{R}$)
+\begin{itemize}
+\item $E(X) = \int X d\mathbb{P} = \int_\Omega X(\omega) d\mathbb{P}(\omega)$
+\item $\int_B X(\omega)d\mathbb{P}(\omega) := \int \mathbb{1}_B(\omega) X(\omega) d\mathbb{P}(\omega)$
+\end{itemize}
+
+\textbf{Recall:} $X$: random variable, $\mu_X$: distribution measure on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$,
+$\mu_X(B) = \mathbb{P}(X \in B)$.
+
+
+\begin{thm}
+$g \in L^1(\mu_X)$.
+Then, 
+$E[g(X)] = \int_\mathbb{R} g(x)d\mu_X(x) (:= \int g d\mu_X)$.
+
+\begin{exmp}
+$g(x) = x$.
+$\int |x| d\mu_X(x) < \infty \Rightarrow E(X) = \int xd\mu_X(x)$.
+\end{exmp}
+
+\begin{proof}
+First, prove the thm holds for $g \geq 0$, then prove for general $g$ by $g = g^+ - g^-$.
+\begin{enumerate}[label = (\arabic*)]
+\item $g = \mathbb{1}_B$\\
+By thm 1.3.4. (1), $E[\mathbb{1}_B(X)] = 1 \cdot \mathbb{P}[\mathbb{1}_B(X) = 1] = \mathbb{P}(X\in B) = \mu_X(B)
+= \int \mathbb{1}_B(x) d\mu_X(x)$.
+\item $g = \sum_{k=1}^n \alpha_k \mathbb{1}_{B_k}$\\
+Trivial by linearity.
+\item $g \geq 0$\\
+By MCT.
+See \textit{Rudin} chapter 1 for details.
+\end{enumerate}
+\end{proof}
+\end{thm}
+
+
+\textbf{Recall:} $X:$ random variable, $X$ has density function $f_X$ if
+$$
+\begin{aligned}
+\mu_X((a,b)) &= \int_a^b f_X(x)dx \enspace \forall a,b.\\
+\mu_X(B) &= \int_B f_Xd\mathcal{L} = \int_B f_X(x) d\mathcal{L}(x) = \int_B f_X(x)dx.
+\end{aligned}
+$$
+
+\begin{thm}
+$g \in L^1(\mu_X)$.
+Then, $E(g(X)) = \int_\mathbb{R} g(x)f_X(x)dx$.
+
+\begin{exmp}
+Let $X$ be standard normal. i.e., $f_X(x) = \frac{1}{\sqrt{2\pi}}e^{-x^2/2}$ (regardless what $X$ be).
+Then, $E(X^4) = \int_\mathbb{R} x^4 \frac{1}{\sqrt{2\pi}} e^{-x^2/2} = 3$.
+\end{exmp}
+\end{thm}
+
+
+
+\chapter{Information and Conditioning}
+\section{Information and $\sigma$-algebras}
+
+\begin{exmp}
+Toss a coin Three times.
+$\Omega = \{ HHH, HHT, \cdots, TTT\}$.\\
+$\mathcal{A}_H = \{ HHH, HHT, HTH, HTT\}$,
+$\mathcal{A}_T = \{ THT, THT, TTH, TTT\}$.\\
+Let $\mathcal{F}_1 = \{ \phi, \Omega, \mathcal{A}_H, \mathcal{A}_T\}$ so that
+it is a $\sigma$-algebra containing the randomness up to time 1.\\
+Similarly, define $\mathcal{A}_{HH}, \mathcal{A}_{HT}, \mathcal{A}_{TH}, \mathcal{A}_{TT}$.\\
+Let $\mathcal{F}_2 = \{ \phi, \Omega, \mathcal{A}_{HH}, \mathcal{A}_{HT}, \mathcal{A}_{TH}, \mathcal{A}_{TT}, \mathcal{A}_{HH} \cup \mathcal{A}_{HT}, \cdots, \mathcal{A}_{TT}^C\}$
+so that it is a $\sigma$-algebra containing the randomness up to time 2, and define $\mathcal{F}_3$ similarly, and let $\mathcal{F}_0 = \{ \phi, \Omega\}$.\\
+Then, $\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3$.
+Let $X_t =$ \# of heads until time $t$.
+Then, $X_t$ is $\mathcal{F}_t$=measurable. for each $t$.\\
+Now, $\{ X_1 = 1\} = \{ \omega: X_1(\omega) = 1 \} = \mathcal{A}_H$, and $\{X_1 = 0\} = \{ \omega : X_1(\omega) = 0\} = \mathcal{A}_T$.
+\end{exmp}
+
+% 시간이 지나면서 random variable의 값이 계속 바뀌는데, 시점 t에서 주식 값이 evolute하느냐를 판단을 하고 싶다.
+% 이 상황에서는 X_t와 함께 증가하는 \sigma-algebra가 필요하다.
+% 시점 t에서 필요한 정보를 모아놓은 것이 sigma-algebra가 된다
+% X_t는 시점 t까지의 information만 모아놓은 것.
+% 우리는 X_t가 discrete한 경우가 아니라 주식처럼 X_t가 continuous한 경우를 다룬다
+% 이를 확률미분방정식으로 나타내고 이걸 배운다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
