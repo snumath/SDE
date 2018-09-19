@@ -46,6 +46,8 @@
 \newcommand{\R}{\mathbb{R}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\1}{\mathbb{1}}
 \renewcommand{\O}{\Omega}
 %\newcommand{\RP}{\mathbb{RP}}
 %\newcommand{\Z}{\mathbb{Z}}
@@ -883,46 +885,205 @@ Details are exercises.
 
 
 
+\underline{Review}\\
+$\mathcal{G, H}$ are independent if
+$\forall A \in \mathcal{G}, B \in \mathcal{H} \Rightarrow \P(A \cap B) = \P(A)\P(B).$\\
+$X, Y$ are independent if $\sigma(X), \sigma(Y)$ are independent.\\
+* $\sigma(X) = \{A \in \Omega : A = X^{-1}(B) \text{ for some } B \in \mathcal{B}(\R)\}$.\\
+* $\mu_{X,Y}(C) = \P((X,Y) \in C) \enspace \forall C \in \mathcal{B}(\R^2)$.
+
+\vspace{5mm}
+
+Thm. TFAE:
+\begin{enumerate}
+\item $X,Y$ are independent
+\item $\mu_{X,Y}(A\times B) = \mu_X(A)\mu_Y(B)$
+\item $\F_{X,Y}(x,y) = \F_X(x)\F_Y(y)$
+\item (If JPDF $f_{X,Y}$ exists) $f_{X,Y}(x,y) = f_X(x)f_Y(y)$
+\end{enumerate}
 
 
 
 
+\begin{thm}
+$(\O,\F,\P)$ is a probability space. $X,Y$ are independent random variables, $f, g : \R \r \R$ are Borel measurable.
+Then, $f(X), g(Y)$ are independent.
+
+\begin{proof}
+$A \in \sigma(f(X))$;
+$A = (f\circ X)^{-1}(B)$ for some $B \in \mathcal{\R})
+= X^{-1}(f^{-1}(B)) \in \sigma(X)$.
+$\therefore \sigma(f(X)) \subset \sigma(X), \sigma(g(Y)) \subset \sigma(Y)
+\Rightarrow \sigma(f(X)), \sigma(g(Y))$ are independent.
+\end{proof}
+\end{thm}
+
+\begin{cor}
+$\mathbb{E}(f(X)g(Y)) = \mathbb{E}(f(X))\mathbb{E}(g(Y))$.
+\end{cor}
 
 
 
+\begin{defn}
+$X,Y$ are random variables in $(\O,\F,\P)$.
+\begin{enumerate}
+\item $Var(X) = \E((X-\E(X))^2) = \E(X^2) - \E(X)^2$
+\item $std(X) = \sqrt{Var(X)}$
+\item $Cov(X,Y) = \E(XY) - \E(X)\E(Y)$
+\item $corr(X,Y) = cov(X,Y) / (std(X)std(Y))$
+\end{enumerate}
+\end{defn}
+
+\begin{exmp}
+\leavevmode
+\vspace{-6mm}
+\begin{itemize}
+\item $X$: standard normal random variable $(N(0,1^2))$
+\item $\P(Z = 1) = \P(Z = -1) = \frac{1}{2}$ ($X,Z$ are independent)
+\item $Y = XZ \Rightarrow$. Then
+\begin{enumerate}[label = \arabic*)]
+\item Y is standard normal,
+\item $corr(X,Y) = 0$.
+\item $X,Y$ are not independent.
+\end{enumerate}
+\end{itemize}
+\end{exmp}
 
 
 
-\begin{comment}
-나중에 따로 질문드릴 때 참고할 메모입니다. 강의와는 상관 없습니다.
+\begin{defn}[Jointly normal]
+$X, Y$ are \textbf{jointly normal} with mean $m = (m_X, m_Y),\ Var(C) = 
+\begin{bmatrix}
+    C_{11} & C_{12} \\
+    C_{21} & C_{22}
+\end{bmatrix}
+$ if
+$$f_{X,Y}(z) = \frac{1}{\sqrt{(2\pi)^2\det C}}e^{-\frac{1}{2}(z-m)C^{-1}(z-m)^\mathrm{t}}$$
+\end{defn}
 
-9/5
-이해 안되는거
-cynlindrical set?
-Kolmogorov's Extension Theorem?
-distribution measure? (이해됨!)
-LRN Thm imlies?
+\begin{thm}
+$X,Y$ are jointly normal and uncorrelated $(C_{12} = C_{21} = 0)$.
+Then, they are independent.
+\end{thm}
 
-궁금한거
-measure가 존재하면 distribution measure는 반드시 존재하는가?
-distribution measure와 pdf는 어떤 관계가 있는가?
+\section{Conditional Expectation}
+$(\O,\F,\P)$ is a probability space. $\int_A X d\P := \int \mathbb{1}_A X d\P = \int \mathbb{1}_A (\omega) X(\omega) d\P(\omega)$.
+\begin{lem}
+$\int_A Xd\P = \int_A Y d\P$ for all $A \in \F$ if and only if $X = Y$ a.s.
+\begin{proof}
+$A_n = \{ \omega : X(\omega) - Y(\omega) > \frac{1}{n}\},
+B_n = \{ \omega : X(\omega) - Y(\omega) < -\frac{1}{n}\}$.
+Then,
+$$0 = \int_{A_n}(X-Y)d\P \geq \int_{A_n}\frac{1}{n}d\P = \frac{1}{n} \int \1_{A_n} d\P
+= \frac{1}{n} \P(A_n)$$
+Thus, $\P(A_n) = 0 \enspace \forall n$. Similarly, $\P(B_n) = 0$.
+Now, $\{ \omega:X(\omega) \neq Y(\omega)\} = \left(\bigcup_{n=1}^\infty A_n\right) \cup \left(\bigcup_{n=1}^\infty B_n\right) \Rightarrow$ measure $0$.
+\end{proof}
+\end{lem}
 
-9/10
-
-9/17
-(make hangul)
-rkddmlshxmrk rovksdlsl rhclf rjt.
-\end{comment}
-
+\textit{Intuition}.
+$(\O,\F,\P)$ is given, $X : \F$-measurable random variable, $\mathcal{G} \subset \F$ is sub $\sigma$-algebra.
+If we know nothing, then we expect $X$ as $\E(X)$.
+If we know $\F$, then we expect $X$ as $X$.
+Now, if we know $\mathcal{G}$, then we expect $X$ as $\E(X | \mathcal{G}$) (what is it?)
 
 
 
+\begin{defn}[Conditional Expectation]
+$(\O,\F,\P)$ is a probability space.
+$X \in L^1(\P)$ is a random variable.
+$\mathcal{G}$ is a sub $\sigma$-algebra of $\F$.
+We define $\E(X | \mathcal{G})$ as
+\begin{enumerate}
+\item $\mathcal{G}$-measurable random variable
+\item $\int_A \E(X|\mathcal{G})(\omega) d\P(\omega) = \int_A X(\omega) d\P(\omega)$.
+\end{enumerate}
+\end{defn}
+
+Question. $\E(X|\mathcal{G})$ exists? (Yes! proof skip).
+unique? (Yes! up to a.s.)
+
+\begin{rem}
+Lemma implies determine $X$ (a.s.) is equivalent to know $\int_A Xd\P \enspace \forall A \in \F$.\\
+In this sense, conditional expectation $Y = \E(X|\mathcal{G})$ is know $\int_A Yd\P = \int_A X d\P \enspace \forall A \in \mathcal{G}$.
+\end{rem}
 
 
+\begin{exmp}
+Toss a coin three times.\\
+$\F(0) \subset \F(1) \subset \F(2) \subset \F(3)$.
+$X(t)$ is a number of heads until $t$ times; $X(t)$ is $\F(t)$-measurable.
+If $\F(1) = \{ \phi, \Omega, A_H, A_T\}$, then
+$\E(X(2) | \F(1)) = X(1) + \frac{1}{2}$, since we know the information of 1st time.
+\begin{proof}
+Want: $\int_A (X(1) + \frac{1}{2})d\P = \int_A X(2) d\P$ for all $A \in \F(1)$
+(\textit{c.f} $\P(\omega) = \frac{1}{8} \enspace \forall \omega \in \Omega$).
+For $A = A_H$, $\int \1_{A_H}(\omega) = (X(1)(\omega) + \frac{1}{2})d\P(\omega) = \frac{3}{2}\P(A_H) = \frac{3}{4}$.
+
+$\int \1_{A_H}(\omega)(X(2))(\omega) d\P(\omega)
+= \sum_{\omega \in A_H} (X(2))(\omega)\P(\omega) = \frac{1}{8}(2+2+1+1) = \frac{3}{4}$
+
+\end{proof}
+\end{exmp}
+
+\begin{rem}
+$\mathcal{G} = \sigma(Y)$;
+$\E[X|\mathcal{G}] = \E[X | \sigma(Y)] := \E[X|Y]$
+\end{rem}
+
+\begin{thm}
+$X, Y$ are independent random variable in $(\O,\F,\P)$, $\mathcal{G}$ is sub $\sigma$-algebra of $\F$.
+\begin{enumerate}
+\item $\E[aX + bY | \mathcal{G}] = a\E[X|\mathcal{G}] + b\E[Y|\mathcal{G}]$
+\item $X$ is $\mathcal{G}$-measurable.
+Then, $\E[XY|\mathcal{G}] = X\E[Y|\mathcal{G}]$.
+\item $\mathcal{H}$ is sub $\sigma$-algebra of $\mathcal{G}$. Then,
+$\E[\E[X|\mathcal{G}]|\mathcal{H}] = \E[X|\mathcal{H}]$.
+\item $X, \mathcal{G}$ are independent, then $\E[X|\mathcal{G}] = \E[X]]$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item Exercise
+
+\item We only need to show that $X \geq 0, Y \geq 0$ implies 2).
+\begin{enumerate}
+\item $X = \1_B$\\
+Want: $\E[\1_B Y | \mathcal{G}] = \1_B \E[Y | \mathcal{G}]$ for $B \in \mathcal{G}$.
+
+\item $X = \sum_{i=1}^n \alpha+i \1_{B_i}$\\
+Use linear.
+
+\item $X \geq 0$\\
+Use MCT
+
+\end{enumerate}
+
+\item Want: $\E[\E[X|\mathcal{G}]|\mathcal{H}] = \E[X|\mathcal{H}]$\\
+Let $A \in \mathcal{H}$.
+Then, $\int_A \E[\E[X|\mathcal{G}]|\mathcal{H}](\omega) d\P(\omega)
+= \int_A \E[X|\mathcal{G}] d\P
+= \int_A Xd\P
+= \int_A \E[X|\mathcal{H}]d\P$
+
+\item Can be show similarly as 2.
+Check $X = \1_B$ case. (Hint: $A \in \mathcal{G} \Rightarrow A, B$ are independent.)
+\end{enumerate}
+\end{proof}
+\end{thm}
 
 
-
-
+\begin{exmp}[Revisit]
+$$
+\begin{aligned}
+\E[X(2) | \F(1)]
+&= \E[X(2) - X(1) + X(1) | \F(1)]\\
+&= \E[X(2) - X(1)] + X(1)\\
+&= \text{Fill here!}\\
+&= \frac{1}{2} + X(1)
+\end{aligned}
+$$
+\end{exmp}
 
 
 
