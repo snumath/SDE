@@ -297,8 +297,8 @@ Then, $\mathcal{F}^* = \bigcap_{\alpha\in I} F_\alpha$ satisfies the three condi
 
 
 \begin{defn}[Borel measurable]
-$\mathcal{B}$ is a \textbf{Borel $\sigma$-algebra} on topological space $(\Theta,\tau)$ if
-$\mathcal{B}$ is minimal $\sigma$-algebra containing $\tau$, and $B$ is a \textbf{Borel measurable} if $B \in \mathcal{B}$.
+$\mathcal{B}$ is a \textbf{Borel $\sigma$-algebra} on the topological space $(\Theta,\tau)$ if
+$\mathcal{B}$ is a minimal $\sigma$-algebra containing $\tau$, and $B$ is a \textbf{Borel measurable} if $B \in \mathcal{B}$.
 \end{defn}
 
 \begin{rem}[Completion of measure space, Rudin 1.15]
@@ -381,13 +381,13 @@ Then, $\tau \subset G$, $G: \sigma$-algebra (check!), hence $\mathcal{B}(\mathbb
 $\Omega = \{HH,HT,TH,TT\}$,
 $\mathcal{F} = 2^\Omega = \{$all subsets of $\Omega\}$,
 $\mathbb{P}(A) = \frac{1}{4}|A|, \enspace A \in \mathcal{F}$.\\
-Then, $X = $ the number of H's is random variable with $X(HH) = 2, X(HT)=X(TH)=1, X(TT)=1$.
+Then, $X = $ the number of $H$'s is a random variable with $X(HH) = 2, X(HT)=X(TH)=1, X(TT)=1$.
 
 \item Uniform random variable in $[0,1]$\\
 $\Omega=  [0,1]$,
 $\mathcal{F} = \{B \in \mathcal{B}(\mathbb{R}) : B \subset [0,1]\}$,
 $\mathbb{P}(B) = \mathcal{L}(B)$ ($\mathbb{P}([0,1]) = \mathcal{L}([0,1]) = 1$).\\
-Then, $X : [0,1] \rightarrow \mathbb{R}$ with $X(x) = x$ be a (uniform) random variable in $[0,1]$.
+Then, $X : [0,1] \rightarrow \mathbb{R}$ with $X(x) = x$ is a (uniform) random variable in $[0,1]$.
 \end{enumerate}
 \end{exmp}
 
@@ -462,7 +462,7 @@ Then, $X$ is called a standard normal random variable.
 \section{Expectations}
 In the following, let $\Omega = (\Omega, \mathcal{F}, \mathbb{P})$.
 Let $X : \Omega \rightarrow \mathbb{R}$.
-Then the expection $E(X)$ is a mean of $X(\omega)$ with respect to the randomness of $\omega$ (given by $\mathbb{P}$)
+Then the expection $\mathbb{E}(X)$ is a mean of $X(\omega)$ with respect to the randomness of $\omega$ (given by $\mathbb{P}$)
 
 
 \begin{defn}[Lebesgue Integration]
@@ -472,14 +472,14 @@ $(\Omega, \mathcal{F}, \mu)$ is a measure space, and $f : \Omega \rightarrow \ma
 Let $0 = y_0 < y_1 < y_2 < \cdots \rightarrow \mathbb{R}$ be a partition of $[0,\infty)$,\\
 $\Pi = \{y_0, y_1, y_2, \cdots\}$ : $\|\Pi\| = \sup_{i\geq 1}|y_i-y_{i-1}|$, and\\
 $\text{LS}_\pi = \sum_{i=0}^\infty y_i \mu[f^{-1}([y_i,y_{i+1}))]$.\\
-In Rudin's book, $\lim_{\|\Pi\|\rightarrow 0} \text{LS}_\pi$ converges to an element belonging to $[0,\infty]$.\\
+In Rudin's book, $\lim_{\|\Pi\|\rightarrow 0} \text{LS}_\Pi$ converges to an element belonging to $[0,\infty]$.\\
 Now, $\int fd\mu := \lim_{\|\Pi\|\rightarrow 0}\text{LS}_{\Pi}$ is called a \textbf{Lebesgue Integral}.
 
 \item $f : \Omega \rightarrow \mathbb{R}$\\
 Let $f^+ = \max\{f,0\} \geq 0$, and $f^- = -\min\{f,0\} \geq 0$.
 Then, $f = f^+ - f^-$, and $|f| = f^+ + f^-$.
 If $\int f^+d\mu < \infty$ and $\int f^- d\mu < \infty$, then we say $f$ is Lebesgue Integrable and $f \in L^1(\mu)$.
-The Lebesgue Integral of $f$ $\int fd\mu$ is defined as $\int f^+ d\mu - \int f^- d\mu$
+The Lebesgue Integral of $f = \int fd\mu$ is defined as $\int f^+ d\mu - \int f^- d\mu$
 \end{enumerate}
 \end{defn}
 
@@ -539,21 +539,22 @@ Let $A = \{ X(\omega) \neq \frac{1}{2}\}$; $\mathbb{P}(A) = 1$.
 
 \begin{defn}[Expectation, 1.3.3. in Textbook]
 \textbf{Expectation} of $X : \Omega \rightarrow \mathbb{R}$ is defined by
-$$E(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int_{\Omega}|X|d\mathbb{P} < \infty$$ 
+$$\mathbb{E}(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int_{\Omega}|X|d\mathbb{P} < \infty$$ 
 \end{defn}
 
 \begin{thm}[1.3.4 in Textbook]
 \leavevmode
 \vspace{-6mm}
 \begin{enumerate}
-\item $X$ takes finite number of values $\{x_1,x_2, \cdots, x_n\} \Rightarrow E(X) = \sum_{i=1}^n x_i\mathbb{P}(X = x_i)$
+\item $X$ takes finite number of values $\{x_1,x_2, \cdots, x_n\} \Rightarrow \mathbb{E}(X) = \sum_{i=1}^n x_i\mathbb{P}(X = x_i)$
 \item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty$,
 \begin{enumerate}[label = (\roman*)]
-\item $X \leq Y$ a.s. (i.e. $\mathbb{P}[\{X(\omega) \leq Y(\omega)\}]=1$), then $E(X) \leq E(Y)$
-\item $X = Y$ a.s. $\Rightarrow E(X) = E(Y)$
+\item $X \leq Y$ a.s. (i.e. $\mathbb{P}[\{X(\omega) \leq Y(\omega)\}]=1$), then $\mathbb{E}(X) \leq \mathbb{E}(Y)$
+\item $X = Y$ a.s. $\Rightarrow \mathbb{E}(X) = \mathbb{E}(Y)$
 \end{enumerate}
-\item $X, Y$: random variables, $E(|X|), E(|Y|) < \infty \Rightarrow E(\alpha X + \beta Y) = \alpha E(X) + \beta E(Y)$.
-\item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ is a convex function $\Rightarrow \phi(E(X)) \leq E(\phi(X))$ (c.f. $\phi(t) = t^2$)
+\item $X, Y$: random variables, $\mathbb{E}(|X|), \mathbb{E}(|Y|) < \infty \Rightarrow \mathbb{E}(\alpha X + \beta Y) = \alpha \mathbb{E}(X) + \beta \mathbb{E}(Y)$.
+\item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ is a convex function $\Rightarrow \phi(\mathbb{E}(X)) \leq \mathbb{E}(\phi(X))$\\
+(c.f. $\phi(t) = t^2$)
 \end{enumerate}
 
 \begin{proof}[Proof of 4.]
@@ -562,9 +563,9 @@ Then $\forall t \in \mathbb{R}, \phi(t) = \sup_{(a,b) \in S_\phi} \{a+bt\}$.
 In fact, it is a equivalent condition. Now,
 $$
 \begin{aligned}
-\phi(E(X)) &= \sup_{a,b\in S_\phi} \{a + bE(X)\}\\
-&= \sup_{a,b \in S_\phi} E(a+bX)\\
-&\leq E[\sup_{a,b\in S_\phi}(a+bx)] = E(\phi(X)) \quad (\text{Check!})
+\phi(\mathbb{E}(X)) &= \sup_{a,b\in S_\phi} \{a + b\mathbb{E}(X)\}\\
+&= \sup_{a,b \in S_\phi} \mathbb{E}(a+bX)\\
+&\leq \mathbb{E}[\sup_{a,b\in S_\phi}(a+bx)] = \mathbb{E}(\phi(X)) \quad (\text{Check!})
 \end{aligned}
 $$
 \end{proof}
