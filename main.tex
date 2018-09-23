@@ -932,7 +932,7 @@ $\mathbb{E}[f(X)g(Y)] = \mathbb{E}[f(X))\mathbb{E}(g(Y)]$.
 \begin{defn}
 $X,Y$ are random variables in $(\O,\F,\P)$.
 \begin{enumerate}
-\item $Var(X) = \E[(X-\E(X))^2] = \E[X^2] - \E(X]^2$
+\item $Var(X) = \E[(X-\E[X])^2] = \E[X^2] - \E[X]^2$
 \item $std(X) = \sqrt{Var(X)}$
 \item $Cov(X,Y) = \E[XY] - \E[X]\E[Y]$
 \item $corr(X,Y) = cov(X,Y) / (std(X)std(Y))$
@@ -998,19 +998,19 @@ Now, if we know $\mathcal{G}$, then we expect $X$ as $\E[X | \mathcal{G}]$ (what
 $(\O,\F,\P)$ is a probability space.
 $X \in L^1(\P)$ is a random variable.
 $\mathcal{G}$ is a sub $\sigma$-algebra of $\F$.
-We define $\E(X | \mathcal{G})$ as
+We define $\E[X | \mathcal{G}]$ as
 \begin{enumerate}
 \item $\mathcal{G}$-measurable random variable
 \item $\int_A \E[X|\mathcal{G}](\omega) d\P(\omega) = \int_A X(\omega) d\P(\omega)$.
 \end{enumerate}
 \end{defn}
 
-\textit{Question.} $\E(X|\mathcal{G})$ exists? (Yes! proof skip).
+\textit{Question.} $\E[X|\mathcal{G}]$ exists? (Yes! proof skip).
 unique? (Yes! up to a.s.)
 
 \begin{rem}
 Lemma implies determine $X$ (a.s.) is equivalent to know $\int_A Xd\P \enspace \forall A \in \F$.\\
-In this sense, conditional expectation $Y = \E(X|\mathcal{G})$ is knowing $\int_A Yd\P = \int_A X d\P \enspace \forall A \in \mathcal{G}$.
+In this sense, conditional expectation $Y = \E[X|\mathcal{G}]$ is knowing $\int_A Yd\P = \int_A X d\P \enspace \forall A \in \mathcal{G}$.
 \end{rem}
 
 
