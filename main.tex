@@ -1,6 +1,6 @@
 \documentclass[12pt]{report}
 \usepackage[left=2cm,right=2.6cm,top=2.6cm,bottom=3cm,a4paper]{geometry}
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.3}
 
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
@@ -10,24 +10,85 @@
 \usepackage{linegoal}
 \usepackage{amsmath,amssymb,latexsym,amsfonts, amsthm}
 %\usepackage{verbatim}
-%\usepackage{xcolor}
+\usepackage{xcolor}
 %\usepackage{listings}
 \usepackage{comment}
 \usepackage{mathtools}
 \usepackage{kotex}
 
 %\usepackage[math]{iwona}
-
-\usepackage[tracking]{microtype}
-\usepackage[sc,osf]{mathpazo}
+%\usepackage[tracking]{microtype}
+%\usepackage[sc,osf]{mathpazo}
+\usepackage{kpfonts}
 
 \usepackage[all]{xy}
 
+%\setlist[itemize]{label=\tiny\textbullet}
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% Modify Chapter Headings
+% Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+% \usepackage[Bjarne]{fncychap}
+
+% Modify Section Style
+\usepackage[explicit]{titlesec}
+\usepackage{soul}
+%\definecolor{titleblue}{HTML}{4a7aa4}
+\newbox\TitleUnderlineTestBox
+\newcommand*\TitleUnderline[1]
+    {%
+        \bgroup
+        \setbox\TitleUnderlineTestBox\hbox{\colorbox{black}\strut}%
+        \setul{\dimexpr\dp\TitleUnderlineTestBox-.3ex\relax}{.3ex}%
+        \ul{#1}%
+        \egroup
+    }
+\newcommand*\SectionNumberBox[1]
+    {%
+        \colorbox{black}
+            {%
+                \makebox[1.5em][c]
+                {%
+                    \vspace{7mm}
+                    \color{white}%
+                    \strut
+                    \csname the#1\endcsname
+                }
+            }%
+        \TitleUnderline{\ \ \ }%
+    }
+\titleformat{\section}
+    {\Large\bfseries\sffamily\color{black}}
+    {\SectionNumberBox{section}}
+    {0pt}
+    {\TitleUnderline{#1}}
 
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usetikzlibrary{arrows}
 \usetikzlibrary{matrix}
+
+
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}
+  {\gdef\chapterlabel{}
+   \normalfont\sffamily\Huge\bfseries\scshape}
+  {\gdef\chapterlabel{\thechapter\ }}{0pt}
+  {\begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=-3cm] at (current page.north west)
+      {\begin{tikzpicture}[remember picture, overlay]
+        \draw (0,0) rectangle
+          (\paperwidth,3cm);
+        \node[anchor=east,xshift=.9\paperwidth,rectangle,
+              rounded corners=20pt,inner sep=11pt,
+              fill=black]
+              {\color{white}\chapterlabel#1};
+       \end{tikzpicture}
+      };
+   \end{tikzpicture}
+  }
+\titlespacing*{\chapter}{0pt}{100pt}{-60pt}
+
 
 % tableofcontents with clickable
 \usepackage{color}
@@ -713,7 +774,7 @@ Toss a coin Three times.
 $\Omega = \{ HHH, HHT, \cdots, TTT\}$.\\
 $A_H = \{ HHH, HHT, HTH, HTT\}$,
 $A_T = \{ THT, THT, TTH, TTT\}$.\\
-Let $\mathcal{F}(1) = \{ \phi, \Omega, A_H, \mathcal{A}_T\}$ so that
+Let $\mathcal{F}(1) = \{ \phi, \Omega, A_H, A_T\}$ so that
 it is a $\sigma$-algebra containing the randomness up to time 1.\\
 Similarly, define $A_{HH}, A_{HT}, A_{TH}, A_{TT}$.\\
 Let $\mathcal{F}(2) = \{ \phi, \Omega, A_{HH}, A_{HT}, A_{TH}, A_{TT}, A_{HH} \cup A_{HT}, \cdots, A_{TT}^C\}$
