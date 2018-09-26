@@ -17,9 +17,9 @@
 \usepackage{kotex}
 
 %\usepackage[math]{iwona}
-%\usepackage[tracking]{microtype}
-%\usepackage[sc,osf]{mathpazo}
-\usepackage{kpfonts}
+\usepackage[tracking]{microtype}
+\usepackage[sc,osf]{mathpazo}
+%\usepackage{kpfonts}
 
 \usepackage[all]{xy}
 
@@ -28,7 +28,7 @@
 
 % Modify Chapter Headings
 % Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
-% \usepackage[Bjarne]{fncychap}
+% \usepackage[Lenny]{fncychap}
 
 % Modify Section Style
 \usepackage[explicit]{titlesec}
@@ -68,26 +68,6 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{matrix}
 
-
-\newcommand*\chapterlabel{}
-\titleformat{\chapter}
-  {\gdef\chapterlabel{}
-   \normalfont\sffamily\Huge\bfseries\scshape}
-  {\gdef\chapterlabel{\thechapter\ }}{0pt}
-  {\begin{tikzpicture}[remember picture,overlay]
-    \node[yshift=-3cm] at (current page.north west)
-      {\begin{tikzpicture}[remember picture, overlay]
-        \draw (0,0) rectangle
-          (\paperwidth,3cm);
-        \node[anchor=east,xshift=.9\paperwidth,rectangle,
-              rounded corners=20pt,inner sep=11pt,
-              fill=black]
-              {\color{white}\chapterlabel#1};
-       \end{tikzpicture}
-      };
-   \end{tikzpicture}
-  }
-\titlespacing*{\chapter}{0pt}{100pt}{-60pt}
 
 
 % tableofcontents with clickable
