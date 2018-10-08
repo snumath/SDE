@@ -143,7 +143,7 @@
 
 
 
-\usepackage[toc,page]{appendix}
+\usepackage[toc]{appendix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -766,7 +766,7 @@ Let $\mathcal{F}(2) = \{ \phi, \Omega, A_{HH}, A_{HT}, A_{TH}, A_{TT}, A_{HH} \c
 so that it is a $\sigma$-algebra containing the randomness up to time 2, and define $\mathcal{F}(0)$ similarly, and let $\mathcal{F}(0) = \{ \phi, \Omega\}$.\\
 Then, $\mathcal{F}(0) \subset \mathcal{F}(1) \subset \mathcal{F}(2) \subset \mathcal{F}(3)$.
 Let $X_t =$ \# of heads until time $t$.
-Then, $X_t$ is $\mathcal{F}(t)$=measurable. for each $t$.\\
+Then, $X_t$ is $\mathcal{F}(t)$-measurable for each $t$.\\
 Now, $\{ X_1 = 1\} = \{ \omega: X_1(\omega) = 1 \} = A_H$, and $\{X_1 = 0\} = \{ \omega : X_1(\omega) = 0\} = A_T$.
 \end{exmp}
 
@@ -1303,7 +1303,7 @@ $$
 \end{aligned}
 $$
 It is the most different property between random process and deterministic function:
-Q.V. of RV is constant but Q.V. of $C^1$ function is zero.
+Q.V. of random variable is constant but Q.V. of $C^1$ function is zero.
 \end{exmp}
 
 
@@ -1312,22 +1312,22 @@ Let $Y_1, Y_2, \cdots$ are independent and identically distributed (called i.i.d
 $(\E(Y_i) = 0, Var(Y_i) = \E(Y_i^2) = 1)$.
 Then, 
 \begin{equation}
-\frac{1}{\sqrt n}\left[Y_1 + \cdots Y_n \right] \rightarrow N(0,1^2)\tag{*}
+\frac{1}{\sqrt n}\left[Y_1 + \cdots Y_n \right] \rightarrow N(0,1^2)\tag{$\bigstar$}
 \end{equation}
 \end{thm}
 
 \begin{rem}
-Meaning of *:
-$$\P\left[\frac{1}{n} (Y_1 + \cdots + Y_n) \in [a,b]\right] \rightarrow \int_a^b \frac{1}{\sqrt{2\pi}} e^{-x^2/2}dx$$
+Meaning of $\bigstar$:
+$$\P\left[\frac{1}{n} (Y_1 + \cdots + Y_n) \in [a,b]\right] \rightarrow \int_a^b \frac{1}{\sqrt{2\pi}} e^{-x^2/2}dx.$$
 \end{rem}
 
 
 $W_n(t) = \frac{1}{n} M_{nt} = \frac{1}{n} (X_1 + \cdots + X_{nt})
-= \sqrt{t} \frac{1}{\sqrt{nt}} (X_1 + \cdots + X_{nt}) \sim (0,t)$
+= \sqrt{t} \frac{1}{\sqrt{nt}} (X_1 + \cdots + X_{nt}) \sim N(0,t)$
 
 
 
-\textit{cf.} $N(\mu, \sigma^2)$ is normal random variable with mean $\mu$ and variation $\sigma^2$.
+\textit{cf.} $N(\mu, \sigma^2)$ is a normal random variable with mean $\mu$ and variation $\sigma^2$.
 Using the above,
 $$
 \lim_{n\rightarrow\infty} \P\left[ W_n(t) \in [a,b]\right] = \int_a^b \frac{1}{\sqrt{2\pi t}} e^{-x^2/2t}dx.
@@ -1504,7 +1504,7 @@ $$
 F_{X,Y}(a,b) &= \mathbb{P}(X \leq a, Y \leq b)\\
 &= \mathbb{P}(X \leq a, X \leq b, Z = 1) + \mathbb{P}(X \leq a, -X \leq b, Z = -1)\\
 &= \frac{1}{2} \mathbb{P}(X \leq a \wedge b) + \frac{1}{2}\mathbb{P}(-b \leq X \leq a)\\
-&= \frac{1}{2} N(A \wedge b) + \frac{1}{2} ((N(a)-N(-b)) \vee 0)
+&= \frac{1}{2} N(a \wedge b) + \frac{1}{2} ((N(a)-N(-b)) \vee 0)
 \end{aligned}
 $$
 \end{exmp}
