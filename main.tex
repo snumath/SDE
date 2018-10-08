@@ -87,6 +87,7 @@
 \newcommand{\R}{\mathbb{R}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
 \newcommand{\E}{\mathbb{E}}
 \renewcommand{\1}{\mathbb{1}}
 \renewcommand{\O}{\Omega}
@@ -167,6 +168,8 @@ Notes taken by Lee Youngjae
 \setlength{\parindent}{0cm}
 
 \tableofcontents
+
+% \part{Textbook name} Comment out!
 
 \setcounter{chapter}{-1}
 
@@ -1132,6 +1135,234 @@ $$
 \end{aligned}
 $$
 \end{exmp}
+
+
+
+\textbf{Review}
+\begin{itemize}
+\item $(\O,\F,\P)$: probability space, $\G \subset \F$.
+\item $X : \F$-measurable random variable.
+\item $Y = \E[X | \G]$ if $Y$ is $\G$-measurable.
+\item $\int_A Y(\omega) d\P(\omega) = \int_A X(\omega) d\P(\omega) \enspace \forall A \in \G$.
+\end{itemize}
+\begin{rem}
+$\E[X|\G]$ is an expectation of $X$ when we know $\G$.
+\end{rem}
+
+\begin{rem}
+$Y = Z$ a.s. and $Z$ is $\G$-measurable, then $Z = \E[X|\G]$.
+\end{rem}
+
+
+
+\begin{rem}
+$(X(t))_{t\in[0,T]}$ is stochastic process adapted to $(\F(t))_{t\in[0,T]}$.
+In this, $(X(t))_{t\in[0,T]}$ is a random variable in $(\O,\F,\P)$ and $X(t)$ is $\F(t)$-measurable.
+$\F(s) \subset \F(t)$ for all $s < t$ and $\F(0) = \{\phi,\O\}$.
+\end{rem}
+
+\begin{rem}
+We can define $\F$ as $\F(t) = \bigcup_{s : s\leq t} \sigma(X(s))$
+\end{rem}
+
+\begin{defn}[Martingale, Markov Process]
+\leavevmode
+\begin{enumerate}
+\item Martingale $X(t)$\\
+$\E[X(t)|\F(s)] = X(s)$ for all $s < t$.
+
+\item Markov Process $X(t)$\\
+For any borel measurable $f$, there exists some borel measurable $g$ such that $\E[f(X(t)) | \F(s)] = g(X(s))$
+
+\end{enumerate}
+\end{defn}
+
+
+\begin{rem}
+In Martingale, if we know all the previous value, then the expectation of the future is as same as the expectation of the present.
+\end{rem}
+
+\begin{rem}
+Markov process is a generalization of Markov chain.
+We only have to know the present value.
+\end{rem}
+
+
+
+\chapter{Brownian Motions}
+\section{Introduction}
+To study Brownian Motions, we will study:
+\begin{enumerate}
+\item Random Walks
+\item Definition of Brownian Motions and its basic property (We will change the textbook!)
+\item Constuction of Brownian Motions
+\end{enumerate}
+
+
+\section{Scaled Random Walks}
+
+
+\begin{defn}[Random Walk]
+\leavevmode
+\begin{itemize}
+\item
+Let
+$
+X_i = 
+\begin{cases}
+1 & \text{prob } \frac{1}{2}\\
+-1 & \text{prob } \frac{1}{2}
+\end{cases}
+; X_1, X_2, \cdots
+$
+independent.
+
+\item $M_n = X_1 + \cdots + X_n$ is called \textbf{random walk}
+
+\item $W_n(t) = \frac{1}{\sqrt n} M_{nt} (:= \frac{1}{\sqrt n}M_{[nt]})^v, \enspace t \in \{ \frac{1}{n}k, k \in \mathbb{Z}_+\}$ is called \textbf{scaled random walk}
+\end{itemize}
+\end{defn}
+
+
+\begin{pro}
+Random walk holds the following properties:
+\begin{enumerate}
+\item Independent Increament
+\item Martingale
+\item Quadratic Variation
+\end{enumerate}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+\item See Def 3.2.3
+\item Let $\F(n) = \sigma(X_1, X_2, \cdots, X_n) = $ smallest $\sigma$-algebra making$X_1 \sim X_n$ measurable.
+Then,
+\begin{itemize}
+\item $M_n = X_1 + \cdots X_n$ is $\F(n)$-measurable
+\item $(M_n)_{n\in\mathbb{N}}$ is stochastic process adapted to $(\F(n))_{n=0}^\infty$
+\item $k < l \Rightarrow
+\E[M_l | \F(k)] = \E[M_l - M_k | \F(k)] + \E[M_k | \F(k)]
+= \E[M_l - M_k] + M_k
+= \E[X_{k+1} + \cdots + X_l] + M_k
+= \E[X_{k+1}] + \cdots + \E[X_l] + M_k
+= M_k.$
+\end{itemize}
+
+\item $\sum_{i=1}^n (M_i - M_{i-1})^2 = n$
+\end{enumerate}
+\end{proof}
+\end{pro}
+
+\begin{defn}[Independent increament]
+$M_n$ is \textbf{independent increament} if
+$M_{k_1}, M_{k_2}-M_{k_1}, \cdots, M_{k_m - k_{m-1}}$ are independent
+for any $k_1 < k_2 < \cdots < k_m$.
+Here, $M_{k_l} - M_{k_{l-1}}$ is called increament.
+If $M_n$ is a random walk, then $M_{k_1} = \sum_{i=1}^{k_1} X_i, M_{k_2-k_1} = \sum_{i=k_1}^{k_2}X_i, \cdots$ are independent.
+\end{defn}
+
+
+
+\begin{rem}
+Proposition 3.2.2 holds for scaled random variable $W_n(t) = \frac{1}{n} M_{nt}$ ($t \in \frac{1}{n} \mathbb{Z}_+$).
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+\item Independent Increament\\
+For $t_1 < t_2 < \cdots < t_m$,
+$W_n(t_1) - W_n(0), W_n(t_2) - W_n(t_1), \cdots, W_n(t_m) - W_n(t_{m-1})$ are independent,
+since its increaments $W_n(t_{n+1}) - W_n(t_l) = \frac{1}{n} (M_{nt_{l+1}} - M_{nt_l})$ are independent by independent increament property of $M_n$.
+
+\item Martingale\\
+Let $\F_n(t) = \sigma(X_1, X_2, \cdots, X_{nt})$.
+Then, $W_n(t) = \frac{1}{n} (X_1+X_2+\cdots+X_{nt})$ is $\F_n(t)$-measurable.
+Therefore, $(W_n(t))$ is stochastic process adapted to $(\F_n(t))$.
+With some computations as before, $\E[W_n(t) | \F_n(s)] = \cdots = W_n(s)$ for $s < t$.
+
+\item Quadratic Variation\\
+$\sum_{i=1}^{nt} \left(W_n(\frac{i}{n}) - W_n(\frac{i-1}{n})\right)^2
+= \sum_{i=1}^{nt} \left[ \frac{1}{\sqrt n} (M_i - M_{i-1})\right]^2
+= \sum_{i=1}^{nt} \frac{1}{n} \cdot 1
+= t$
+\end{enumerate}
+\end{proof}
+\end{rem}
+
+
+
+\begin{exmp}
+Let $f \in C^1([0,t])$.
+Then,
+$$
+\begin{aligned}
+\sum_{i=1}^{nt} \left( f(\frac{i}{n}) - f(\frac{i-1}{n}) \right)^2
+&= \sum_{i=1}^{nt} \left[ \frac{1}{n} f'(\frac{x_i}{n})\right]^2\\
+&= \frac{1}{n} \frac{1}{n} \sum_{i=1}^{nt} \left( f'(\frac{x_i}{n}\right)^2) \quad ( \rightarrow \int_0^t [f'(x)]^2dx)\\
+&\leq \frac{c}{n} \quad (\rightarrow 0)
+\end{aligned}
+$$
+It is the most different property between random process and deterministic function:
+Q.V. of RV is constant but Q.V. of $C^1$ function is zero.
+\end{exmp}
+
+
+\begin{thm}[Central Limit Theorem]
+Let $Y_1, Y_2, \cdots$ are independent and identically distributed (called i.i.d.) with mean $0$ and variation $1$
+$(\E(Y_i) = 0, Var(Y_i) = \E(Y_i^2) = 1)$.
+Then, 
+\begin{equation}
+\frac{1}{\sqrt n}\left[Y_1 + \cdots Y_n \right] \rightarrow N(0,1^2)\tag{*}
+\end{equation}
+\end{thm}
+
+\begin{rem}
+Meaning of *:
+$$\P\left[\frac{1}{n} (Y_1 + \cdots + Y_n) \in [a,b]\right] \rightarrow \int_a^b \frac{1}{\sqrt{2\pi}} e^{-x^2/2}dx$$
+\end{rem}
+
+
+$W_n(t) = \frac{1}{n} M_{nt} = \frac{1}{n} (X_1 + \cdots + X_{nt})
+= \sqrt{t} \frac{1}{\sqrt{nt}} (X_1 + \cdots + X_{nt}) \sim (0,t)$
+
+
+
+\textit{cf.} $N(\mu, \sigma^2)$ is normal random variable with mean $\mu$ and variation $\sigma^2$.
+Using the above,
+$$
+\lim_{n\rightarrow\infty} \P\left[ W_n(t) \in [a,b]\right] = \int_a^b \frac{1}{\sqrt{2\pi t}} e^{-x^2/2t}dx.
+$$
+
+$
+W_n(t) = \frac{1}{n^{\frac{1}{2} + \alpha}} M_{nt}
+\begin{cases}
+\alpha < 0 \quad |W_n(t)| \rightarrow \infty\\
+\alpha > 0 \quad |W_n(t)| \rightarrow 0\\
+\end{cases}
+$
+
+
+\begin{rem}
+$\frac{1}{\sqrt{2\pi t}}e^{-x^2/2t}$ is a heat kernel in PDE.
+\end{rem}
+
+\vspace{5mm}
+
+\textbf{Summary}
+\begin{enumerate}
+\item Independent Increament
+\item Martingale
+\item Markov Process
+\item $W_n(t) \sim N(0,t)$\\
+$W_n(t) - W_n(s) \sim N(0, t-s)$
+\item Q.V. in $[0,t] = t$.
+\end{enumerate}
+
+
+
+
+
+
 
 
 
