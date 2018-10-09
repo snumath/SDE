@@ -1102,7 +1102,7 @@ $\E[\E[X|\mathcal{G}]|\mathcal{H}] = \E[X|\mathcal{H}]$.
 \item $X = \1_B$\\
 Want: $\E[\1_B Y | \mathcal{G}] = \1_B \E[Y | \mathcal{G}]$ for $B \in \mathcal{G}$.
 
-\item $X = \sum_{i=1}^n \alpha+i \1_{B_i}$\\
+\item $X = \sum_{i=1}^n \alpha_i \1_{B_i}$\\
 Use linearity.
 
 \item $X \geq 0$\\
@@ -1470,9 +1470,9 @@ F_Y(b) &= \mathbb{P}(Y \leq b)\\
 &= \mathbb{P}(Y \leq b \text{ and } Z = 1)
 + \mathbb{P}(Y \leq b \text{ and } Z = -1)\\
 &= \mathbb{P}(X \leq b \text{ and } Z = 1)
-+ \mathbb{P}(X \leq b \text{ and } Z = -1)\\
++ \mathbb{P}(X \geq -b \text{ and } Z = -1)\\
 &= \mathbb{P}(X \leq b)\mathbb{P}(Z=1)
-+ \mathbb{P}(X \leq b)\mathbb{P}(Z=-1)\\
++ \mathbb{P}(X \geq -b)\mathbb{P}(Z=-1)\\
 &= \frac{1}{2}N(b) + \frac{1}{2}N(b)\\
 &=N(b)
 \end{aligned}
