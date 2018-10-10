@@ -1360,6 +1360,178 @@ $W_n(t) - W_n(s) \sim N(0, t-s)$
 
 
 
+\textbf{Review}\\
+$X_1, X_2, \cdots$ are i.i.d. and
+$X_i = \begin{cases} \pm 1 & 1/2 \\ -1 & 1/2\end{cases}$.\\
+Random walk: $\mu_n = X_1 + \cdots + X_n$.\\
+Scaled random walk: $W_n(t) = \frac{1}{\sqrt n}M_{nt}$. Then,
+\begin{enumerate}
+\item $W_n(0)=0)$
+\item Independent Increament\\
+$t_1 < t_2 < \cdots < t_n$, then
+$W_n(t_1), W_n(t_2) - W_n(t_1), \cdots, W_n(t_n) - W_n(t_{n-1})$ are independent.
+\item Asymptotic Normal\\
+$W_n(t) - W_n(s) \sim N(0,t-s)$ as $n\rightarrow\infty$.
+\end{enumerate}
+
+
+
+% ========================================
+% !New Book!
+% ========================================
+
+
+
+
+\setcounter{chapter}{1}
+
+\chapter{Brownian Motion}
+\section{Definition of Browinan Motion}
+
+\begin{defn}[Stochastic Process]
+\leavevmode
+\vspace{-6mm}
+\begin{itemize}
+\item Let $(\O, \F, \P)$ be a probability space.
+\item $[0,\infty)$ with Borel $\sigma$-algebra
+\item $X:[0,\infty) \times \O \rightarrow \R$, measurable.
+\end{itemize}
+Then, $X$ is a \textbf{stochastic process} if
+\begin{enumerate}
+\item $X(t,\cdot) : \O \rightarrow \R$ is random variable
+\item $X(\cdot,\omega) : [0,\infty) \rightarrow \R$ is measurable.
+\end{enumerate}
+\end{defn}
+
+
+
+\begin{rem}
+$X(t,\cdot) \Rightarrow X(t)$: random variable in $\O$.
+$X(t) : \omega \mapsto [X(t)](\omega) = X(t,\omega)$.\\
+For each $t \in [0,\infty)$ there exists random variable $X(t) : \O\rightarrow \R$.
+If we pick $\omega \in \O$, then each $X(t_i)$ is determined simultaneously by $X(t_i)(\omega)$.
+\end{rem}
+
+
+\begin{rem}
+We can work in $[0,T]$ instead of $[0,\infty)$.
+In fact, we can define in $[0,T]$ and extend to $[0,\infty)$, but it is extremly difficult.
+\end{rem}
+
+
+\begin{defn}[Brownian Motion in $[0,\infty)$]
+\leavevmode
+\vspace{-6mm}
+\begin{itemize}
+\item $t \in [0,\infty)$, $\omega \in \O((\O,\F,\P)$: probability space)
+\item Stoch. Process $B(t,\omega)$
+\end{itemize}
+$B$ is called \textbf{Brownian Motion} if
+\begin{enumerate}
+\item $B(0,\omega) = 0$ a.s. (i.e.,$\P\left[\{\omega: B(0,\omega) = 0\}\right]=1$)
+\item $B(\cdot, \omega) : [0,\infty) \rightarrow \R$ is a continuous function a.s.
+\item $\forall 0 \leq s < t$, $B(t) - B(s) \sim N(0,t-s)$
+\item Independent Increament
+\end{enumerate}
+\end{defn}
+
+\begin{rem}
+$B(t) \sim N(0,t)$ by 3 with $s=0$.
+\end{rem}
+
+
+\begin{rem}
+$(B(t))_{t\geq 0} : \O \rightarrow \R$
+\begin{itemize}
+\item $B(t)$ itself is a normal distribution
+\item $B(t) - B(s) : \O \rightarrow \R$ is normal distribution with variance $t-s$.
+\end{itemize}
+\end{rem}
+
+\begin{rem}
+Brwonian motion is a continuous version of random walk: random walk has property 1,4 and has property 3 with $n\rightarrow\infty$.
+\end{rem}
+
+
+
+\begin{thm}
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $s < t$ : $\E[B(s)B(t)] = s$
+\item $t_1 < t_2 < \cdots < t_n \Rightarrow (B(t_1), B(t_2), \cdots, B(t_n))$ is jointly normal with $\mu = (0,0,\cdots,0$ and $Var = C$.
+$(C_{ij} = t_{\min(i,j)} \enspace \forall \i,j)$.
+\end{enumerate}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+\item
+$\E[B(s)B(t)] = \E[B(s)(B(t)-B(s))] + \E[B(s)^2]
+= \E(B(s))\E(B(t)-B(s)) + s = s$.
+
+\item
+Let $\vec{v} = (B(t_1), B(t_2)-B(t_1),\cdots,B(t_m)-B(t_{m-1}))$. Then,
+$$
+\text{PDF of } \vec{v}
+= \frac{1}{\sqrt{2\pi t_1}}e^{-\frac{x_1^2}{2t_1}} \cdot \frac{1}{\sqrt{2\pi (t_2 - t_1)}}e^{-\frac{x_2^2}{2(t_2-t_1)}} \cdots \frac{1}{\sqrt{2\pi (t_m-t_{m-1})}}e^{-\frac{x_m^2}{2(t_m-t_{m-1})}}.
+$$
+
+Therefore, $\vec{v}$ is jointly normal with $\mu = 0$ and $Var = \text{diag}(t_1, t_2-t_1, \cdots, t_n-t_{n-1}) = D$, and,
+$$
+\vec{W}
+= (B(t_1), \cdots, B(t_m))
+= \vec{v}
+\begin{bmatrix}
+1 & 1 &\cdots &1\\
+0 & 1 &\cdots &1\\
+\vdots & \vdots & \vdots & \vdots\\
+0 & 0 &\cdots &1\\
+\end{bmatrix}
+= \vec{v}E.
+$$
+Thus, $\vec{W}$ is jointly normal with $\mu = (0,0,\cdots,0)$ and $Var = EDE^T = C$.
+\end{enumerate}
+\end{proof}
+\end{thm}
+
+
+\begin{defn}[Filtration for Browinan Motion]
+$$
+\begin{aligned}
+\F_t &= \sigma(B(s) : s \leq t)\\
+&= \text{smallest } \sigma\text{-algebra containing } \{\omega: (B(s))(\omega) \in A\} \enspace \forall s \in [0,t], A: \text{Borel}\\
+&= \text{smallest } \sigma\text{-algebra making } \forall B_s, s\in[0,t] \text{ measurable}
+\end{aligned}
+$$
+\end{defn}
+
+
+\begin{rem}
+\leavevmode
+\begin{enumerate}
+\item $(B(t))_{t\geq0}$: Stochastic process adapted to the filtration $(\F_t)$.
+\item $(B(t), \F(t))$: Martingale.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item By construction
+\item $s < t \Rightarrow$
+$\E[B(t)|\F_s] = \E[B(t)-B(s)|\F_s] + \E[B(s)|\F_s]$
+\end{enumerate}
+\end{proof}
+\end{rem}
+
+
+
+
+
+
+
+
+
+
 
 
 
