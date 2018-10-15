@@ -169,8 +169,6 @@ Notes taken by Lee Youngjae
 
 \tableofcontents
 
-% \part{Textbook name} Comment out!
-
 \setcounter{chapter}{-1}
 
 \chapter{Introduction}
@@ -215,6 +213,8 @@ Textbooks:
 \item Introduction to Stochastic Integration (Hui-Hsiung Kuo)
 \end{enumerate}
 
+
+\part{Stochastic calculus for finance}
 
 
 \chapter{General Probability Theory}
@@ -600,7 +600,7 @@ $$\mathbb{E}(X) := \int_\Omega X d\mathbb{P} \quad \text{if} \quad \int_{\Omega}
 \end{enumerate}
 \item $X, Y$: random variables, $\mathbb{E}(|X|), \mathbb{E}(|Y|) < \infty \Rightarrow \mathbb{E}(\alpha X + \beta Y) = \alpha \mathbb{E}(X) + \beta \mathbb{E}(Y)$.
 \item Jensen's Inequality: $\phi : \mathbb{R} \rightarrow \mathbb{R}$ is a convex function $\Rightarrow \phi(\mathbb{E}(X)) \leq \mathbb{E}(\phi(X))$\\
-(c.f. $\phi(t) = t^2$)
+(\textit{cf.} $\phi(t) = t^2$)
 \end{enumerate}
 
 \begin{proof}[Proof of 4.]
@@ -1379,14 +1379,14 @@ $W_n(t) - W_n(s) \sim N(0,t-s)$ as $n\rightarrow\infty$.
 % ========================================
 % !New Book!
 % ========================================
-
+\part{Introduction to stochastic integral}
 
 
 
 \setcounter{chapter}{1}
 
 \chapter{Brownian Motion}
-\section{Definition of Browinan Motion}
+\section{Definition of Brownian Motion}
 
 \begin{defn}[Stochastic Process]
 \leavevmode
@@ -1436,6 +1436,10 @@ $B$ is called \textbf{Brownian Motion} if
 \end{defn}
 
 \begin{rem}
+$B(0,\omega)$ is a measurable function.
+\end{rem}
+
+\begin{rem}
 $B(t) \sim N(0,t)$ by 3 with $s=0$.
 \end{rem}
 
@@ -1449,7 +1453,7 @@ $(B(t))_{t\geq 0} : \O \rightarrow \R$
 \end{rem}
 
 \begin{rem}
-Brwonian motion is a continuous version of random walk: random walk has property 1,4 and has property 3 with $n\rightarrow\infty$.
+Brownian motion is a continuous version of random walk: random walk has property 1,4 and has property 3 with $n\rightarrow\infty$.
 \end{rem}
 
 
@@ -1459,8 +1463,9 @@ Brwonian motion is a continuous version of random walk: random walk has property
 \vspace{-6mm}
 \begin{enumerate}
 \item $s < t$ : $\E[B(s)B(t)] = s$
+
 \item $t_1 < t_2 < \cdots < t_n \Rightarrow (B(t_1), B(t_2), \cdots, B(t_n))$ is jointly normal with $\mu = (0,0,\cdots,0$ and $Var = C$.
-$(C_{ij} = t_{\min(i,j)} \enspace \forall \i,j)$.
+$(C_{ij} = t_{\min(i,j)} \enspace \forall i,j)$.
 \end{enumerate}
 
 \begin{proof}
@@ -1496,7 +1501,7 @@ Thus, $\vec{W}$ is jointly normal with $\mu = (0,0,\cdots,0)$ and $Var = EDE^T =
 \end{thm}
 
 
-\begin{defn}[Filtration for Browinan Motion]
+\begin{defn}[Filtration for Brownian Motion]
 $$
 \begin{aligned}
 \F_t &= \sigma(B(s) : s \leq t)\\
@@ -1514,14 +1519,176 @@ $$
 \item $(B(t), \F(t))$: Martingale.
 \end{enumerate}
 
+\begin{lem}
+$B(t) - B(s)$ is independent of $\F_s$ $(s < t)$.
+\begin{proof}[Proof of lemma]
+\leavevmode
+\begin{enumerate}
+\item $B(t) - B(s)$ is independent of $\sigma (B(s_1), B(s_2), \cdots, B(s_n))$ for $0 < s_1 < \cdots < s_n \leq s$, and check that  $\sigma (B(s_1), B(s_2), \cdots, B(s_n)) = \sigma(B(s_1), B(s_2)-B(s_1), \cdots, B(s_n)-B(s_{n-1}))$ 
+\item Let $\mathcal{H} = \bigcup_{m=1}^\infty\bigcup_{0 < s_1 < \cdots < s_n \leq s} \sigma(B(s_1), \cdots, B(s_n))$.
+Then, $\mathcal{H}$ is a closed under finite intersection.
+i.e., $A_1, A_2, \cdots, A_n \in \mathcal{H} \Rightarrow A_1 \cap A_2 \cap \cdots \cap A_n \in \mathcal{H}$.
+\item $B(t) - B(s)$ is independent of $\mathcal{H}$ by 1.
+Then, $B(t) - B(s)$ is independent of $\overline{\mathcal{H}} = \F_t$ : smallest $\sigma$-algebra containing $\mathcal{H}$. (Midterm 1 problem 2)
+\end{enumerate}
+\end{proof}
+\end{lem}
+
 \begin{proof}
 \begin{enumerate}
 \item By construction
-\item $s < t \Rightarrow$
-$\E[B(t)|\F_s] = \E[B(t)-B(s)|\F_s] + \E[B(s)|\F_s]$
+\item $s < t \Rightarrow
+\E[B(t)|\F_s] = \E[B(t)-B(s)|\F_s] + \E[B(s)|\F_s] = \E[B(t) - B(s)] + B(s)$.
 \end{enumerate}
 \end{proof}
 \end{rem}
+
+
+
+
+\chapter{Constuction of Brownian Motion}
+
+There are three ways to construct Brownian motion.
+One is by Wiener, one is by Kolmogorov, and one is by Leby.
+Wiener's method gives the existence of Brownian motion in natural way.
+Kolmogorov's method gives the property of Brownian motion with sample path with awful $\omega$.
+Levy's method gives an instruction for Brownian motion with wierd $\omega$.
+
+\section{Wiener Space}
+Let $C = C_0[0,1] = \{ f : f \text{ is continuous on } [0,1] \text{ and } f(0) = 0\}$.
+We give a norm to $C$ by $\|f\| = \sup_{0 \leq x \leq 1} |f(x)| = \max_{0 \leq x \leq 1} |f(x)|$,
+and distance $d(f,g) = \|f-g\|$.
+Thus, there is an open ball $B_r(x) = \{ y : d(x,y) < r \}$ and topology(open set) of $C$.
+Now, there is Borel $\sigma$-algebra = smallest $\sigma$-algebra containing all open sets.
+
+\vspace{5mm}
+
+\textbf{Notation}\\
+From now, let $\mathcal{B}(C)$ be Borel $\sigma$-algebra in $C$.
+
+\begin{defn}[Cylindrical Sets]
+A cylindrical sets $\mathcal{R}$ is a collection of subsets of $C$ of the form
+$$A = \left\{ f \in C : \left(f(t_1), f(t_2), \cdots, f(t_m)\right) \in U,
+0 < t_1 < t_2 < \cdots < t_m \leq 1, U \in \mathcal{B}(\R^n)\right\},$$
+and $A$ is called \textbf{cylindrical set}.
+\end{defn}
+
+\textit{cf.} For $m = 1$, $\{ f : f(t_1) \in U_k \} = A_k \in \mathcal{R}$,
+then $\bigcup_{k=1}^\infty A_k = \{ f : f(t_1) \in \bigcup_{k=1}^\infty U_k\} \in \mathcal{R}$.
+
+\begin{rem}
+$\mathcal{R}$ is not a $\sigma$-algebra.
+\end{rem}
+
+\begin{exmp}
+$\left\{ (f(t_1), f(t_2)) \in (-1,1) \times (2,3)\right\}
+= \left\{ f : f(t_1) \in (-1,1), f(t_2) \in (2,3) \right\}$.
+\end{exmp}
+
+
+
+\begin{defn}
+Let $\mu : \mathcal{R} \rightarrow [0,1]$ such that
+$$
+\mu(A) = \iint \cdots \int \frac{1}{\sqrt{2\pi t_1}} e^{-\frac{x^2}{2t_1}} \frac{1}{\sqrt{2\pi (t_2-t_1)}} e^{-\frac{x^2}{2(t_2-t_1)}} \cdots \frac{1}{\sqrt{2\pi (t_mt_{m-1})}} e^{-\frac{x^2}{2(t_m - t_{m-1})}} dx_1 \cdots dx_m,
+$$
+and it is a natural definition since $B(t_i)$'s are jointly normal.
+\end{defn}
+
+
+
+
+\begin{thm}[Wiener]
+$\mu$ is a countably additive($\sigma$-additive) function on $\mathcal{R}$.
+In other words,
+$A_1, A_2, \cdots$ are disjoint members of $\R$ and $\bigcup_{k=1}^\infty A_k \in \mathcal{R}$,
+then $\mu(\bigcup_{k=1}^\infty A_k) = \sum_{k=1}^\infty \mu(A_k)$.
+\end{thm}
+
+
+
+\textbf{Summary}
+\begin{itemize}
+\item $C = C_0[0,1] \Rightarrow \mathcal{B}(C)$ is Borel $\sigma$-algebra
+\item $\mathcal{R}$: collection of subsets of $C$
+\item $\mu : \mathcal{R} \rightarrow [0,1]$ is $\sigma$-additive (Wiener)
+\end{itemize}
+
+\underline{Fact:} $\mathcal{R}$ is a \textbf{Ring} in the sense that
+\begin{enumerate}
+\item $\phi \in \mathcal{R}$
+\item $A, B \in \mathcal{R} \Rightarrow A \cup B \in \mathcal{R}$
+\item $A, B \in \mathcal{R} \Rightarrow A \backslash B \in \mathcal{R}$
+\end{enumerate}
+
+\begin{thm}[Caratheodory Extension Theorem]
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $\mu : \mathcal{R} \rightarrow [0,1]$ is $\sigma$-additive
+\item $\mathcal{R}$ is a ring
+\item $\overline{\mathcal{R}}$ is a smallest $\sigma$-algebra containing $\mathcal{R}$.
+\end{enumerate}
+Then, there exists unique extension of $\mu$ to $\overline{\mathcal{R}}$ which is a measure.
+\end{thm}
+
+
+\begin{rem}
+$\mu : \overline{\mathcal{R}}$ is a probability measure.
+\end{rem}
+\begin{rem}
+We can check that $\mathcal{B}(C) \subset \overline{\mathcal{R}}$. (it suffices to check that $B\in\overline{\mathcal{R}}$ for all open ball $B$)
+\end{rem}
+
+
+
+\textbf{Conclusion:} $(C,\overline{\mathcal{R}}, \mu)$ is a probability space and says \textbf{Wiener space}.
+
+
+
+
+
+
+
+% \section{Borel-Cantelli Lemma and Chebyshev Inequality}
+
+% \section{Kolmogorov's Extension and continuity Theorems}
+
+% \section{Levy's Interpolation Method}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
