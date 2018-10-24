@@ -1718,30 +1718,145 @@ $
 \end{rem}
 
 \section{Borel-Cantelli Lemma and Chebyshev Inequality}
-\section{Kolmogorov's Extension and continuity Theorems}
+To Be Later...
+
+\section{Kolmogorov's Extension and Continuity Theorems}
 
 \begin{itemize}
 \item $\O = \R^{[0,\infty)} = \{ f : \text{ s.t. } f : [0,\infty) \rightarrow \R, f(0) = 0\}$
-\item $\mathcal{R} = \{ A_{m, t_1, t_2, \cdots, t_m, U} : m \in \mathbb{N}, 0 < t_1 < \cdots < t_m, U \in B(\R^m)\}$
-\item $\F = \overline{\mathcal{R}}$
+\item $\mathcal{R} = \{ A_{m, t_1, t_2, \cdots, t_m, U} : m \in \mathbb{N}, 0 \leq t_1 < \cdots < t_m, U \in B(\R^m)\}$
+\item $\F = \overline{\mathcal{R}}$ (Cylindrical $\sigma$-algebra)
 \item $\mu_{t_1,t_2,\cdots,t_m}$: probability measure in $\mathcal{B}(\R^m)$ by
 $$\mu_{t_1,t_2,\cdots,t_m}(A) = \iint \cdots \int_A \prod_{i=1}^{m} \frac{1}{\sqrt{2\pi(t_i-t_{i-1})}} e^{-\frac{(u_i-u_{i-1})^2}{2(t_i-t_{i-1})}} du_1\cdots du_m$$
 \end{itemize}
+(Note: In section 3.1 we define $0 < t_1 < t_2 < \cdots$ since Brownian motion is fixed at $0$, but in this section we define $0 \leq t_1 < t_2 < \cdots$.)
 
-\begin{thm}
-There exists probability measure $\P$ in $(\O,\F)$ such that
-$$ \P \left(\left\{ f : (f(t_1), \cdots, f(t_n)) \in A \right\}\right) = \mu_{t_1,\cdots,t_m}(A)$$
+\begin{defn}[Marginal distribution of $0\leq t_1 < \cdots < t_n$]
+$\mu_{t_1,t_2,\cdots,t_n} = \P((X(t_1), \cdots, X(t_n)) \in U)$ $(:= \P[\{\omega: (X(t_1,\omega),\cdots,X(t_n,\omega))\in U\}])$is called \textbf{marginal distribution of $0 \leq t_1 < \cdots < t_n$}.
+\end{defn}
+
+Question: Can we construct a probability measure $\P$ on $(\O,\F)$ such that
+$$\P[A_{n,t_1,\cdots,t_n,U}]=\mu_{t_1,\cdots,t_n}(U)\text{ ?}$$
+If it is possible, then
+$Y : [0,\infty)\times \O \rightarrow \R$
+has marginal $\mu_{t_1,\cdots,t_n}$.
+
+(Why?)
+$$
+\begin{aligned}
+&\P[\{\omega: (Y(t_1,\omega), Y(t_2,\omega),\cdots,Y(t_n,\omega) )\in U\}]\\
+&= \P[\{\omega : (\omega(t_1), \cdots, \omega(t_n)) \in U\}]\\
+&= \P[A_{n,t_1,\cdots,t_n,U}] = \mu_{t_1,\cdots,t_n}(U)
+\end{aligned}
+$$
+
+
+% 상황
+% 1. (X(t))_{t\geq0}를 정의하고 식을
+% 2. (X(t_1),\cdots,X(t_n))의 분포는 어떻게 되어야 하는지 알고 있음
+% => We have to construct \P in \mathbb{Q}
+% Brownian motion뿐만 아니라 모든 stochastic process를 construct하는 black box가 된다!
+
+
+\underline{Observation} (Consistency condition)
+$$
+\begin{aligned}
+&\mu_{t_1,\cdots,t_n}: \text{marginal distribution of } X(t,\omega)\\
+&\Rightarrow \mu_{t_1,\cdots,t_n}(A_1\times\cdots\times A_{i-1}\times\R\times A_{i+1}\times\cdots\times A_n)\\
+&=\mu_{t_1,\cdots,t_{i-1},t_{i+1},\cdots,t_n}(A_1\times\cdots\times A_{i-1}\times A_{i+1}\times\cdots\times A_n)\\
+\end{aligned}
+$$
+
+\begin{thm}[Kolmogorov's Extension Theorem]
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $\mu_{t_1,\cdots,t_n}$: Borel probability measure in $\R^2$
+\item $\{ \mu_{t_1},\cdots,t_n: 0\leq t_1<\cdots<t_n\}$ satisfies the consistency condition
+\end{enumerate}
+Then, $\exists \P$ on $(\O,\F)$ such that
+$$\P[A_{n,t_1,\cdots,t_n,U}]=\mu_{t_1,\cdots,t_n}(U)$$
 \end{thm}
 
 Kolmogorov's method is easy to construct Brownian motion with definition 1,3,4, but it is hard to probe definition 2: $B(\cdot,\omega)$ is continuous a.s.
 
-Question. $\P[\{\omega : \omega \in C[0,\infty)\}] = 1?$ (Even it is not in $\F$)
+Kolmogorov's extension theorem can be applied to every stochastic process.
 
-% \section{Levy's Interpolation Method}
-
-
+% Question. $\P[\{\omega : \omega \in C[0,\infty)\}] = 1?$ (Even it is not in $\F$)
 
 
+\begin{exmp}
+$0\leq t_1 < t_2 < \cdots t_n$.
+$$\mu_{t_1,t_2,\cdots,t_n}(U) =
+\begin{cases}
+\iint \cdots \int_U \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi(t_i-t_{i-1})}} e^{-\frac{(u_i-u_{i-1})^2}{2(t_i-t_{i-1})}} du_1\cdots du_n & \text{if } t_1 = 0\\
+\iint \cdots \int_U \prod_{i=2}^{n} \frac{1}{\sqrt{2\pi(t_i-t_{i-1})}} e^{-\frac{(u_i-u_{i-1})^2}{2(t_i-t_{i-1})}} \delta_0(u_1)du_1\cdots du_n & \text{if } t_1 \neq 0,
+\end{cases}
+$$
+and it is easy to show that $\mu_{t_1,\cdots,t_n}$ satisfies consistency condition.
+By Kolmogorov's extension theorem, we have $(\O,\F,\P)$ associates to the above.
+Let $B : [0,t] \times \O \ni (t,\omega) \mapsto \omega(t) \in \R$ (coordinate mapping process).
+
+Question: Is $B$ the Brownian motion? We have to check
+\begin{enumerate}
+\item $B(0) = 0$
+\item $B(\cdots, \omega)$ is continuous a.s.
+\item $B(t)-B(s): N(0,t-s)$
+\item Independent increament,
+\end{enumerate}
+and 1, 3, 4 are easy.
+To prove 2, we need the following theorem
+\end{exmp}
+
+\begin{thm}[Kolmogorov's Continuity Theorem]
+$X: [0,1]\times\O\rightarrow\R$ is a stochastic process satisfying KET.
+We say $(X(t))$ is separable if
+\begin{enumerate}
+\item $\forall t \in [0,1], \epsilon > 0 \enspace \lim_{s\rightarrow t} \P[|X(s)-X(t)| > \epsilon]=0$
+\item $\exists \alpha,\beta,C > 0$ such that $\E[|X(t)-X(s)|^{1+\alpha}] \leq C|t-s|^\beta$ for all $s,t\in[0,1]$.
+\end{enumerate}
+Then, there exists stochastic process $\widetilde{X}(t,\omega)$ such that
+\begin{enumerate}
+\item $\widetilde{X}(\cdot,\omega)$ is continuous $\forall \omega \in \O$
+\item $\O_0 = \{ \omega : X(t,\omega) = \widetilde{X}(t,\omega) \enspace \forall t\in[0,1] \enspace, \P(\O)=1$
+\end{enumerate}
+\end{thm}
+
+
+Return to example, by KCT, there exists $\widetilde{B}(t,\omega)$ such that $\widetilde{B}$ satisfies condition 2 of Brownian motion.
+Condition 3 and 4 are obvious, and condition 1 is also true since $\widetilde{B}(0,\omega) = 0$ on $\O_0$, hence a.s.
+
+
+
+We will skip the proof of KET and KCT (see Google)
+
+
+Note:
+Kolmogorov's method is more general than Wiener's method since Kolmogorov's mtehod can be applied to any stochastic process.
+However, the space in Wiener's method (Banach space) and Kolmogorov's method are different, hence Kolmogorov's construction does not contain Wiener's construction.
+
+
+
+
+
+\section{Levy's Interpolation Method}
+
+Let $D_n = \{\frac{k}{2^{n-1}} : k = 0,1,\cdots,2^{n-1}\}$.
+We will construct $X_1(t), X_2(t), \cdots, X_n(t), \cdots$ such that $X_n(t) \rightarrow$ BM.
+
+\begin{defn}
+Let $\phi_1,\cdots$ be i.i.d of $N(0,1)$. Define $X_n(0) = 0, X_1(1) = \phi_1$ and
+$$
+X_{n+1}(t) =
+\begin{cases}
+    X_n(t) & \text{if } t \in D_n\\
+    X_n(t) + \frac{1}{2^{\frac{n+1}{2}}} \phi_i & \text{if } t \in D_{n+1} - D_n,
+\end{cases}
+$$
+and interpolate by the line.
+Then, for each $t \in [0,1], (X_n(t))_{n=1}^\infty$ is a Cauchy sequence in $L^2(\O) = \{ X: \O \rightarrow \R ; \int X^2 d\P < \infty \}$ with distance $d(X_m(t), X_n(t)) = \sqrt{\E[|X_m(t) - X_n(t)|^2]}$.
+Since $L^2(\O)$ is complete, $X_n(t) \rightarrow X(t)$ for some random variable $X(t)$.
+\end{defn}
 
 
 
@@ -1750,25 +1865,150 @@ Question. $\P[\{\omega : \omega \in C[0,\infty)\}] = 1?$ (Even it is not in $\F$
 
 
 
+\setcounter{chapter}{2}
+\setcounter{section}{2}
+\section{Wiener Integral}
 
 
+\textbf{Review}: $L^2$ space\\
+$(\O,\F,\P) = ([a,b], \mathcal{B}([a,b]), m)$.
+\begin{itemize}
+\item $L^2(\O) := \{ X : \text{ random variable in } \O, \int X^2 d\P < \infty \}$
+\item $L^2([a,b]) := \{ f : [a,b] \rightarrow \mathbb{R}, \int f^2 dx < \infty \}$
+\end{itemize}
+
+\begin{enumerate}[wide]
+\item Convergence in $L^2$
+\begin{itemize}
+\item $(X_n)_{n=1}^\infty \in L^2(\O); X_n \rightarrow X$ in $L^2(\O)$ if $\int|X_n-X|^2 d\P \rightarrow 0$
+\item $(f_n)_{n=1}^\infty \in L^2([a,b]); f_n \rightarrow f$ in $L^2([a,b])$ if $\int|f_n-f|^2 dx \rightarrow 0$
+\item $d(X,Y) = \sqrt{\int |X-Y|^2 d\P}$: distance $\Rightarrow$ metric space
+\end{itemize}
+
+\item $L^2$: complete:
+\begin{itemize}
+\item $(X_n)_{n=1}^\infty$: Cauchy in $L^2(\O) \Longrightarrow \exists X \in L^2(\O)$ such that $X_n \rightarrow X$ in $L^2(\O)$
+\item $(f_n)_{n=1}^\infty$: Cauchy in $L^2([a,b]) \Longrightarrow \exists f \in L^2([a,b])$ such that $f_n \rightarrow f$ in $L^2([a,b])$
+\end{itemize}
+
+\item Simple functions are dense in $L^2(\O)$
+\begin{itemize}
+\item $X \in L^2(\O) \Rightarrow \exists$ simple functions $(X_n)_{n=1}^\infty$ such that $X_n \rightarrow X$ in $L^2(\O)$
+\item $f \in L^2([a,b]) \Rightarrow \exists$ simple functions $(f_n)_{n=1}^\infty$ such that $f_n \rightarrow f$ in $L^2([a,b])$
+\end{itemize}
+
+\item $X_n \rightarrow X$ in $L^2(\O)$ $\cdots (\bigstar)$
+\begin{itemize}
+\item $X_n \rightarrow X$ a.s. if $\P\{\omega:\lim_{n\rightarrow\infty} X_n(\omega) = X(\omega)\} = 1$ $\cdots 	(\spadesuit)$
+\end{itemize}
+$(\bigstar) \not\Rightarrow (\spadesuit)$ and $(\spadesuit) \not\Rightarrow (\bigstar)$.
+But if $(\bigstar)$ there exists a subsequence such that $(\spadesuit)$.
+\end{enumerate}
 
 
+\textit{Question 1.} What is $\int_a^b f(t) dB(t)$?\\
+\textit{Question 2.} What is $\int_a^b f(B(t)) dB(t)$?
+
+\vspace{5mm}
+
+\textbf{Review}: Stieltjes Integral
 
 
+Let $a = t_0 < t_1 < \cdots < t_n = b$, $t_i = a + \frac{b-a}{n}i$.\\
+$\lim_{n\rightarrow}\sum_{k=1}^n f(t_k)(g(t_k)-g(t_{k-1})) =: \int_a^b fdg$ if exists.
+
+\begin{rem}
+\leavevmode
+\begin{enumerate}
+\item $g \in C^1 \Rightarrow \int_a^b fdg = \int_a^b fg'dx$
+\item Well-defined if $g$ is absolutely continuous
+\item (Summation by parts) $\sum_{k=1}^n f(t_k)(g(t_k)-g(t_{k-1})) = \sum_{k=0}^{n-1} g(t_k)(f(t_k) - f(t_{k+1})) + f(b)g(b) - f(a)g(a)$.
+If $f$ is absolutely continuous, then it converges to $-\int gdf + f(b)g(b) - f(a)g(a)$.
+Therefore, if $f$ is absolutely continuous, then $\int fdg = f(b)g(b) - f(a)g(a) - \int gdf$
+\end{enumerate}
+\end{rem}
+
+\begin{exmp}[Example to Questions]
+\leavevmode
+\begin{itemize}
+\item If $f$ is absolutely continous, then $\int_0^1 fdf = \int_0^1 ff'dx = \frac{f(1)^2 - f(0)^2}{2}$
+\item However, $\int_0^1 B(t) dB(t) = \frac{B(1)^2 - B(0)^2}{2} - \frac{1}{2}$ (by quadratic variation)
+\end{itemize}
+\end{exmp}
 
 
+Consider a random variable $B(t) : \omega \mapsto B(t,\omega)$.
+Then, $$ \int_a^b f(t)dB(t) : \Omega \ni \omega \mapsto \int_a^b f(t)dB(t,\omega) \in \mathbb{R} $$
+is well-defined if $f$ is absolutely continuous.
+However, what if $f \in L^2([a,b])$?
+
+\begin{enumerate}[label=\textbf{Step \arabic*}]
+\item $f$ is simple, $f(x) = \sum_{i=1}^k \alpha_i \1_{[a_i,b_i]}(x) \in L^2([a,b])$\\
+Let $I(f) = \sum_{i=1}^k \alpha_i(B(b_i) - B(a_i)) \in L^2(\O)$. W.L.O.G. let $[a_i,b_i]$ be disjoint. Note that
+\begin{enumerate}
+\item $\int \1_{[a_i,b_i]}dB(t) = \int_{a_i}^{b_i} dB(t) = B(b_i) - B(a_i)$, hence $I(f) = \int_a^b fdB(t)$
+\item $I(f) : N(0, \int_a^b f^2 dx)$, since $\E[I(f)^2] = \sum \alpha_i^2 (b_i-a_i) = \int_a^b f^2 dx$
+\item $I$ is linear map. i.e. $f, g$ are simple $\Rightarrow I(f+g) = I(f) + I(g)$ and $I(cf) = cI(f)$
+\end{enumerate}
+
+\item Recall (3: simple functions are dense in $L^2$)
+\begin{itemize}[wide]
+\item $f \in L^2([a,b]) \Rightarrow \exists$ simple functions $(f_n)_{n=1}^\infty$ such that $f_n \rightarrow f$ in $L^2$.
+\item If $I(f_m), I(f_n) \in L^2(\O)$, then
+$$
+\int_a^b |I(f_m) - I(f_n)|^2 d\P = \int I(f_m-f_n)^2 d\P = \E[I(f_m-f_n)^2] = \int_a^b (f_m-f_n)^2 dx.
+$$
+Therefore $(f_n)$ is a Cauchy sequence in $L^2([a,b]) \Rightarrow (I(f_n))_{n=1}^\infty$ is a Cauchy sequence in $L^2(\O)$.
+Let $Z \in L^2(\O)$ be $I(f_n) \rightarrow Z$, and define $I(f) := Z$.
+\end{itemize}
+\end{enumerate}
 
 
+\textbf{Exercise:}  Well-definedness\\
+i.e., $f_n, g_n \rightarrow f$, $I(f_n) \rightarrow Z, I(g_n) \rightarrow Z'$, then $Z = Z'$ a.s.?
+
+\textbf{Exercise:} $(Z_n: N(\mu_n, \sigma_n^2), Z_n \rightarrow Z$ in $L^2$)
+Then, 1) $\mu_n \rightarrow mu, \sigma_n \rightarrow sigam$, $Z : N (\mu, \sigma^2)$.
+
+\begin{thm}
+\leavevmode
+\vspace{-6mm}
+\begin{enumerate}
+\item $I(f) : N(0, \int_a^b f^2dx) \quad (f \in L^2([a,b])$
+\item $\E[I(f)I(g)] = \int_a^b fgdx \quad (f,g \in L^2([a,b])$
+\item If $f$ is absolutely continous (or $f \in C^1([a,b])$), then $I(f) = \int_a^b f(t)dB(t) (= f(b)B(b) - f(a)B(a) - \int_a^b B(t)df)$
+\end{enumerate}
+\end{thm}
 
 
+\begin{defn}[$\int_a^b f(t)dB(t)$]
+Let $f \in L^2([a,b])$. $\int_a^b f(t)dB(t) := I(f)\in L^2(\O)$. Then,
+\begin{itemize}
+\item $I(f) : \omega \mapsto \int_a^b f(t)dB(t,\omega)$
+\item $I: L^2([a,b]) \rightarrow L^2(\O)$ isometry
+\end{itemize}
+\end{defn}
 
+\begin{proof}[Proof of thm]
+\leavevmode
+\begin{enumerate}
+\item
+Let $f_n \rightarrow f$ in $L^2([a,b])$ ($f_n: simple)$ and $I(f_n) \rightarrow I(f)$ in $L^2(\O)$.
+Since $I(f_n) \sim N(0, \int_a^b f_n^2 dx)$, it converges to $N(0,\int_a^b f^2(x)dx)$.
+Therefore, $\int_a^b f_n^2dx \rightarrow \int_a^b f^2dx$.
 
+\item By 1. $\E[I(f)^2] = \int_a^b f^2dx$. Moreover,
+$\E[I(f+g)^2] = \int_a^b (f+g)^2 dx$,
+$\E[I(f)^2] = \int_a^b f^2 dx$,
+$\E[I(g)^2] = \int_a^b g^2 dx$.
+Check that $I(f+g) = I(f)+I(g)$.
 
-
-
-
-
+\item Let $a = t_0 < t_1 < \cdots < t_n = b$ and $t_i = a + \frac{b-a}{n}i$.
+Let $f_n(t) = \sum_{i=1}^n \1_{[t_{i-1}, t_i)}(t) f(t_{i-1})$.
+Then, $f_n \rightarrow f$ in $L^2$ if $f_n$'s are absolutely continuous.
+Therefore, $I(f) = \lim_{n\rightarrow\infty} I(f_n) = \lim_{n\rightarrow\infty} \sum_{k=1}^n f(t_{i-1})(B(t_i)-B(t_{i-1}))$ ( = Definition of Stieltjes integral $\int_a^b dB(t)$)
+\end{enumerate}
+\end{proof}
 
 
 
