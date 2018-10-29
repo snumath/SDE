@@ -2011,20 +2011,158 @@ Therefore, $I(f) = \lim_{n\rightarrow\infty} I(f_n) = \lim_{n\rightarrow\infty} 
 \end{proof}
 
 
+\begin{exmp}
+\leavevmode
+\begin{enumerate}
+\item $\int_0^1 B(t)dt$?\\
+Let $f(x) = x-1, df(x) = dx$. Then,
+$$
+\begin{aligned}
+\int_0^1 B(t)dt &= B(t)df(t)\\
+&= B(1)f(1) - B(0)f(0) - \int_0^1 f(t)dB(t)\\
+&= -\int_0^1 f(t)dB(t)\\
+&= \int_0^1 (1-t)dB(t)\\
+&\Rightarrow N(0, \int_0^1 (1-t)^2 dt)
+= N(0,\frac{1}{3})
+\end{aligned}
+$$
+
+\item
+By theorem 1 of 2.3.1,
+$X = \int_0^1 tdB(t) = N(0,\frac{1}{3})$ and
+$Y = \int_0^1 t^2dB(t) = N(0,\frac{1}{5})$.
+Moreover, by theorem 2 of 2.3.1, $Cov(X,Y) = \E[XY] - \E[X]\E[Y]
+= \int_0^1 tt^2 dt = \frac{1}{4}$.
+
+\end{enumerate}
+\end{exmp}
 
 
 
+\textbf{Recall} (Martingale)\\
+$(M_t, \F_t)_{t\geq 0}$ is a stochastic process in $(\O,\F,\P)$ with
+\begin{enumerate}
+\item
+$\F_t$: filtration; $\F_s \subset \F_t$ if $s \leq t$;
+$M_t$: $\F_t$-measurable (adapted) $\forall t$.
+
+\item
+$\E[|M_t|] < \infty$
+
+\item
+$\E[M_t|\F_s] = M_s \quad \forall s < t$.
+\end{enumerate}
+
+To show that Wiener integral is Martingale, let
+$M_t = \int_0^t f(u)dB(u)$, and
+$\F_t = \sigma(B_u: u \in [0,s]$.
+Then, $\E[M_t | \F_s]
+= \E[M_t - M_s | \F_s] + \E[M_s | \F_s]
+= \E[\int_s^t f(u)dB(u)|\F_s] + M_s
+= M_s$?
+
+\begin{thm}
+$(M_t,\F_t)$ is Martingale if $f \in L^2([0,\infty)$.
+\begin{proof}
+\begin{enumerate}[wide]
+\item
+By constuction
+
+\item
+$\E[M_t^2] = \int_0^t f(u)^2 du < \infty
+\Rightarrow \E[|M_t|] \leq \E[M_t^2]^{1/2} < \infty$ by Jensen's inequality.
+
+\item WTS: $\E[\int_s^t f(u)dB(u) | \F_s] = 0$.
+\begin{proof}
+Let $f \in L^2[s,t]$.
+Then, $\exists$ simple functions $f_n \in L^2([s,t])$ such that
+$f_n \rightarrow f$ in $L^2([s,t])$. Then,
+$$
+\begin{aligned}
+f_n(x) &= \sum_{k=1}^m \alpha_k \1_{[t_k-1, t_k)}(x)\\
+&\Rightarrow \int_s^t f_n(u)dB(u) = \sum_{k=1}^m \alpha_k (B(t_k)-B(t_{k-1}))\\
+&\Rightarrow \E[\int_s^t f_n(u)dB(u) | \F_s] = 0
+\end{aligned}
+$$
+since $\E[B(t_i) - B(t_{i-1}) | \F_s] = 0.
+$
+Now,
+$$
+\begin{aligned}
+X^2 &:= \E\left[\int_0^t f(u)dB(u) | \F_s\right]^2\\
+&= \E\left[\int_0^t (f(u) - f_n(u))dB(u) | \F_s\right]^2\\
+&\leq \E\left[\left(\int_s^t (f(u) - f_n(u))\right)^2 | \F_s\right]
+\end{aligned}
+$$
+Next, we take $\E$ both sides
+$$
+\begin{aligned}
+\E[X^2] &\leq \E\left[\E\left[\left(\int_s^t (f(u) - f_n(u)) dB(u) \right)^2 | \F_s \right]\right]\\
+&= \E\left[\left(\int_s^t (f(u) - f_n(u) dB(u)\right)^2\right]\\
+&= \int_s^t \left(f(u) - f_n(u)\right)^2 \rightarrow 0
+\end{aligned}
+$$
+\end{proof}
+\end{enumerate}
+\end{proof}
+\end{thm}
+
+
+A key idea is that $\int_0^t f(u) dB(u) = M_t$ is a Martingale.
 
 
 
+\setcounter{chapter}{3}
+\chapter{Stochastic Integrals}
+(Ito Integral)
 
+\textbf{Motivation}
+\begin{itemize}
+\item What is $\int_a^b f(B(u)dB(u))$?
+\item What is $\int_a^b f(u,B(u))dB(u)$?
+\end{itemize}
 
+\begin{exmp}
+$\int_0^T B(t)dB(t) = \lim_{n\rightarrow\infty} \sum_{i=1}^n B(s_i) \left[B(t_i) - B(t_{i-1})\right] = $?\\
+Let $L_n = \sum_{i=1}^n B(t_{i-1})(B(t_{i-1}) - B(t_{i-1}))$, and
+$R_n = \sum_{i=1}^n B(t_i) (B(t_i) - B(t_{i-1}))$.
+Then,
+\begin{enumerate}[wide]
+\item $L_n + R_n = \sum_{i=1}^n (B(t_i)^2 - B(t_{i-1})^2) = B(t_n)^2 - B(t_0)^2 = B(T)^2$.
+\item $R_n - L_n = \sum_{i=1}^n [(B(t_i) - B(t_{i-1}))^2 - (t_i-t_{i-1})] + \sum_{i=1}^n (t_i - t_{i-1}) = (\sum_{i=1}^n X_i) + T$.
+Note that $\E[(\sum_{i=1}^n X_i)^2] = \sum_{i=1}^n \E[X_i^2] + 2\sum_{i<j} \E[X_iX_j]$,
+\begin{enumerate}
+\item
+$i < j \Rightarrow \E[X_iX_j] = \E[B(t_i)-B(t_{i-1}), B(t_j) - B(t_{j-1}) ] = \E[X_i]\E[X_j] = 0$
 
+\item
+$\E[X_i]^2 = \E\left[ (B(t_i)-B(t_{i-1}))^2 - (t_i - t_{i-1})^2 \right] = 2(t_i-t_{i-1})^2 = \frac{T^2}{n^2}$ (exercise).
+\end{enumerate}
+Therefore, $\E((\sum_{i=1}^n X_i)^2) = \frac{T^2}{n}$, and
+$\sum_{i=1}^n X_i \rightarrow 0$ in $L^2(\O) \Rightarrow R_n - L_n \rightarrow T$ in $L^2(\O)$.
+\end{enumerate}
+Therefore, $R_n + L_n \rightarrow B(T)^2$ and $R_n - L_n \rightarrow T$\\
+$\Rightarrow R_n \rightarrow \frac{B(T)^2 + T}{2}, L_n \rightarrow \frac{B(T)^2 - T}{2}$.
 
+\begin{rem}
+In Riemann integral, $\lim_{n\rightarrow\infty} L_n = \lim_{n\rightarrow\infty} R_n$.
+\end{rem}
 
+\begin{rem}
+$L_n$ is called \textbf{Ito Integral}, and
+$M_n = \frac{L_n + R_n}{2}$ is called \textbf{Stratonovich Integral}
+\end{rem}
+\begin{rem}
+We use $L_n$ in many cases since $\E[L_n] = 0$ and $M_t = \int_0^t B(s) dB(s)$ is Martingale in the sense of Ito.
+\end{rem}
+\end{exmp}
 
-
-
+\begin{defn}[Ito Integral]
+$
+\int_a^b f(t,B(t))dB(t) \rightarrow
+\lim_{n\rightarrow\infty}\sum_{i=1}^n f(t_{i-1}, B(t_{i-1}))(B(t_i) - B(t_{i-1}))
+$
+\end{defn}
 
 
 
