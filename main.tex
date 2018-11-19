@@ -2149,15 +2149,15 @@ In Riemann integral, $\lim_{n\rightarrow\infty} L_n = \lim_{n\rightarrow\infty} 
 \end{rem}
 
 \begin{rem}
-$L_n$ is called \textbf{Ito Integral}, and
+$L_n$ is called \textbf{It\^o Integral}, and
 $M_n = \frac{L_n + R_n}{2}$ is called \textbf{Stratonovich Integral}
 \end{rem}
 \begin{rem}
-We use $L_n$ in many cases since $\E[L_n] = 0$ and $M_t = \int_0^t B(s) dB(s)$ is Martingale in the sense of Ito.
+We use $L_n$ in many cases since $\E[L_n] = 0$ and $M_t = \int_0^t B(s) dB(s)$ is Martingale in the sense of It\^o.
 \end{rem}
 \end{exmp}
 
-\begin{defn}[Ito Integral]
+\begin{defn}[It\^o Integral]
 $
 \int_a^b f(t,B(t))dB(t) \rightarrow
 \lim_{n\rightarrow\infty}\sum_{i=1}^n f(t_{i-1}, B(t_{i-1}))(B(t_i) - B(t_{i-1}))
@@ -2345,7 +2345,7 @@ Therefore, they are independent.
 \end{exmp}
 
 % 여기부터 기말
-% Ito integral and Ito' Formula (2 weeks)
+% It\^o integral and It\^o' Formula (2 weeks)
 % SDE (3 weeks)
 
 \section{Filtration for Brownian Motion}
@@ -2383,11 +2383,11 @@ $\F_t = \sigma(B(s) : s \leq t )$ works.
 \end{exmp}
 
 
-Brownian filtration is essential in Ito's integral since
+Brownian filtration is essential in It\^o's integral since
 in Wiener's integral, we concern
 $$\int_a^b f(s) dB(s) : \omega \mapsto \int_a^b f(s) dB(s,\omega),$$
 while
-in Ito's integral, we concern
+in It\^o's integral, we concern
 $$\int_a^b f(s) dB(s) : \omega \mapsto \int_a^b f(s,\omega) dB(s, \omega),$$
 and $f : [a,b] \times \Omega \rightarrow \mathbb{R}$.
 
@@ -2466,7 +2466,7 @@ We denote by $I(f)$ this limit.
 
 \end{enumerate}
 
-\begin{defn}[Ito's integral]
+\begin{defn}[It\^o's integral]
 $\int_a^b f(t) dB(t) := I(f)$
 (Note: We have to check well-definedness)
 \end{defn}
@@ -2543,7 +2543,7 @@ Fact: $X \geq 0, \E[X] < \infty \Rightarrow X < \infty$ a.s.
 $\E[\int_a^b f(t,\omega)^2 dt] = \int_\O\int_a^b f(t,\omega)^2 dt d\P$ (By Fubini)
 $= \int_a^b \int_\O f(t,\omega)^2 d\P dt = \int_a^b \E[f(t)^2] dt$.
 By Fact, condition on chapter 4 implies chdition on chapter 5, hence $L^2_{\text{ad}} \subset \widetilde L^2_{\text{ad}}$.
-In this chapter, we will define Ito's integral with that condition.
+In this chapter, we will define It\^o's integral with that condition.
 
 \vspace{5mm}
 
@@ -2605,7 +2605,7 @@ Question: $X_t = \int_0^t e^{B(s)}dB(s)$. Then is it Martingale? Continuous?
 % \chapter{Stochastic Integrals for Martingale}
 
 \setcounter{chapter}{6}
-\chapter{Ito Formula}
+\chapter{It\^o Formula}
 
 
 \textbf{Motivation}
@@ -2634,6 +2634,8 @@ f(B(b)) - f(B(a))
 &\longrightarrow \int_a^b f'(B(t)) dB(t) + \frac{1}{2} \int_a^b f''(B(t)) dt \quad \text{as } \|\Delta_n\|\rightarrow 0.
 \end{aligned}
 $$
+
+\section{It\^o's Formula in the Simplest Form}
 
 
 \begin{lem}
@@ -2667,26 +2669,173 @@ $\therefore \E[()^2] \leq \frac{2(b-a)^2}{n^2} \sum \frac{2(b-a)^2}{n^2} \sum_{i
 \end{proof}
 
 
+\begin{rem}[Theorem 4.7.1]
+Suppose $f \in L^2_{\text{ad}}$, $h(t,s) = \E[f(t)f(s)]$ is continuous in $\R^2$.
+Then,
+$$
+\int_a^b f(t)dB(t) = \lim_{n\rightarrow\infty} f(t_{i-1})[B(t_i) - B(t_{i-1})]
+$$
+\end{rem}
+
+\begin{rem}
+In the above, $h$ is continuous if
+\begin{enumerate*}[label=(\arabic*)]
+\item $f(t) = g(B(t))$
+\item $f(t) = g(t,B(t))$
+\end{enumerate*}
+for continuous $g$.
+\end{rem}
 
 
 
+\begin{thm}
+$f \in C^2(\R)$.
+Then,
+$$
+f(B(b)) - f(B(a)) = \int_a^b f'(B(t))dB(t) + \frac{1}{2} \int_a^b f''(B(t))dt
+$$
+
+\begin{proof}
+Idea: If $g \in C^2$, then by intermediate theorem $g(y) - g(x) = (y-x)g'(x) + \frac{1}{2}(y-x)^2 g''(\alpha)$ for some $\alpha x + \lambda(y-x), \lambda \in [0,1]$.
+Then,
+\begin{align}
+f(B(b)) - f(B(a))
+&= \sum_{i=1}^n \left( f(B(t_i)) - f(B(t_{i-1})) \right)\tag*{}\\
+&= \sum_{i=1}^n f'(B(t_{i-1}))(B(t_i) - B(t_{i-1}))\tag{1}\\
+&\phantom{= }+ \frac{1}{2} \sum_{i=1}^n f''\left(B(t_{i-1}) + \lambda_i(B(t_i) - B(t_{i-1}))\right) (B(t_i) - B(t_{i-1}))^2\tag{2}
+\end{align}
+and (1) converges to $\int_a^b f'(B(t))dB(t)$ by theorem 4.7.1.
+Thus, it suffices to show that (2) converges to $\frac{1}{2} \int_a^b f''(B(t))dt$ for some subsequence $(n_k)_{k=1}^\infty \rightarrow \infty$.
+
+\begin{enumerate}[label={\bfseries STEP \arabic*}, wide]
+\item
+$\sum_{i=1}^n \left[ f''(B_{t_{i-1}}) + \lambda_i (B(t_i) - B(t_{i-1})) - f''(B(t_{i-1})) \right] (B(t_i) - B(t_{i-1})) \rightarrow 0$
+% a.s. along some subsequence
+
+Let $Y_{i,n} = \sum_{i=1}^n \left[ f''(B_{t_{i-1}}) + \lambda_i (B(t_i) - B(t_{i-1})) - f''(B(t_{i-1})) \right]$.
+Then,
+$$\sum |Y_{i,n} (B(t_i) - B(t_{i-1}))^2| \leq Y_n \sum(B(t_i) - B(t_{i-1}))^2,$$
+where $Y_n = \max\{|Y_{1,n}|, \cdots ,|Y_{n,n}|\}$ and note that
+$\sum (B(t_i) - B(t_{i-1}))^2$ converges to $b-a$.
+Moreover, $Y_n \rightarrow 0$ a.s.
+
+($\because$
+let $M = \max\{B(t): t\in[a,b]\}$ and $m = \min\{B(t): t\in[a,b]\}$.
+Then
+$$
+Z(\delta) = \sup_{x,y\in[m,M], |x-y|<\delta} |f''(y)-f''(x)| \rightarrow 0
+$$
+as $\delta \searrow 0$ by uniform continuity.
+Moreover $D_n := \sup_{i=1\sim n} |B(t_i) - B(t_{i-1})| \rightarrow 0$ as $n\rightarrow\infty$ since Brownian motion is a.s. continous.
+Then, $Y_n \leq Z(D_n) \rightarrow 0$ a.s. as $n\rightarrow 0$.)
+
+\item
+$\sum_{i=1}^n f''(B(t_{i-1}))\left[ (B(t_i) - B(t_{i-1}))^2 - (t_i-t_{i-1}) \right] \rightarrow 0$
+% in probability
+
+We skip the detailed case.
+If $f''$ bounded then
+$\E[\sum_{i=1}^n()]^2 = \sum_{i=1}^n \E[()^2] + 2\sum_{i<j}\E[()()]$.
+The first term is $\E[\E[()^2|\F_{t_{i-1}}]] = \E[f''(B(t_{i-1}))^2 2(t_i-t_{i-1})^2] \leq c/n^2$,
+and the second term is $\E[\E()()|\F_{t_{j-1}}] = 0$
+
+For the non-bounded case, take a bound $L$ so that $E_L = [-L, L]$ and $\1_{E_L}f''$ be bounded.
+Then, $f'' = \1_{E_L}f''$ for sufficient large $L$.
+
+\item
+$\sum_{i=1}^n f''(B(t_{i-1}))(t_i-t_{i-1}) \rightarrow \int_a^b f''(B(t))dt$
+% a.s.
+
+By definition of Riemann integral.
+\end{enumerate}
+The proof ends by adding the three steps.
+\end{proof}
+\end{thm}
+
+\begin{rem}
+In the right side of the equation, the first term is defined as It\^o's integral (but we can interpret it as Riemann sense), and the second term is defined in the sense of Riemann.
+\end{rem}
+
+
+\begin{exmp}
+$e^B(t) - 1= \int_0^t e^{B(s)}dB(s) + \frac{1}{2}\int_0^t e^{B(s)}ds.$
+
+The first term is Martingale and the second term increases in $t$.
+Set $e^{B(t)} = X(t)$.
+Then,
+
+$$
+X(t) - X(0) = \int_0^t X(s) dB(s) + \frac{1}{2} \int_0^t X(s)ds,
+$$
+and
+\begin{equation}
+dX(t) = X(t)dB(t) + \frac{1}{2}X(t)dt\tag{SDE}
+\end{equation}
+\end{exmp}
+
+\begin{rem}
+The first term is noise in stock price, and the second term is increaing in long-term.
+\end{rem}
 
 
 
+\setcounter{section}{2}
+\section{It\^o's Formula Slightly Generalized}
+Let $f(t,x) \in C^{1,2}$ (i.e. $f_t, f_x, f_{xx}$ are continuous)
+Then,
+$$
+f(b,B(b)) - f(a,B(a))
+= \int_a^b f_x(s,B(s))dB(s) + \int_a^b (f_t + \frac{1}{2} f_{xx})(s,B(s))ds
+$$
+
+\begin{proof}
+$f(b,B(b)) - f(a,B(a)) = 
+\sum_{i=1}^n (f(t_i B_{t_i}) - f(t_{i-1}, B_{t_{i-1}}))$, and
+$$
+\begin{aligned}
+f(t_i, B_{t_i} - f(t_{i-1}, B_{t_{i-1}})
+&= \left[f(t_i, B_{t_i}) - f(t_{i-1}, B_{t_i})\right]
++ \left[f(t_{i-1}, B_{t_{i}}) - f(t_{i-1}, B_{t_{i-1}})\right]\\
+&= f(s_i, B_{t_i})(t_i - t_{i-1}) + \text{ same as before}\\
+&\phantom{=}\rightarrow \int_a^b f_t(s,B(s))ds
+\end{aligned}
+$$
+\end{proof}
+
+\begin{exmp}
+$f(t,x) = e^{x-\frac{1}{2}t}$ (or $e^{cx - \frac{c^2}{2}t}$)
+
+Then, $f(t,B(t)) - f(0,B(0))
+= \int_0^t f(s,B(s))dB(s)$ and
+\begin{enumerate}
+\item $X(t) = e^{B(t) - \frac{1}{2}t}$ is Martingale
+\item $dX(t) = X(t)dB(t)$
+\item $\E[X(t)] = \E[X(0)] = 1$
+\end{enumerate}
+\end{exmp}
 
 
+\section{It\^o's Formula in the General Form}
+$$
+X(t) = X(0) + \int_0^t f(s)dB(s) + \int_0^t g(s)ds,
+$$
+where $f \in L^2_{\text{ad}}$; $\int_0^t \E[f(s)^2]ds < \infty \ \forall t$ and
+$g \in L^2_{\text{ad}}$; $g$ is Riemann integrable a.s.
 
 
-
-
-
-
-
-
-
-
-
-
+\begin{thm}
+$\theta \in C^{1,2}(\R\times\R)$. Then,
+$$
+\begin{aligned}
+\theta(b,X(b)) - \theta(a,X(a))
+&= \int_a^b \theta_x(s,X(s))f(s)dB(s)
++ \int_a^b \left(\theta_t + g(s)\theta_x(s,X(s)) + \frac{1}{2}f^2 \theta_{xx}\right)(s,X(s))ds
+\end{aligned}
+$$
+Why? $d\theta(t,B(t)) = \theta_t dt + \theta_x dB_t + \frac{1}{2} \theta_{xx}(dB_t)^2$ and $(dB_t)^2 = dt$ (It\^o formula), $(dB_t)^3 = 0$.
+Thus, $d\theta(t,X(t)) = \theta_tdt + \theta_x dX(t) + \frac{1}{2} \theta_{xx}(dX(t))^2
+= \theta_tdt + fdB(t) + gdt + f^2dt$.
+\end{thm}
 
 
 
