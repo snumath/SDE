@@ -14,7 +14,7 @@
 %\usepackage{listings}
 \usepackage{comment}
 \usepackage{mathtools}
-\usepackage{kotex}
+% \usepackage{kotex}
 
 %\usepackage[math]{iwona}
 \usepackage[tracking]{microtype}
@@ -2828,8 +2828,8 @@ $\theta \in C^{1,2}(\R\times\R)$. Then,
 $$
 \begin{aligned}
 \theta(b,X(b)) - \theta(a,X(a))
-&= \int_a^b \theta_x(s,X(s))f(s)dB(s)
-+ \int_a^b \left(\theta_t + g(s)\theta_x(s,X(s)) + \frac{1}{2}f^2 \theta_{xx}\right)(s,X(s))ds
+&= \int_a^b \theta_x(s,X(s))f(s)dB(s)\\
+&\phantom{==}+ \int_a^b \left(\theta_t + g(s)\theta_x(s,X(s)) + \frac{1}{2}f^2 \theta_{xx}\right)(s,X(s))ds
 \end{aligned}
 $$
 Why? $d\theta(t,B(t)) = \theta_t dt + \theta_x dB_t + \frac{1}{2} \theta_{xx}(dB_t)^2$ and $(dB_t)^2 = dt$ (It\^o formula), $(dB_t)^3 = 0$.
@@ -2838,35 +2838,180 @@ Thus, $d\theta(t,X(t)) = \theta_tdt + \theta_x dX(t) + \frac{1}{2} \theta_{xx}(d
 \end{thm}
 
 
+\textbf{Review}
+
+$g$: differentiable, $f \in C^{1,1} \Rightarrow df(t,g(t)) = f_t(t,g(t))dt + f_x(t,g(t))dg(t)$
+It\^o's formula is a Brownian version of the above ($f,(t,B(t))$).
+
+
+Version 1.
+$df(B(t)) = f'(B(t))dB(t) + \frac{1}{2} f''(B(t))dt$
+
+Version 2.
+$df(t,B(t)) = f_tdt + f_xdB(t) + \frac12f_{xx}dt = f_xdB(t) + (f_t+\frac12f_{xx})dt$
+
+
+\begin{exmp}[Heat Equation]
+$$
+f(x) = 
+\begin{cases}
+f_t = \frac12 f_{xx}\\
+f(0,x) = h(x)
+\end{cases}
+$$
+Question. What is $f(T,x_0) = $?
+
+Answer: $g(t,x) = f(T-t, x+x_0) \Rightarrow g_t = -f_t(T-t, x+x_0), g_{xx} = f_{xx}(T-t,x+x_0)$
+$\therefore f_t = \frac12 f_{xx} \Rightarrow g_t + \frac12 g_{xx} = 0$
+
+$\therefore g(T,B(T)) = -g(0,B(0)) = \int_0^T g_x(t,B(t))dB(t)$
+
+\begin{rem}
+$X_t = \int_0^t f(s)dB(s) \Rightarrow X_t$ is Martingale and continuous path $\Rightarrow \E[X_t] = \E[X_t | \F_0] = X_0 = 0$.
+\end{rem}
+\end{exmp}
+
+$\therefore \E[g(T,B(T))] = -g(0,0) = f(T,x_0) = 0$.
+
+$\therefore f(T,x_0) = \E[f(0,x_0+B(T))] = \E[h(x_0+B(T))] = \int_{-\infty}^\infty h(x_0 + y) \frac{1}{\sqrt{2\pi t}} e^{-\frac{y^2}{2T}}dy$
+
+$\therefore f(T,x_0) = \int_{-\infty}^\infty h(x_0 - y) \frac{1}{\sqrt{2\pi T}} e^{-\frac{y^2}{2T}}dy
+= (h * P_T)(x_0)$. ($P_t$: Heat Kernel)
+
+\begin{rem}
+It is a canonical relation of heat equation(PDE) and Brownian motion(probability).
+\end{rem}
+
+
+Version 3.
+$\theta(t,x) \in C^{1,2}$. A \textbf{integral form} is
+$$
+X_t = X_0 + \int_0^t f(s)dB(s) + \int_0^t g(s)ds,
+$$
+where $f,g$ are stochastic process: $f \in L^2_{\text{ad}}, g \in L^1_\text{ad}$.
+A \textbf{stochastic differential} is
+$$
+dX_t = f(t)dB(t) + g(t)dt
+$$
+
+
+
+Formal computation:
+$
+\begin{cases}
+dtdt = 0\\
+dB(t)dt = 0\\
+dB(t)dB(t) = dt
+\end{cases}
+$
+
+
+\begin{thm}
+Version 1.
+$$df(B_t) = f'(B_t)dB_t + \frac12 f''(B_t)(dB_t)^2$$
+%$(= f'(B_t)dB_t + \frac12 \sum f''(B_t)(B_{t_i}-B_{t_{i-1}})^2$
+
+Version 2.
+$$df(t,B_t) = f_tdt + f_xdB_t + \frac12 f_{xx} (dB_t)^2$$
+
+Version 3.
+$$d\theta(t,X_t) = \theta_t dt + \theta_x dX_t + \frac12 \theta_{xx}(dX_t)^2$$
+
+\hspace{4mm}(Note: $dX_t = fdB_t + gdt \Rightarrow (dX_t)^2 = (fdB_t + gdt)^2 = f^2dt$)
+
+Version 3*.
+$$d\theta(t,X_t) = [\theta_t + g\theta_x + \frac12 f^2 \theta_{xx}]dt + f\theta_x dB_t,$$
+and its integral form is
+$$
+\theta(t,X_0) - \theta(0,X_0)
+= \int_0^t \theta_t + g\theta_x + \frac12 f^2 \theta_{xx} dt + \int_0^t f\theta_x dB_t
+$$
+
+% Learn functional analysis to prove more elegant and intuitive way
+
+% \begin{proof}[Proof of sketch]
+% $$
+% \sum_{i=1}^n \frac12 \theta_{xx}(t_{i-1}, X_{t_{i-1}})(X_{t_i}-X_{t_{i-1}})^2
+% = \sum_{i=1}^n \frac12 \theta_{xx}(t_{i-1}, X_{t_{i-1}})
+% \left[(t_i-t_{i-1})g(t_{i-1}) + (B_{t_i}-B_{t_{i-1}})f(t_{i-1})\right]^2
+% $$
+% \end{proof}
+\end{thm}
+
+
+
+\begin{exmp}[Geometric Brownian Motion]
+$$dS(t) = \mu S(t)dt + \sigma S(t) dB(t).$$
+% 장기적 우상향과 변동폭
+Set $\theta(t,x) = \log x$.
+
+$$
+\begin{aligned}
+d\theta(t,S(t))
+&= \theta_x(t,S(t))dS(t) + \frac12 \theta_{xx}(t,S(t))(dS(t))^2\\
+&= \frac{1}{S(t)} \left[\mu S(t)dt + \sigma S(t)dB(t)\right] + \frac12(-\frac{1}{S(t)^2})\sigma^2 S(t)^2 (dB(t))^2\\
+&= (\mu-\frac12\sigma^2)dt + \sigma dB(t).
+\end{aligned}
+$$
+It's integral form is
+$$\theta(t,S(t)) - \theta(0,S(0)) = (\mu - \frac12\sigma^2)t + \sigma B(t).$$
+Therefore $\log S(t) - \log S(0) = (\mu-\frac12 \sigma^2)t + \sigma B(t)$ and
+$S(t) = S(0) e^{(\mu-\frac12\sigma^2)t + \sigma B(t)}$
+\end{exmp}
+
+\vspace{5mm}
+
+\begin{exmp}[Vasicek's Model for interest rate]
+$$
+dr_t = (\alpha - \beta r_t)dt + \sigma dB(t).
+$$
+(Mean reverting to $\alpha/\beta$, and $\sigma dB(t)$ is noise)
+
+Set $\theta(t,x) = e^{\beta t}x$.
+
+$$
+\begin{aligned}
+d\theta(t,r_t)
+&= \theta_t(t,r_t)dt + \theta(t,r_t)\left[ (\alpha-\beta r_t)dt + \sigma dB_t \right]
++ \frac12 \theta_{xx}(t,r_t)\sigma^2 dt\\
+&= \beta e^{\beta t} r_tdt + e^{\beta t}x[(\alpha-\beta r_t)dt + \sigma dB_t]\\
+&= \alpha e^{\beta t}dt + \sigma e^{\beta t}dB_t .
+\end{aligned}
+$$
+It's integral form is
+$$
+\theta(t,r_t) - \theta(0,r_0)
+= \int_0^t \alpha e^{\beta s}ds + \int_0^t \sigma e^{\beta s} dB(s).
+$$
+Therefore, $e^{\beta t}r_t - r_0 = \alpha \frac{e^{\beta t -1}}{\beta} + N(0, \sigma^2 \frac{e^{2\beta t}-1}{2\beta})$ and
+$$
+r_t = e^{-\beta t}r_0 + \frac\alpha\beta (1-e^{-\beta t}) + N\left(0, \frac{\sigma^2}{2\beta}(1-e^{-2\beta t})\right).
+$$
+Furthermore, $r_t \rightarrow \frac\alpha\beta + N(0, \frac{\sigma^2}{2\beta})$ as $t\rightarrow0$.
+\end{exmp}
 
 
 
 
+\newpage
 
 
+\textbf{Multidinensional Brownian Motion}
 
+Brownian motion in $\mathbb{R}^d$ is a $d$-independent Brownian motion $B(t) = (B_1(t), B_2(t), \cdots, B_d(t))$.
 
+$$
+\begin{aligned}
+B(t) : \ &\O \longrightarrow \R^d\\
+&\omega \longmapsto (B_1(t,\omega), \cdots, B_d(t,\omega))
+\end{aligned}
+$$
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{rem}
+In $d$-dimensional Brownian motion $B(t)$, consider a $d$-dimensional ball $A$.
+If $d = 1$, then obvious $\phi(d) = \P[\exists t \text{ s.t. }B(t) \in A] = 1$.
+If $d = 2$, then $\phi(d) = 1$, and $\phi(d) < 1$ for $d > 2$ (not zero)
+\end{rem}
 
 
 
