@@ -2124,7 +2124,7 @@ A key idea is that $\int_0^t f(u) dB(u) = M_t$ is a Martingale.
 
 \begin{exmp}
 $\int_0^T B(t)dB(t) = \lim_{n\rightarrow\infty} \sum_{i=1}^n B(s_i) \left[B(t_i) - B(t_{i-1})\right] = $?\\
-Let $L_n = \sum_{i=1}^n B(t_{i-1})(B(t_{i-1}) - B(t_{i-1}))$, and
+Let $L_n = \sum_{i=1}^n B(t_{i-1})(B(t_{i}) - B(t_{i-1}))$, and
 $R_n = \sum_{i=1}^n B(t_i) (B(t_i) - B(t_{i-1}))$.
 Then,
 \begin{enumerate}%[wide]
@@ -2996,7 +2996,7 @@ Furthermore, $r_t \rightarrow \frac\alpha\beta + N(0, \frac{\sigma^2}{2\beta})$ 
 \newpage
 
 
-\textbf{Multidinensional Brownian Motion}
+\textbf{Multidimensional Brownian Motion}
 
 Brownian motion in $\mathbb{R}^d$ is a $d$-independent Brownian motion $B(t) = (B_1(t), B_2(t), \cdots, B_d(t))$.
 
@@ -3012,6 +3012,286 @@ In $d$-dimensional Brownian motion $B(t)$, consider a $d$-dimensional ball $A$.
 If $d = 1$, then obvious $\phi(d) = \P[\exists t \text{ s.t. }B(t) \in A] = 1$.
 If $d = 2$, then $\phi(d) = 1$, and $\phi(d) < 1$ for $d > 2$ (not zero)
 \end{rem}
+
+
+\vspace{5mm}
+
+
+Goal of the today: Multidimensional It\^o's formula (chapter 7) and SDE (chapter 10). 
+
+
+Let $B_1(t), B_2(t), \cdots, B_n(t)$ be independent Brownian motions.
+\begin{equation}
+\begin{aligned}
+dX_t^{(1)} = f_{11}(t)dB_1(t) + f_{12}(t) dB_2(t) + g_1(t)dt\\
+dX_t^{(2)} = f_{21}(t)dB_1(t) + f_{22}(t) dB_2(t) + g_2(t)dt,
+\end{aligned}
+\tag{$\bigstar$}
+\end{equation}
+$f_{11}, f_{12}, f_{21}, f_{22} \in L^2_{\text{ad}}, g_1, g_2 \in L^1[a,b]$ a.s.
+$(\bigstar)$ can be written as
+
+$$
+d
+\begin{pmatrix}
+X_t^{(1)}\\
+X_t^{(2)}
+\end{pmatrix}
+=
+\begin{pmatrix}
+f_{11} & f_{12}\\
+f_{21} & f_{22}\\
+\end{pmatrix}
+d
+\begin{pmatrix}
+B_1(t)\\
+B_2(t)
+\end{pmatrix}
++
+\begin{pmatrix}
+g_1\\
+g_2
+\end{pmatrix}
+dt
+$$
+or
+
+$$
+dY_t = F(t) dB(t) + G dt.
+$$
+$Y_t$ is diffusivity, $B(t)$ is 2-dim Brownian motion, $G$ is drift.
+
+\underline{Note}
+\begin{itemize}
+\item $dt dt = dB_1 dt = dB_2 dt = dB_1 dB_2 = 0$
+\item $(dB_1)^2 = (dB_2)^2 = dt$
+\end{itemize}
+
+
+\begin{thm}
+$\theta(t,x,y)$, $\theta: [a,b] \times \R^2 \rightarrow \R \in C^{1,2}([a,b]\times\R^2)$.
+Then,
+$$
+d\theta(t, X_t^{(1)}, X_t^{(2)})
+= \theta_t dt + \theta_x dX_t^{(1)} + \theta_y dX_t^{(2)}
++ \frac12 \theta_{xx}\left(dX_t^{(1)}\right)^2 + 
++ \frac12 \theta_{yy}\left(dX_t^{(2)}\right)^2 + 
+\theta_{xy} dX_t^{(1)}dX_t^{(2)}
+$$
+\end{thm}
+
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}[wide]
+\item
+$f(t,B_1(t),B_2(t))$
+
+$$
+\begin{aligned}
+&\phantom{==}df(t,B_1(t), B_2(t)) = f_tdt + f_x dB_1 + f_y dB_2 + \frac12 f_{xx} dt + \frac12 f_{yy} dt\\
+&= \left(f_t + \frac12(f_{xx}+f_{yy})\right)dt + f_x dB_1 + f_y dB_2
+\end{aligned}
+$$
+Using this, we can solve the heat equation $g_t = \frac12(g_{xx} + g_{yy}) = \frac12 \Delta g$
+by putting $f(t,x,y) = g(T-t, x+x_0, y+y_0)$.
+
+\item
+$X_t, Y_t ; \theta(t,x,y) = xy$.
+
+\begin{equation}
+d(X_tY_t)
+= Y_t dX_t + X_t dY_t + dX_t dY_t
+\tag{product rule}
+\end{equation}
+
+\item
+$\theta(t,x,y) = \frac{x}{y}$. Find $d(\frac{X_t}{Y_t})$ (exercise!)
+
+\item
+$dX_t = aX_t dB_1(t)+ bX_t dB_2(t) + \alpha X_t dt$,
+$dY_t = cT_y dB_1(t) + dY_t dB_2(t) + \beta Y_t dt$.
+(Two noise in the stock price)
+
+$$
+\begin{aligned}
+d(X_tY_t)
+&= X_t dY_t + Y_t dX_t + dX_t dY_t\\
+&= X_tY_t((a+c)dB_1(t) + (b+d)dB_2(t))
++ X_tY_t(\alpha + \beta + (ac+bd))dt
+\end{aligned}
+$$
+Put $Z_t = X_tY_t$. Then,
+$$
+\begin{aligned}
+dZ_t &= Z_t\left((a+c)dB_1(t)+(b+d)dB_2(t) \right)
++ (\alpha+\beta+(ac+bd))Z_tdt\\
+&= \sqrt{(a+c)^2 + (b+d)^2}dB(t) + + (\alpha+\beta+(ac+bd))Z_tdt\\
+&= \sigma Z_t dB_t + \mu Z_t dt\\
+&\Rightarrow Z_t \text{ is a generalized Brownian motion.}
+\end{aligned}
+$$
+
+\underline{{Note}}:
+$\frac{\alpha B_1 + \beta B_2}{\sqrt{\alpha^2+\beta^2}}$ is a Brownian motion (exercise)
+
+\end{enumerate}
+\end{exmp}
+
+
+
+
+
+
+\setcounter{chapter}{9}
+\chapter{Stochastic Differential Equations}
+
+\begin{itemize}
+\item
+$\sigma(t,x), f(t,x): [a,b]\times\R \rightarrow \R$ (measurable)
+
+\item
+$B(t)$: Brownian motion
+
+\item
+$\F_t$: Brownian Filtration (i.e., $B(t) - B(s)$ is independent of $\F_t$ for all $s < t$)
+
+\item
+$\xi$: $\F_a$-measurable random variable.
+\end{itemize}
+
+
+\vspace{5mm}
+
+\textbf{SDE} (Stochastic Differential Euqation)
+$$
+dX_t = \sigma(t,X_t) dB(t) + f(t,X_t)dt; X_a = \xi.
+$$
+
+is equivalent to \textbf{SIE} (Stochastic Integral Equation)
+$$
+X_t = \int_a^t \sigma(s, X_s) dB(s) + \int_a^t f(s,X_s)ds + \xi.
+$$
+
+\section{Some Examples}
+
+
+\begin{defn}[Solution of SDE]
+$X_t$: Stochastic Process on $t \in [a,b]$.
+$X_t$ is a solution of SDE if
+\begin{enumerate}
+\item
+$\sigma(t,X_t) \in L^2_{\text{ad}}([a,b], L^2(\O)) \ \forall t$ (\textit{cf.} Ch 5.)
+
+\item
+$f(t,X_t) \in L^1([a,b])$ a.s.
+
+\item
+SIE holds $\forall t \in [a,b]$ a.s.
+\end{enumerate}
+
+\begin{rem}
+1 implies that the first term of SIE is defined, and 2 implies that the second term of SIE is defined.
+Thus, the important condition is 3.
+\end{rem}
+\end{defn}
+
+
+
+Question.
+1. Exist? 2. Unique?
+
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}
+\item
+(Non-Existence)
+$dX_t = X_t^2 dB_t + X_t^3 dt, X_0 = 1$.
+
+$Y_t = \frac{1}{X_t} = f(X_t)$, $f(x) = \frac{1}{x}$.
+Then,
+$$
+\begin{aligned}
+dY_t
+&= f'(X_t)dX_t + \frac12 f''(X_t)(dX_t)^2\\
+&= \left(-\frac{1}{X_t^2}\right) (X_t^2 dB_t + X_t^3 dt) + \frac{1}{2} \left(\frac{2}{X_t^3}\right)X_t^4 dt\\
+&= -dB_t
+\end{aligned}
+$$
+$\therefore Y_t = Y_0 - B = 1-B_t$ and $X_t = \frac{1}{1-B_t}$, which makes an explosion on $B_t = 1$
+
+\item
+(Non-Uniqueness)
+$dX_t = 3X_t^{\frac{2}{3}}dB_t + 3X_t^{\frac{1}{3}}dt, X_0 = 0$.
+
+$f_a(x) :=
+\begin{cases}
+(x-a)^3 & x \geq a\\
+0 & x < a
+\end{cases}
+(a > 0)
+\in C^2(\R)
+$.
+Let $Y_t = f_a(B_t)$. Then,
+$$
+\begin{aligned}
+dY_t
+&= f_a'(B_t)dB_t + \frac{1}{2}f_a''(B_t)dt\\
+&= 3f_a(x)^{2/3}(B_t)dB_t + 3 f_a(x)^{1/3}(B_t)dt\\
+&= 3Y_t^{2/3}dB_t + 3Y_t^{1/3}dt.
+\end{aligned}
+$$
+Therefore, $Y_t$ is invariant of $a$, and the solution of $Y_t$ is not unique.
+\end{enumerate}
+\end{exmp}
+
+
+% \section{Bellman-Gronwall Inequality}
+\setcounter{section}{2}
+\section{Existence and Uniqueness Theorem}
+
+
+
+\begin{thm}
+Let $dX_t = \sigma(t,X_t)dB_t + f(t,X_t)dt$.
+\begin{enumerate}
+\item
+If $\sigma, f$ are Lipschitz (uniformly in time), then the solution is unique
+
+\item
+If $\sigma, f$ are Lipschitz and Linear Growth, then the solution uniquely exists.
+\end{enumerate}
+\end{thm}
+
+\underline{Note}
+\begin{itemize}
+\item
+Lipschitz (uniformly in time)
+$$
+|g(t,x) - g(t,y)| \leq c|x-y| \text{ for some } c > 0
+$$
+
+\item
+Linear Growth
+$$
+|g(t,x)| \leq c(|x|+1) \text{ for some } c > 0
+$$
+\end{itemize}
+
+
+\underline{Next Classes}\\
+1,2,3 $\longrightarrow$ prove uniqueness and existence\\
+4 $\longrightarrow$ Markov Property of $(X_t)$\\
+5 $\longrightarrow$ Martingale (12/12)
+
+% \section{System of Stochastic Differential Equations}
+
+
+
+
+
+
 
 
 
