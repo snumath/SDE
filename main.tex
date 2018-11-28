@@ -3247,11 +3247,43 @@ Therefore, $Y_t$ is invariant of $a$, and the solution of $Y_t$ is not unique.
 \end{exmp}
 
 
-% \section{Bellman-Gronwall Inequality}
+\section{Bellman-Gronwall Inequality}
+We only concern Gronwall's Inequality. It is related to uniqueness.
+
+
+\begin{thm}[Gronwall's Inequality]
+Let $\phi, f \in L^1([a,b]), \beta > 0$.
+If $\phi(t) \leq f(t) + \beta \int_a^t \phi(s)ds$ $\forall t\in[a,b]$, then
+$$
+\phi(t) \leq f(t) + \beta\int_a^t f(s)e^{\beta(t-s)}ds.
+$$
+
+\begin{rem}
+\leavevmode
+\begin{itemize}
+\item $f$ can be negative-valued.
+\item $f = 0$ is an interesting case.
+(If $\phi$ is non-negative, then $\phi = 0$.)
+\end{itemize}
+\end{rem}
+
+\begin{proof}
+Let $g(t) = \beta\int_a^t \phi(s)ds$.
+Then, $g'(t) = \beta\phi(t), \frac{1}{\beta}g'(t) \leq f(t)+g(t)$, and $g'(t)-\beta g(t) \leq \beta f(t)$.
+Let $h(t) = e^{-\beta t}g(t)$ so that
+$h'(t) = e^{-\beta t}[g'(t)-\beta g(t)] \leq \beta e^{-\beta t}f(t)$.
+Therefore, $h(t)  \leq \int_a^t \beta e^{-\beta s}f(s)ds$,
+$e^{-\beta t}g(t) \leq \int_a^t \beta e^{-\beta s}f(s)ds$, and
+$g(t) \leq \int_a^t \beta e^{\beta(t-s)}f(s)ds$.
+\end{proof}
+\end{thm}
+
 \setcounter{section}{2}
 \section{Existence and Uniqueness Theorem}
 
 
+SDE is a differential equation of the form $dX_t = \sigma(t,X_t)dB_t + f(t,X_t)dt$ and $X_a = \xi: \F_a$-measurable, $\E[\xi^2] < \infty$.
+To show the uniqueness and existence of SDE, we need
 
 \begin{thm}
 Let $dX_t = \sigma(t,X_t)dB_t + f(t,X_t)dt$.
@@ -3277,6 +3309,16 @@ Linear Growth
 $$
 |g(t,x)| \leq c(|x|+1) \text{ for some } c > 0
 $$
+
+\item
+$X_t$ (SP) is continuous if $h(t) = X_t(\omega)$ is continous in $t$ for a.s. $\omega \in \O$.
+$$
+\begin{aligned}
+X : &[a,b] \times \Omega &\rightarrow &\hspace{5mm}\R\\
+&\hspace{3mm}(t,\omega) &\mapsto &X(t,\omega) = X_t(\omega)
+\end{aligned}
+$$
+
 \end{itemize}
 
 
@@ -3285,7 +3327,165 @@ $$
 4 $\longrightarrow$ Markov Property of $(X_t)$\\
 5 $\longrightarrow$ Martingale (12/12)
 
+
+
+\begin{proof}[Proof of uniqueness]
+Assume the solution exists.
+Let there are two solutions $X_t, Y_t$ of SDE.
+To show the uniqueness, we have to show
+$$
+\P[X_t = Y_t \enspace \forall t\in[a,b]] = 1.
+$$
+Write $X_t$ and $Y_t$ as SIE form:
+$$
+X_t = \xi + \int_a^t \sigma(s,X_s)dB_s + \int_a^t f(s,X_s)ds,
+$$
+$$
+Y_t = \xi + \int_a^t \sigma(s,Y_s)dB_s + \int_a^t f(s,Y_s)ds,
+$$
+and the difference $Z_t = X_t - Y_t$ can be written as $\int (1) dB_s + \int (2)ds$.
+
+
+Part (1): $M_t = \int_a^t [\sigma(s,X_s) - \sigma(s,Y_s)]dB_s$
+\begin{align}
+\E[M_t^2] &= \int_a^t \E\left[(\sigma(s,X_s)-\sigma(s,Y_s))^2\right]ds\tag*{}\\
+&= \int_a^b \E\left[ L^2(X_s-Y_s)^2 \right]ds\tag{By Lipschitz}\\
+&= L^2\int_a^t \E\left[Z_s^2\right]ds.\tag*{}
+\end{align}
+
+
+Part (2): $N_t = \int_a^b \left[f(s,X_s)-f(s,Y_s)\right]ds$.
+\begin{align}
+N_t^2
+&\leq \int_a^t 1ds \int_a^t \left[ f(s,X_s)-f(s,Y_s)\right]^2ds\tag*{}\\
+&\leq (b-a) \int_a^t L^2(X_s-Y_s)^2ds\tag{By Lipschitz}\\
+&= L^2(b-a)\int_a^t Z_s^2 ds.\tag*{}
+\end{align}
+
+$\therefore Z_t = M_t + N_t, Z_t^2 = (M_t + N_t)^2 \leq 2M_t^2 + 2N_t^2$, and
+$$\phi_t \leq 2L^2\int_a^t \phi(s)ds + 2L^2(b-a)\int_a^b \phi(s)ds.$$
+
+Apply Gronwall's inequality with $Z_t = X_t - Y_t, \phi(t) = \E[Z_t^2], \phi(t) \leq 2L^2(1+b-a)\int_a^t \phi(s)ds$.
+Then, $\phi(t) \leq 0 \Rightarrow \phi(t) = 0 \enspace \forall t\in[a,b]$.
+Since the expectation of square is zero, $Z_t = 0 \enspace \forall t \in [a,b]$ a.s.
+
+Let $\{r_1, r_2, \cdots\}$ be enumeration of $\mathbb{Q} \cap [a,b]$.
+Define $\O_i = \{ \omega : Z_{r_i}(\omega) = 0\}$, and $\P(\O_i) = 1$.
+Then, $\O_0 = \bigcap_{i=1}^\infty \O_i$ is to be $\P(\O_0) = 0$.
+Now, $\omega \in \O_0, Z_t(\omega) = 0$ for all $t \in \mathbb{Q} \cap [a,b]$.
+Let $\O_X = \{ \omega : X_t(\omega) \text{ is continuous in t}\}$, and
+$\O_Y = \{ \omega : Y_t(\omega) \text{ is continuous in t}\}$.
+Then, $\P(\O_X) = \P(\O_Y) = 1$, and $\O^* = \O_0 \cap \O_X \cap \O_Y$ is to be $\P(\O^*) = 1$.
+
+$\therefore \omega \in \O^* \Rightarrow
+\begin{cases}
+Z_t(\omega) = 0 \enspace \forall t \in \mathbb{Q} \cap [a,b]\\
+Z_t(\omega) \text{ is continuous in } t.
+\end{cases}
+\Rightarrow Z_t(\omega) = 0 \enspace \forall t\in[a,b]
+$.
+
+$\therefore \P \left[ \{ \omega : X_t(\omega) - Y_t(\omega) \enspace \forall t \in [a,b] \right] = 1$.
+In other words, $X_t = Y_t$. %(or indistinguishable, $X_t$ is a realization of $Y_t$, ...)
+\end{proof}
+
+
+
 % \section{System of Stochastic Differential Equations}
+
+
+
+
+
+To show the existence, we need
+\begin{enumerate}
+\item Bellman-Gronwall's Inequality
+\item Borel-Cantelli's Lemma (3.2.1)
+\item Doob's (Sub)Martingale Inequality (4.5.1)
+\end{enumerate}
+
+
+
+
+\begin{thm}[Doob's Martingale inequality]
+If $M_t$ is Martingale in $[a,b]$, continuous (i.e., $\E[M_t | \F_s] = M_s \ \forall a \leq s < t \leq b$), then
+$$
+\P\left[\sup_{a\leq t \leq b}\left|M_t\right| \geq \epsilon \right] \leq \frac{\E[|M_b|]}{\epsilon}.
+$$
+(\textit{cf.} $\E[|M_t|]$ is increasing in $t$, so is $\E[\phi(M_t)]$ for convex $\phi$.)
+\end{thm}
+
+\begin{rem}
+Applying Chebyshev's inequality,
+$$
+\P\left[\sup_{a\leq t \leq b}\left|M_t\right| \geq \epsilon \right]
+\leq \frac{\E[\sup_{a\leq t \leq b}|M_b|]}{\epsilon}
+\leq \frac{\sup_{a\leq t\leq b}\E[|M_t|]}{\epsilon}
+= \frac{\E[|M_t|]}{\epsilon}
+$$
+\end{rem}
+
+
+
+
+\begin{thm}[Borel-Cantelli's Lemma]
+Let $(\O,\F,\P)$ be a probability space.
+For $A_1, A_2, \cdots$,
+$$
+\sum_{n=1}^\infty \P[A_n] < \infty \Rightarrow \P[A_n\text{'s occur infinitely often}] = 0.
+$$
+% and$$\sum_{n=1}^\infty \P[A_n] = \infty \Rightarrow \P[A_n\text{'s occur infinitely often}] = 1.$$
+\end{thm}
+
+\begin{rem}
+$A_n$'s occur infinitely often means the number of $n$ such that $\omega \in A_n$ is infinite.
+\end{rem}
+
+\begin{proof}
+$\{\omega: \omega\in A_n \text{ for infinitely many } n\}
+= \bigcap_{n=1}^\infty\left[\bigcup_{k=n}^\infty A_k\right]
+=: \bigcap_{n=1}^\infty B_n$, and $B_1 \supset B_2 \cdots \rightarrow B$.
+$$
+\begin{aligned}
+\therefore
+\P\left[ A_n\text{'s occur infinitely often}\right]
+&= \P[\bigcap_{n=1}^\infty B_n]\\
+&= \lim_{n\rightarrow\infty} \P(B_n)\\
+&\leq \lim_{n\rightarrow\infty}\sum_{k=n}^\infty \P(A_k)\\
+&= 0.
+\end{aligned}
+$$
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
