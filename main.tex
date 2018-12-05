@@ -3459,16 +3459,159 @@ $$
 
 
 
+% 아파서 빠짐 ㅜㅜ %
+Ah pa seo bba jim bb.
+
+Bellman's inequality (Review)
+$$
+\begin{cases}
+\Theta_n(t) \leq \alpha + \beta \int_a^t \Theta_n(s)ds\\
+\Theta_1(t) = c.
+\end{cases}
+\Rightarrow \Theta_{n+1}(t) \leq \alpha e^{\beta(t-a)} + c \frac{\beta^n (t-a)^n}{n!}.
+$$
 
 
 
+\textbf{Existence and Uniqueness}
+\begin{itemize}
+\item $dX_t = \sigma(t, X_t)dW_t + f(t,X_t)dt$.
+\item $X_\infty = \xi$.
+\end{itemize}
+
+If $\E[\xi^2] < \infty$ and $\sigma, f$ are Lipschitz and Linear growth, then
+there is a unique solution $X \in L^2_{\text{ad}}([a,b]\times \O)$ of SDE.
 
 
+\begin{proof}[Idea]
+Let $X_t^{(1)} = \xi \ \forall t$, and let $X_t^{(n+1)} = \xi + \int_a^t \sigma(s,X_s^{(n)})dB_s + \int_a^t f(s,X_s^{(n)})ds$.
+Then, $X_t^{(n)} \rightarrow X_t$.
+
+\begin{enumerate}[wide]
+\item
+$\int_a^b \E[(X_t^{(n)})^2]dt < \infty \ \forall n$.
+\begin{enumerate}
+\item $n = 1$: trivial.
+\item $n \rightarrow n+1$.\\
+$\E[(X_t^{(2)})^2] =: \Theta_n(t)$.
+Then,
+$$
+\begin{aligned}
+\Theta_{n+1}(t) &= \E\left[(X_t^{n+1})^2\right]\\
+&\leq 3\E[\xi^2] + 3\E\left[\left( \int_a^t \sigma(s,X_s^{(n)})dB_s \right)^2\right] + 3\E\left[\left( \int_a^t f(s,X_s^{(n)})ds \right)^2\right]\\
+&\leq 3\E[\xi^2] + 3\int_0^t \E\left[\sigma(s,X_s^{(n)})^2\right]ds + 3\E\left[ \int_a^t 1ds \int_a^t f(s,X_s^{(n)})^2ds \right]\\
+&\leq c_1 + c_2\int_a^t \left(1 + \E\left[\left(X_s^{(n)}\right)^2\right]\right) + c_3 \int_a^t \left(1+\E[X_s^{(n)}]^2\right)ds\\
+&\leq c_4 + c_5 \int_a^t \E\left[(X_s^{(n)})^2\right]ds\\
+&= c_4 + c_5 \int_a^t \Theta_n (s)ds.
+\end{aligned}
+$$
+$\therefore \Theta_{n+1}(t) \leq c_4 + c_5 \int_a^t \Theta_n(s)ds$ and $\Theta_1(t) = \E[\xi^2]$.
+By Bellman's inequality,
+$$
+\Theta_{(n+1)}(t) \leq c_4 e^{c_5(t-a)} + \E[\xi^2]\frac{c_5^n(t-a)^n}{n!}.
+$$
+\end{enumerate}
+Therefore, $X_t^{(n+1)}$ is well-defined. (the second term is It\^o's integral in the sense of Ch4.)
+The difference of $X_{t}^{(n)}$ is
+$$
+X_{t+1}^{(n)} - X_{t}^{(n)} = \int_a^t \left[ \sigma(s,X_s^{(n)}) - \sigma(s,X_s^{(n-1)})dB_s \right]
++ \int_a^t \left[ f(s,X_s^{(n)}) - f(s,X_s^{(n-1)})dB_s \right]
+$$
+and denote it $X_{t+1}^{(n)} - X_t^{(n)} = \bigstar + \spadesuit$.
+
+\item
+$\E\left[|X_t^{(n+1)} - X_t^{(n)}|^2\right] \leq 2\E[\bigstar^2] + 2\E[\spadesuit^2].$
+
+\begin{enumerate}[wide]
+\item
+$\E[\bigstar^2] = \int_a^t \E\left[ \left( \sigma(s,X_s^{(n)}) - \sigma(s,X_s^{(n-1)}) \right)^2 \right]ds
+\leq c\int_a^t \E\left(|X_s^{(n)} - X_s^{(n+1)}|^2\right)$
+
+\item
+$\E[\spadesuit^2]
+= \E\left[\int_a^t 1ds \int_a^t \E\left[ \left( f(s,X_s^{(n)}) - f(s,X_s^{(n-1)}) \right)^2 \right]ds\right]
+\leq (b-a)\int_a^t \E\left(|X_s^{(n)} - X_s^{(n+1)}|^2\right)$
+\end{enumerate}
+Let $\varphi_n(t) = \E\left[ \left( X_t^{(n)} - X_t^{(n-1)} \right)^2 \right]$.
+Then, $\varphi_{n+1}(t) \leq M \int_a^t \varphi_n(s)ds$.
+
+\begin{rem}
+$X_t^{(1)} = \xi$, and $X_t^{(2)} = \xi + \int_a^t \sigma(s,\xi)dB_s + \int_a^t f(s,\xi)ds$.
+Then,
+$$\varphi_2(t) = \E[(X_t^{(2)} - X_t^{(1)})^2] \leq c(1 + \E[\xi^2]) := \rho.$$
+By Bellman's inequality,
+$$
+\varphi_{n+1}(t) \leq \rho \frac{M^{n-1}(t-a)^{n-1}}{(n-1)!} \leq  \rho \frac{M^{n-1}(b-a)^{n-1}}{(n-1)!}  := \alpha_n \searrow 0.
+$$
+\end{rem}
+
+\item
+$\P\left[ \sup\limits_{a\leq t \leq b} \left|X_t^{(n+1)} - X_t^{(n)}\right| \geq \dfrac{1}{n^2} \right] \leq cn^4 \alpha_{n-1}$.
+
+%$$ X_{t+1}^{(n)} - X_{t}^{(n)} = \int_a^t \left[ \sigma(s,X_s^{(n)}) - \sigma(s,X_s^{(n-1)})dB_s \right] + \int_a^t \left[ f(s,X_s^{(n)}) - f(s,X_s^{(n-1)})dB_s \right]$$
+$$
+\begin{aligned}
+\P\left[ \sup\limits_{a\leq t \leq b} \left|X_t^{(n+1)} - X_t^{(n)}\right| \geq \dfrac{1}{n^2} \right]
+&\leq \P\left[\left\{\sup_{a \leq t \leq b}|\bigstar| \geq \frac{1}{2n^2}\right\} \cup \left\{ \sup_{a \leq t \leq b}|\spadesuit| \geq \frac{1}{2n^2} \right\} \right]\\
+& \leq \P\left[\sup_{a \leq t \leq b}|\bigstar| \geq \frac{1}{2n^2}\right] + \P\left[ \sup_{a \leq t \leq b}|\spadesuit| \geq \frac{1}{2n^2} \right]\\
+&= p_1+ p_2.
+\end{aligned}
+$$
+
+\begin{enumerate}[wide]
+\item
+By Doob's Martingale inequality, i.e. $\P[\sup_{a\leq t\leq b}|M_t| \geq \alpha] \leq \dfrac{ \E[M_b^2] }{\alpha^2}$
+$$
+\begin{aligned}
+p_1 &\leq \frac{1}{(\frac{1}{2n^2})^2}\E\left[ \left\{ \int_a^b \left( \sigma(s,X_s^{(n)}) - \sigma(s,X_s^{(n)}) \right) dB_s \right\} \right]^2\\
+&\leq 4n^4 c \int_a^b \E\left[\left( X_s^{(n)} - X_s^{(n-1)} \right)^2\right]ds\\
+&\leq 4n^4c (b-a)\alpha_{n-1}\\
+&= c n^4 \alpha_{n-1}.
+\end{aligned}
+$$
+
+\item
+$$
+\begin{aligned}
+|\spadesuit|^2 &\leq \int_a^t 1ds \int_a^t \left(f(s,X_s^{(n)}) - f(s,X_s^{(n-1)}) \right)^2ds\\
+&\leq (b-a) \int_a^b \left( f(s,X_s^{(n)}) - f(s,X_s{(n-1)}) \right)^2 ds\\
+&\leq c\int_a^b \left( X_s^{(n)} - X_s^{(n-1)} \right)^2ds.
+\end{aligned}
+$$
+$\therefore \sup\limits_{a\leq t\leq b} |\spadesuit| \leq \sqrt{c\int_a^b \left( X_s^{(n)} - X_s^{(n-1)}\right)^2ds}$, and
+$$
+\P\left[ \sup\limits_{a\leq t\leq b} |\spadesuit| \geq \frac{1}{2n^2} \right] \leq \frac{\E\left[ \sup\limits_{a\leq t\leq b} |\spadesuit| \right]}{(\frac{1}{2n^2})^2} \leq 4n^4c (b-a)\alpha_{n-1}.
+$$
+\end{enumerate}
 
 
+Since $\sum_{n=1}^\infty cn^4\alpha_{n-1} < \infty$, by Borel-Cantelli's lemma
+$$
+\P\left[\sup_{a\leq t \leq b} \left|X_t^{(n+1)} - X_t^{(n)}\right|  \geq \frac{1}{n^2} \text{ infinitely often }\right] = 0
+$$
+
+Therefore, on $\left\{ \sup_{a\leq t \leq b} \left| X_t^{(n+1)} - X_t^{(n)} \right| \geq \frac{1}{n^2} \text{ finitely often } \right\}$ (with probability 1)
+$$
+X_t = \xi + \sum_{k=1}^{n-1}\left(X_t^{(k+1)} - X_t^{(k)}\right)
+$$
+converges uniformly to $X_t$ by Weierstrass M-test.
+\end{enumerate}
+
+\end{proof}
 
 
+\begin{rem}
+We've showed $\int_a^b \E\left[ X_t^2\right]dt < \infty$, and
+$$
+X_t^{(n+1)} = \xi + \int_a^t \sigma(s,X_s^{(n)}dB_s + \int_a^t f(s,X_s^{(n)})ds
+$$
+converges to
+$$
+X_t = \xi + \int_a^t \sigma(s,X_s)dB_s + \int_a^t f(s,X_s)ds
+$$
+by term by term (in $L^2$).
 
+\end{rem}
 
 
 
