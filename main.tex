@@ -3614,30 +3614,139 @@ by term by term (in $L^2$).
 \end{rem}
 
 
+% {\bfseries Markov Property of SDE}
+\setcounter{section}{4}
+\section{Markov Property}
+
+Prob $\rightarrow$ BM $\rightarrow$ It\^o integral $\rightarrow$ SDE ($\rightarrow$ Markov Property)
+
+\textbf{Notation} (10.5.1 - 105.2)
+
+$\E[X | Y_1, Y_2, \cdots, Y_n] = \E[X | \sigma(Y_1, Y_2, \cdots, Y_n)] = \theta(Y_1, Y_2, \cdots, Y_n)$ for some Borel $\theta$.
+Note that $\E[Xg(Y_1, \cdots, Y_n)] = \E[\theta(Y_1, \cdots, Y_n)g(Y_1,\cdots,Y_n)]$ for some Borel $g$.
+What we want to do is calculating
+\[
+\E[X | Y_1 = y_1, \cdots, Y_n = y_n] := \theta(y_1,\cdots,y_n).
+\]
+(Note that $\E[X|A] = \E[X|\sigma(A)]$ does not makes sense since RHS is zero in this sense.)
+
+$\P[A|\G] = \E[\1_A | \G]$.
+In particular, we have
+\[\P [X \leq x | Y_1, Y_2, \cdots, Y_n] = \E[\1_{X\leq x} | Y_1, \cdots, Y_n],\]
+\[\P [X \leq x | Y_1 = y_1, Y_2 = y_2, \cdots, Y_n = y_n] = \E[\1_{X\leq x} | Y_1 = y_1, \cdots, Y_n = y_n].\]
 
 
 
+\begin{defn}[Markov process]
+$(X_t)_{t\in[a,b]}$ is \textbf{Markov process} if $\forall a \leq t_1 < t_2 \cdots < t_n < t \leq b$
+\[\P\left[X_t \leq x | X_{t_1}, X_{t_2}, \cdots, X_{t_n}\right] = \P[X_t \leq x | X_{t_n}],\]
+or equivalently
+\[\P\left[X_t \leq x | X_{t_1} = y_1, X_{t_2} = y_2, \cdots, X_{t_n} = y_n\right] = \P[X_t \leq x | X_{t_n} = y_n],\]
+$\forall y_1 \sim y_n, x \in \R$.
+\end{defn}
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}[wide]
+\item
+Suppose $X, Y_1, Y_2, \cdots, Y_n$) has a joint PDF $f(x,y_1, y_2, \cdots, y_n)$.
+Then the joint PDF of $Y_1, Y_2, \cdots, Y_n$ is
+\[h(y_1, y_2, \cdots, y_n) = \int_{-\infty}^\infty f(x,y_1, y_2, \cdots, y_n)dx.\]
+We can take
+\[\P[X \leq x | Y_1 = y_1, \cdots, Y_n = y_n] = \frac{1}{h(y_1,\cdots,h_n)}\int_{-\infty}^x f(u,y_1,\cdots,y_n)du.\]
+\begin{proof}
+Let $\pi(y_1,\cdots,y_n) = \frac{1}{h(y_1,\cdots,h_n)}\int_{-\infty}^x f(u,y_1,\cdots,y_n)du.$
+Then, \[\E[\1_{\{X \leq x\}} g(Y_1, \cdots, Y_n)] = \int_{-\infty}^x \iint\cdots\int g(y_1,\cdots y_n) f(u,y_1,\cdots,y_n)dudy_1\cdots dy_n,\]
+\[\E[\pi(Y_1, \cdots, Y_n)g(Y_1,\cdots, Y_n)] = \iint\cdots\int (\pi g h)(y_1,\cdots,y_n)dy_1\cdots dy_n.\]
+\end{proof}
+
+\item Brownian Motions $B_t$
+
+Let $0 = t_0 < t_1 < t_2 < \cdots t_n < t_{n+1} = t$.
+Then,
+\[
+(B_{t_1}, \cdots, B_t, B_{t_{n+1}}) \sim \prod_{i=0}^n \frac{1}{\sqrt{2\pi(t_{i+1}-t_i)}} e^{-\frac{(x_{i+1}-x_i)^2}{2(t_{i+1}-t_i)}},
+\]
+and
+\[(B_{t_1}, \cdots, B_t) \sim \prod_{i=0}^{n-1} \frac{1}{\sqrt{2\pi(t_{i+1}-t_i)}} e^{-\frac{(x_{i+1}-x_i)^2}{2(t_{i+1}-t_i)}}.\]
+Therefore by 1.
+\[
+\begin{aligned}
+&\P[B_t \leq x | B_{t_1} = y_1, \cdots, B_{t_n} = y_n]\\
+&= \frac{1}{\prod_{i=0}^{n-1} \frac{1}{\sqrt{2\pi(t_{i+1}-t_i)}} e^{-\frac{(y_{i+1}-y_i)^2}{2(t_{i+1}-t_i)}}}
+\int_{-\infty}^\infty \left[ {\prod_{i=0}^{n-1} \frac{1}{\sqrt{2\pi(t_{i+1}-t_i)}} e^{-\frac{(y_{i+1}-y_i)^2}{2(t_{i+1}-t_i)}}} \right]
+\frac{1}{\sqrt{2\pi(t-t_n)}} e^{-\frac{(u-y_n)^2}{2(t-t_n)}}du\\
+&= \int_{-\infty}^x \frac{1}{\sqrt{2\pi(t-t_n)}} e^{-\frac{(u-y_n)^2}{2(t-t_n)}}du\\
+&= \P\left[ B_t \leq x | B_{t_n} = y_n\right] \quad (\text{Check!})
+\end{aligned}
+\]
+Therefore, Brownian motion is Markov process.
+\end{enumerate}
+\end{exmp}
 
 
 
+\begin{lem}
+Let $(X_t)_{t\in[a,b]}$ be stochastic process adapted to $(\F_t)_{t\in[a,b]}$, and
+$\P[X_t \leq x | \F_s] = \P[X_t \leq x | X_s] \enspace \forall s < t, x \in \R$.
+Then, $(X_t)$ is a Markov process.
+% 현재에 어떻게 도달했냐가 아니라 현재가 어디인가만 중요함!
 
+\begin{proof}
+\[
+\begin{aligned}
+\P\left[X_t \leq x | X_{t_1}, \cdots, X_{t_n}\right]
+&= \E[\1_{\{X_t \leq x\}} | \sigma(X_{t_1}, \cdots, X_{t_n})]\\
+&= \E\left[\E\left[\1_{\{X_t \leq x\}} | \F_{t_n}\right] | \sigma(X_{t_1}, \cdots, X_{t_n})\right]\\
+&= \E[\P(X_t \leq x | \F_{t_n}) | \sigma(X_{t_1}, \cdots, X_{t_n})]\\
+&= \E[\P(X_t \leq x | X_{t_n}) | \sigma(X_{t_1}, \cdots, X_{t_n})]\\
+&= \E\left[\E\left[\1_{\{X_t \leq x\}} | \sigma(X_{t_n})\right] | \sigma(X_{t_1}, \cdots X_{t_n})\right]\\
+&= \E\left[ \1_{\{X_t \leq x\}} | \sigma(X_{t_n})\right]\\
+&= \P[X_t \leq x | X_{t_n}].
+\end{aligned}
+\]
+\end{proof}
+\end{lem}
 
+\begin{thm}
+$\sigma, f$ is Lipschitz and Linear growth.
+$\xi$ is $\F_a$-measurable and $\E[\xi^2] < \infty$.
+Then, $X_t$ is a unique solution to
+\[X_t = \xi + \int_a^t \sigma(s,X_s)dB_s + \int_a^t f(s,X_s)ds,\]
+and therefore $X_t$ is a Markov process.
 
+\begin{proof}[Sketch of proof]
+Let $s \in [a,b]$ and $Z$ be $\F_s$-measurable and $E[Z^2] < \infty$.
+Then,
+\[Y_t = Z + \int_s^t \sigma(u,Y_u)dB_u + \int_s^t f(u,Y_u) du.\]
+Then, there is a solution of the above SDE $\left(X_t^{s,Z}\right)_{t\in[s,b]}$.
+If $Z = x$ (non-random), write $X_t^{s,Z} = X_{t}^{s,x}$, and
+$\P[X_t^{s,x} \leq y] =: f_{s,t,y}(x)$.
+Then,
+\begin{equation}
+\P\left[X_t^{s,Z} \leq y | \F_s \right] = f_{s,t,y}(Z)\tag{$\bigstar$}
+\end{equation}
+Note that proving $(\bigstar)$ is difficult.
+Note that $t > s$, then $X_t = X_t^{s,X_s}$ (uniqueness) since
+\[X_t = X_s + \int_s^t \sigma(u, X_u)dB_u + \int_s^t f(u,X_u)du.\]
+Therefore if $s < t$
+\[\P[X_t \leq y | \F_s] = \P[X_t^{s,X_s} \leq y | \F_s] = f_{s,t,y}(X_s).\]
+%Now $\P[X_t \leq y | \F_s] = \E[\1_{\{X_t \leq y\}} | \F_s] = \E[\1_{\{\}} | ]$, and
+Now $\P[X_t \leq y | X_s] = \E[\1_{\{X_t \leq y\}} | X_s] = \E[\E[\1_{\{X_t \leq y\}} | \F_s] | X_s] = \E[\1_{\{X_t \leq y\}} | \F_s] = \P[X_t \leq y | \F_s]$.
+The left is proving that $f_{s,t,y}$ is Borel measurable, and it is true.
+Therefore $(X_t)$ is a Markov process by lemma.
+\end{proof}
+\end{thm}
 
+\vspace{5mm}
 
+\textbf{Note: Alternative way to define a Markov process.}
 
+Let $(X_t, \F_t)$ be a stochastic process.
+Then, $X_t$ is a Markov process if
+\[\forall f, \enspace s < t \enspace \exists g \text{ s.t. } \E[f(X_t) | \F_s] = g(X_s).\]
 
-
-
-
-
-
-
-
-
-
-
-
+Next: Martingale (Does not cover final)
 
 
 
