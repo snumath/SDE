@@ -2774,7 +2774,7 @@ dX(t) = X(t)dB(t) + \frac{1}{2}X(t)dt\tag{SDE}
 \end{exmp}
 
 \begin{rem}
-The first term is noise in stock price, and the second term is increaing in long-term.
+The first term is noise in stock price, and the second term is increasing in long-term.
 \end{rem}
 
 
@@ -3750,24 +3750,9 @@ Next: Martingale (Does not cover final)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% ========================================
+% ================================================================================
 % TA Session
-% ========================================
+% ================================================================================
 
 
 \begin{appendices}
@@ -3957,6 +3942,157 @@ Y-\mathbb{E}[Y|X] &= W - \mathbb{E}[W]
 $$
 Note that the error is random variable with expected value zero and independent of the estimation $\mathbb{E}[Y|X]$.
 \end{exmp}
+
+
+% ================================================================================
+% Special Lecture on Martingale 
+% ================================================================================
+
+
+\chapter{Special lecture on Martingale}
+
+\section{Doob-Meyer Decomposition}
+
+Let $(X_t, \F_t)$ be stochastic process and filtration.
+We call $(X_t, \F_t)$ \textbf{Martingale} if
+\[\E[X_t|\F_s] = X_s \enspace \forall s < t,\]
+and \textbf{Sub Martingale} if
+\[\E[X_t|\F_s] \geq X_s \enspace \forall s < t.\]
+
+\begin{thm}[Doob-Meyer Decomposition]
+Let RCLL denote right continuous and left limit.
+If $(X_t, \F_t)$ is a RCLL sub martingale, then
+there exists a unique decomposition $X_t = L_t + A_t$ such that
+$L_t$ is RCLL Martingale and $(A_t, \F_t)$ is stochastic process, $A_0 = 0$, $A_t$ is increasing in $t$ RCLL.
+\end{thm}
+
+\begin{lem}
+If $M_t$ is a Martingale and $\varphi$ is convex, then $\varphi(M_t)$ is submartingale.
+\begin{proof}
+By Jensen's inequality,
+\[\E[\varphi(M_t)|\F_s] \geq \varphi(\E[M_t|\F_s])=\varphi(M_s)\]
+\end{proof}
+\end{lem}
+
+\begin{rem}
+If $M_t$ is a Marginal, then by lemma $M_t^2$ is submartingale.
+By theorem, $M_t^2 = L_t + A_t$; and call $A_t = \langle M\rangle_t$ quadratic variation.
+\end{rem}
+
+
+\begin{exmp}
+\leavevmode
+\begin{enumerate}
+\item $M_t = B_t$.
+
+$B_t^2 = (B_t^2-t) + t$.
+$(B_t^2 - t)$ is a Martingale (by exam 1) and $t = \langle M \rangle_t$ is increasing. 
+
+\item $M_t = \int_0^t f(s)dB_s$ ($f$ is a deterministic function).
+
+$\langle M \rangle_t = \int_0^t f(s)^2 ds$.
+
+\item $M_t = B_t^2 - t$.
+
+$\langle M \rangle_t = 4 \int_0^t B_s^2ds$.
+Note that QV of $M$ is a random variable.
+\end{enumerate}
+\end{exmp}
+
+
+\section{It\^o's Integral for Martingale}
+We want to find $\int_0^t f(s)dM_s$.
+Assume
+\begin{itemize}
+\item 
+$f$ satisfies $\E[\int_0^t f^2(s) d\langle M\rangle_s] < \infty$
+
+\item 
+$f$ is predictable (adapted if $M_t = B_t$)
+\end{itemize}
+Then, $I(f) = \int_0^t f(s) dM_s$ is defined as before.
+
+\textit{cf.} $M_t$ is RCLL (Assumption)
+
+\begin{thm}
+$X_t = \int_0^t f(s)dM_s$. Then,
+\begin{enumerate}
+\item
+$X_t$ is RCLL Martingale.
+(Remark that even continuous $M_t$ generates only RCLL $X_t$)
+
+\item
+$\E[X_t^2] = \E[\int_0^t f(s)^2 d\langle M \rangle_s]$
+\end{enumerate}
+
+\begin{proof}[Sketch of proof]
+Let $f(s,\omega) = \sum_{i=0}^n \1_{[t_i, t_{i+1})}(s) f_i(w)$ for $t_0 = 0 < t_1 < \cdots < t_{n+1} = t$.
+Then,
+\[\int f(s)dM_s = \sum f_i(\omega)\left(M_{t_{i+1}} - M_{t_i}\right) =: I(f),\]
+\[\E[I(f)^2] = \sum_{i=1}^n \E\left(f_i^2(M_{t_{i+1}} - M_{t_i})^2\right) + 2\sum_{i < j} \E\left[f_if_j(M_{t_{i+1}} - M_{t_i})(M_{t_{j+1}}-M_{t_j})\right].\]
+Note that the second term is canceled, and
+\begin{equation}\E[f_i^2(M_{t_{i+1}} - M_{t_i})^2] = \E[\E[\cdots|\F_i]] = \E[f_i^2\E[(M_{t_{i+1}} - M_{t_i})^2 | \F_t]],\end{equation}
+\begin{equation}
+\begin{aligned}
+\E[(M_t - M_s)^2 | \F_s]
+&= \E[M_t^2 | \F_s] - 2M_s \E[M_t | \F_s] + M_s^2\\
+&= \E[M_t^2 - M_s^2 | \F_s]\\
+&= \E[\langle M \rangle_t - \langle M \rangle_s + L_t - L_s | \F_s].
+\end{aligned}
+\end{equation}
+(B.1) and (B.2) finish the proof of 2.
+\end{proof}
+\end{thm}
+
+
+\section{Levy's Characterization}
+Question: Why SDE chooses Brownian motion as randomness?
+
+\begin{thm}
+Let $M_t$ be continuous Martingale and $\langle M \rangle_t = t$ for every $t$.
+Then, $M_t$ is a Brownian motion.
+\end{thm}
+
+\begin{exmp}
+Let $\text{sgn}(x) = \begin{cases}-1 & x < 0\\ 1 & x \geq 0\end{cases}$,
+and $X_t = \int_0^t \text{sgn}(B_t)dB_t$.
+Then, $\langle X \rangle_t = \int_0^t \text{sgn}(B_t)^2 dt = \int_0^1 1 dt = t$, and $X_t$ is a Brownian motion.
+\end{exmp}
+
+Remark that this is a counterexample for many cases.
+For example, $X_t$ and $B_t$ are uncorrelated but they are not independent.
+
+\begin{thm}
+$M_t$ is continuous Martingale defined in $(\O,\F,\P)$,
+and $\langle M\rangle_t$ is absolutely continuous with respect to $t$ almost surely.
+Then, there is a exntension $(\widetilde{\O},\widetilde{\F},\widetilde{\P})$ of $(\O,\F,\P)$ such that
+$\exists$ Brownian motion $B_t$ in $(\widetilde{\O},\widetilde{\F},\widetilde{\P})$ satisfying
+\[M_t = \int_0^t X_s dB_s \enspace \forall t \text{ a.s. for some } X_s \in L^2_{\text{ad}}.\]
+\end{thm}
+
+\begin{rem}
+$dM_t = X_t dB_t$ in this sense.
+Thus, we don't have to concern Martingale, only Brownian motion.
+\end{rem}
+
+\begin{thm}
+$M_t$ is a continuous Martingale, $\langle M \rangle_t \rightarrow \infty$ as $t \rightarrow \infty$, and $T(s) = \inf \{ t : \langle M \rangle_t > s \}$ (generalized inverse).
+Then,
+\begin{enumerate}
+\item
+$M_{T(s)} = B_s (\rightarrow$ Brownian motion).
+
+\item
+$M_t = B_{\langle M \rangle_t}$.
+
+\end{enumerate}
+\end{thm}
+\begin{exmp}
+$X_t = B_{t^3 + 2t}$ is a Marginal since $t^3 + 2t$ is increasing.
+$X_t = B_{e^t - 1}$ is a Martingale since $e^t - 1$ is increasing.
+Moreover, every Martingale is such types.
+\end{exmp}
+
 
 \end{appendices}
 \end{document}
